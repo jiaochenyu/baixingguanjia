@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context="com.linkhand.activity.my.AddCommunityActivity">
+
+    <include
+        android:id="@+id/header_layout"
+        layout="@layout/include_common_header"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x5"
+                android:background="@color/defaultBackgroundGray"
+                />
+            <!--小区名称-->
+            <include
+                android:id="@+id/layout1"
+                layout="@layout/include_item_edittext_1"/>
+            <!--期数-->
+            <include
+                android:id="@+id/layout2"
+                layout="@layout/include_item_edittext_1"/>
+            <!--组团书-->
+            <include
+                android:id="@+id/layout3"
+                layout="@layout/include_item_edittext_1"/>
+            <!--楼栋号-->
+            <include
+                android:id="@+id/layout4"
+                layout="@layout/include_item_edittext_1"/>
+            <!--单元号-->
+            <include
+                android:id="@+id/layout5"
+                layout="@layout/include_item_edittext_1"/>
+            <!--楼层号-->
+            <include
+                android:id="@+id/layout6"
+                layout="@layout/include_item_edittext_1"/>
+            <!--房间号-->
+            <include
+                android:id="@+id/layout7"
+                layout="@layout/include_item_edittext_1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/x80"
+                android:text="请放心添加，技术君会实时保障您的隐私！"
+                android:textColor="@color/grayText"/>
+
+            <TextView
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginTop="@dimen/x10"
+                android:background="@drawable/background_corner_button_red_color"
+                android:gravity="center"
+                android:paddingBottom="@dimen/x8"
+                android:paddingTop="@dimen/x8"
+                android:text="保存"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

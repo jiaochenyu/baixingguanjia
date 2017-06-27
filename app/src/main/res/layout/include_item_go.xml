@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/x50"
+              android:background="@color/colorWhite"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/x10"
+              android:paddingRight="@dimen/x10">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/text_left"
+            android:layout_width="@dimen/x50"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="修改密码"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:layout_marginBottom="@dimen/x5"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/x5"
+            android:layout_toRightOf="@+id/text_left"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/text_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_toRightOf="@+id/text_left"
+            android:gravity="left"
+            android:singleLine="true"
+            android:text="鲁诺本"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/image_right"
+            android:layout_width="@dimen/x16"
+            android:layout_height="@dimen/x16"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_go_right"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

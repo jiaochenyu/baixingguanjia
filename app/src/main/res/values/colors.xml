@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--系统顶部导航栏-->
+    <color name="colorSystemRed">#D45043</color>
+    <color name="colorSystemBlack">#333333</color>
+    <color name="colorSystemGray">#999999</color>
+    <color name="colorSystemBlue">#1983D1</color>
+
+    <color name="defaultBackgroundGray">#EEEEEE</color>
+
+    <color name="colorTopic">#FE6150</color>
+
+
+    <color name="transparent">#00000000</color>
+
+    <!--黑色调-->
+    <color name="colorBlack">#000000</color>
+
+    <!--白色-->
+    <color name="colorWhite">#FFFFFF</color>
+
+    <!--灰色调-->
+    <color name="gray929">#929292</color>
+    <color name="grayText">#929292</color>
+    <color name="grayTopic">#F6F6F6</color>
+    <color name="grayF5F">#F5F5F5</color>
+    <color name="grayFAF">#FAFAFA</color>
+    <color name="grayEEE">#EEEEEE</color>
+    <color name="grayF0F">#F0F0F0</color>
+    <color name="gray666">#666666</color>
+    <color name="grayF9F">#F9F9F9</color>
+
+    <!--蓝色调-->
+    <color name="blue7BA">#7BABFD</color>
+    <color name="blue1D6">#1D6FD3</color>
+    <color name="blue22B">#22B9E8</color>
+    <color name="blueTopic">#1983D1</color>
+    <color name="blue1D3">#1D384D</color>
+
+    <!--黑色调-->
+    <color name="blackText">#494949</color>
+    <color name="black343">#343434</color>
+
+    <!--红色调-->
+    <color name="redFF4">#FF4530</color>
+    <color name="redFD6">#FD6520</color>
+    <color name="redFA2">#FA251E</color>
+    <color name="redTopic">#FE6150</color>
+    <color name="redFE5">#FE5052</color>
+    <color name="redD24">#D24B51</color>
+</resources>

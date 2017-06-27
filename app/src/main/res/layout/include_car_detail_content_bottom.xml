@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.linkhand.customView.NoScrollListView
+            android:id="@+id/nlv_car_detial_imgs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/defaultBackgroundGray"
+            android:dividerHeight="@dimen/x3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10"
+            android:text="安全交易"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10"
+            android:text="免责声明"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10"
+            android:text="交易担保"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defaultBackgroundGray"
+            android:padding="@dimen/x10">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_toLeftOf="@+id/tv_good_detail_daodi"
+                android:background="@color/blackText"/>
+
+            <TextView
+                android:id="@+id/tv_good_detail_daodi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="已经最到底啦!"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_toRightOf="@+id/tv_good_detail_daodi"
+                android:background="@color/blackText"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

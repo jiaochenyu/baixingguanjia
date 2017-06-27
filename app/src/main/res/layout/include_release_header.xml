@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x40"
+                android:background="@color/colorTopic"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/x10"
+                android:paddingRight="@dimen/x10">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="选择发布类别"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/option"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="我的发布"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"/>
+
+
+</RelativeLayout>

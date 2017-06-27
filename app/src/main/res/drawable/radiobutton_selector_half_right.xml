@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item android:state_checked="true" android:color="@color/blueTopic" />-->
+    <item android:state_checked="true" android:drawable="@drawable/background_textview_radiobutton_corner_right_gray" />
+    <!-- not selected -->
+    <!--<item android:state_checked="false" android:color="@color/blackText"/>-->
+    <item android:state_checked="false" android:drawable="@drawable/background_textview_radiobutton_corner_line_right_gray" />
+
+    <!--<item android:state_enabled="false">
+        <shape>
+            <solid android:color="@color/color242"/>
+        </shape>
+    </item>
+    <item android:state_enabled="true" android:state_pressed="false">
+        <shape>
+            <solid android:color="@color/color242"/>
+        </shape>
+    </item>-->
+
+
+
+
+
+
+
+    <!--<item  android:state_checked="true">-->
+        <!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">-->
+            <!--<item android:top="48dp"-->
+                  <!--android:bottom="0dp" android:left="0dp" android:right="0dp">-->
+                <!--<shape>-->
+                    <!--<solid android:color="@color/colorThemePurple"/>-->
+                <!--</shape>-->
+                <!--&lt;!&ndash;可以加padding属性，是该组件内容距该组件边框的填充区域&ndash;&gt;-->
+                <!--<padding android:bottom="0dp" android:left="0dp" android:right="0dp" android:top="0dp" />-->
+            <!--</item>-->
+        <!--</layer-list>-->
+    <!--</item>-->
+
+</selector>

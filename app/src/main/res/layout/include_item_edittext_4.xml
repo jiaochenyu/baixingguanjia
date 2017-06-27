@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorWhite"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/x10"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:paddingTop="@dimen/x10">
+
+        <TextView
+            android:id="@+id/text_left"
+            android:layout_width="@dimen/x50"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="租金"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/edittext"
+            android:layout_width="@dimen/x50"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_toLeftOf="@+id/text_right"
+            android:background="@null"
+            android:gravity="right"
+            android:hint=""
+            android:singleLine="true"
+            android:text=""
+            android:layout_marginRight="@dimen/x3"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/text_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="元/月"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/defaultBackgroundGray"
+        />
+
+</LinearLayout>

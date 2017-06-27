@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/x15"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:paddingTop="@dimen/x15">
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:background="@drawable/background_no_corner_kuang"
+            android:src="@mipmap/icon_bell"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_toRightOf="@+id/image"
+            android:paddingTop="@dimen/x1"
+            android:text="@string/string22"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name"
+            android:layout_above="@+id/price1"
+            android:layout_marginBottom="@dimen/x10"
+            android:text="裕华区 空中花园"
+            android:textColor="@color/grayText"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/price1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image"
+            android:layout_alignLeft="@+id/name"
+            android:text="¥ 5000"
+            android:textColor="@color/redFF4"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image"
+            android:layout_alignParentRight="true"
+            android:text="2017-06-20"
+            android:textColor="@color/grayText"
+            android:textSize="12sp"/>
+
+
+    </RelativeLayout>
+
+    <View
+        style="@style/grayline"/>
+
+</LinearLayout>

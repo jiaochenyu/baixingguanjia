@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/x40"
+              android:layout_marginTop="0dp"
+              android:background="@color/colorWhite"
+              android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:id="@+id/province_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/province"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="省"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"
+            android:visibility="visible"/>
+
+        <CheckBox
+            android:id="@+id/checkbox1"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x8"
+            android:background="@drawable/sort_button"
+            android:button="@null"
+            android:textColor="@color/grayText"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="@dimen/x1"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/x8"
+        android:layout_marginTop="@dimen/x8"
+        android:background="@color/grayText"
+        />
+
+    <RelativeLayout
+        android:id="@+id/city_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="市"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"
+            android:visibility="visible"/>
+
+        <CheckBox
+            android:id="@+id/checkbox2"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x8"
+            android:background="@drawable/sort_button"
+            android:button="@null"
+            android:textColor="@color/grayText"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="@dimen/x1"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/x8"
+        android:layout_marginTop="@dimen/x8"
+        android:background="@color/grayText"
+        />
+
+    <RelativeLayout
+        android:id="@+id/area_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="区"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"
+            android:visibility="visible"/>
+
+        <CheckBox
+            android:id="@+id/checkbox3"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x8"
+            android:background="@drawable/sort_button"
+            android:button="@null"
+            android:textColor="@color/grayText"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="@dimen/x1"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/x8"
+        android:layout_marginTop="@dimen/x8"
+        android:background="@color/grayText"
+        />
+
+    <RelativeLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.15"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@mipmap/icon_search"/>
+    </RelativeLayout>
+
+</LinearLayout>

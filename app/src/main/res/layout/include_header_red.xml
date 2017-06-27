@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="@color/colorTopic"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        >
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/x18"
+            android:layout_height="match_parent"
+            android:src="@mipmap/icon_back_white"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="登录"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:textColor="@color/colorWhite"/>
+        <TextView
+            android:id="@+id/right_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:text="注册"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:layout_alignBottom="@+id/title"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

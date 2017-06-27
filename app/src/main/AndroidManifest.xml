@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.linkhand">
+
+    <application
+        android:name=".base.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            >
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_red">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_red">
+            >
+        </activity>
+        <activity
+            android:name=".activity.LoginByPhoneActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".activity.ForgetPasswordActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".activity.my.UserInfoActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity
+            android:name=".activity.my.AddCommunityActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity
+            android:name=".activity.my.FaceApproveActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity
+            android:name=".activity.goods.HotGoodsDetailActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".activity.goods.NoticeGoodsDetailActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".activity.order.ConfirmOrderActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity android:name=".activity.SelectAddressActivity">
+        </activity>
+        <activity android:name=".activity.my.MyOrderActivity">
+        </activity>
+        <activity android:name=".activity.order.OrderDetailActivity">
+        </activity>
+        <activity android:name=".activity.car.SecondhandCarActivity">
+        </activity>
+        <activity android:name=".activity.car.SecondhandCarDetailActivity">
+        </activity>
+        <activity android:name=".activity.car.AddUserInfoActivity">
+        </activity>
+        <activity android:name=".activity.sort.MyAreasActivity">
+        </activity>
+        <activity android:name=".activity.sort.HousekeepingActivity">
+        </activity>
+        <activity android:name=".activity.sort.HousePropertyActivity">
+        </activity>
+        <activity android:name=".activity.sort.EducationActivity">
+        </activity>
+        <activity android:name=".activity.sort.IdleGoodsActivity">
+        </activity>
+        <activity android:name=".activity.sort.RecruitActivity">
+        </activity>
+        <activity android:name=".activity.sort.PublicWelfareActivity">
+        </activity>
+        <activity
+            android:name=".activity.release.CommonReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.release.HousePropertyReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.release.IdleGoodsReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.release.SecondCarReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.release.HouseKeepReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.release.EducationReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.release.RecruitReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.release.PublicWelfareReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.MessageActivity"
+            android:theme="@style/sys_title_blue">
+        </activity>
+    </application>
+
+</manifest>

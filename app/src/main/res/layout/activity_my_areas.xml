@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context="com.linkhand.activity.sort.MyAreasActivity">
+
+    <include
+        layout="@layout/include_common_header_setting"/>
+
+    <View
+        style="@style/grayline"/>
+
+
+    <TextView
+        android:id="@+id/feed_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/x5"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x5"
+        android:background="@drawable/background_textview_corner_line_blue"
+        android:gravity="center"
+        android:paddingBottom="@dimen/x5"
+        android:paddingTop="@dimen/x5"
+        android:text="+ 反馈信息"
+        android:textColor="@color/blueTopic"
+        android:textSize="14sp"
+        />
+
+    <View
+        style="@style/grayline"/>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:visibility="gone"
+        app:tabIndicatorColor="@null"
+        app:tabSelectedTextColor="@color/blueTopic"
+        app:tabTextAppearance="@style/tabTitleText"
+        app:tabTextColor="@color/blackText"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+</LinearLayout>

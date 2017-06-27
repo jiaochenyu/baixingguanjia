@@ -1,0 +1,84 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorSystemBlue</item>
+        <item name="colorPrimaryDark">@color/colorSystemBlue</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <!--黑色系统标题栏样式-->
+    <style name="sys_title_black" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorSystemBlack</item>
+        <item name="colorPrimaryDark">@color/colorSystemBlack</item>
+    </style>
+    <!--蓝色系统标题栏样式-->
+    <style name="sys_title_blue" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/blueTopic</item>
+        <item name="colorPrimaryDark">@color/blueTopic</item>
+    </style>
+    <!--红色系统标题栏样式-->
+    <style name="sys_title_red" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorSystemRed</item>
+        <item name="colorPrimaryDark">@color/colorSystemRed</item>
+    </style>
+
+    <!--灰色系统标题栏样式-->
+    <style name="sys_title_gray" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorSystemGray</item>
+        <item name="colorPrimaryDark">@color/colorSystemGray</item>
+    </style>
+
+    <style name="goodsBlackTextStyle">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+
+
+    <style name="goods_info_dialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+
+    <!--选择照片弹出框-->
+    <style name="mypopwindow_anim_style">
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowEnterAnimation">@anim/image_popshow_anim</item>
+        <!-- 指定消失的动画xml -->
+        <item name="android:windowExitAnimation">@anim/image_pophidden_anim</item>
+        <!-- <item name="android:windowBackground">@android:color/transparent</item>-->
+
+    </style>
+
+
+    <!--灰色的线-->
+    <style name="grayline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/defaultBackgroundGray</item>
+    </style>
+
+    <style name="tabTitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+</resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defaultBackgroundGray"
+    android:orientation="vertical"
+    tools:context="com.linkhand.activity.my.FaceApproveActivity">
+
+    <include
+        android:id="@+id/header_layout"
+        layout="@layout/include_common_header"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x8"
+        android:background="@color/colorWhite"
+        android:paddingBottom="@dimen/x8"
+        android:paddingLeft="@dimen/x10"
+        android:paddingTop="@dimen/x8"
+        android:text="请输入你的真实资料用于认证"
+        android:textColor="@color/grayText"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/defaultBackgroundGray"/>
+
+    <include
+        android:id="@+id/name_layout"
+        layout="@layout/include_item_edittext_2"/>
+
+    <include
+        android:id="@+id/card"
+        layout="@layout/include_item_edittext_2"/>
+
+
+    <TextView
+        android:id="@+id/go"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x20"
+        android:background="@drawable/background_corner_button_blue_color"
+        android:gravity="center"
+        android:paddingBottom="@dimen/x10"
+        android:paddingTop="@dimen/x10"
+        android:text="立即授权"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x20"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_question"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x2"
+            android:text="@string/string1"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_dian"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string2"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_dian"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string3"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_good_detail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:background="@color/transparent"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x10"
+        >
+
+        <ImageView
+            android:id="@+id/iv_good_detai_back"
+            android:layout_width="@dimen/x22"
+            android:layout_height="@dimen/x22"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_grey_back"/>
+
+        <TextView
+            android:id="@+id/tv_good_detail_title_good"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x10"
+            android:paddingRight="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="商品详情"
+            android:textColor="@color/transparent"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_good_detai_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_good_detai_share"
+            android:src="@mipmap/icon_shopping_cart"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_good_detai_share"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:paddingRight="@dimen/x10"
+            android:src="@mipmap/icon_grey_share"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</LinearLayout>

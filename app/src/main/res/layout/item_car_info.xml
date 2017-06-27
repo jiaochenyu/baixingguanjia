@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/x15"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:paddingTop="@dimen/x15">
+
+
+        <ImageView
+            android:id="@+id/image_good"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:background="@drawable/background_no_corner_kuang"
+            android:src="@mipmap/image_car"
+            />
+
+        <TextView
+            android:id="@+id/good_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_good"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_toRightOf="@+id/image_good"
+            android:paddingTop="@dimen/x1"
+            android:text="@string/string17"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/good_name"
+            android:layout_above="@+id/price1"
+            android:layout_marginBottom="@dimen/x8"
+            android:text="@string/string18"
+            android:textColor="@color/grayText"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/price1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image_good"
+            android:layout_alignLeft="@id/type_tv"
+            android:text="¥ 97.8万"
+            android:textColor="@color/redFF4"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/price1"
+            android:layout_alignParentRight="true"
+            android:text="2017-06-20"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+
+
+    </RelativeLayout>
+
+    <View
+        style="@style/grayline"/>
+
+</LinearLayout>

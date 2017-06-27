@@ -31,8 +31,14 @@
         <item name="colorPrimaryDark">@color/colorSystemGray</item>
     </style>
 
+    <!--灰色系统标题栏样式-->
+    <style name="sys_title_bluedeep" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorSystemBlueDeep</item>
+        <item name="colorPrimaryDark">@color/colorSystemBlueDeep</item>
+    </style>
+
     <style name="goodsBlackTextStyle">
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/blackText</item>
         <item name="android:textSize">16sp</item>
     </style>
 

@@ -48,14 +48,16 @@ public class NoticeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_notice, null);
         ButterKnife.bind(this, mView);
-        setStatusBarColor(R.color.colorSystemBlue);
         initView();
         initData();
         initListener();
 
         return mView;
     }
-
+    public void onResume() {
+        super.onResume();
+        setStatusBarColor(R.color.colorSystemBlue);
+    }
 
     private void initView() {
         mRecylerview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -101,5 +103,14 @@ public class NoticeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+    public void onHiddenChanged(boolean hidden) {
+// TODO Auto-generated method stub
+        super.onHiddenChanged(hidden);
+        if (hidden) {// 不在最前端界面显示
+
+        } else {// 重新显示到最前端中
+            setStatusBarColor(R.color.colorSystemBlue);
+        }
     }
 }

@@ -18,7 +18,7 @@
 
     <!--头像-->
     <include
-        android:id="@+id/header_layout"
+        android:id="@+id/touxiang_layout"
         layout="@layout/include_item_go"
         />
 
@@ -67,12 +67,13 @@
 
         <ImageView
             android:id="@+id/image1"
-            android:layout_width="@dimen/x30"
-            android:layout_height="@dimen/x30"
+            android:layout_width="@dimen/x14"
+            android:layout_height="@dimen/x14"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/x8"
             android:layout_marginTop="@dimen/x8"
-            android:src="@mipmap/icon_city"
+            android:src="@drawable/fangchan"
             android:visibility="visible"/>
 
         <TextView
@@ -101,10 +102,11 @@
         android:id="@+id/face_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x50"
+        android:layout_marginTop="@dimen/x8"
         android:background="@color/colorWhite"
         android:paddingLeft="@dimen/x10"
         android:paddingRight="@dimen/x10"
-        android:layout_marginTop="@dimen/x8"
+        android:visibility="gone"
         >
 
         <ImageView
@@ -134,8 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/x10"
-            android:text="已认证"
             android:layout_toLeftOf="@+id/goright_iv"
+            android:text="已认证"
             android:textColor="@color/colorTopic"
             android:textSize="14sp"/>
 

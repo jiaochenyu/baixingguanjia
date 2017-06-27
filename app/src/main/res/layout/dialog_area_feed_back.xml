@@ -72,7 +72,7 @@
             android:paddingLeft="@dimen/x3"
             android:paddingRight="@dimen/x3"
             android:paddingTop="@dimen/x1"
-            android:src="@mipmap/icon_bell"
+            android:src="@drawable/icon_feed_back"
             />
 
     </RelativeLayout>

@@ -47,7 +47,7 @@ public class UserInfoActivity extends BaseActivity {
 
 
     private void initView() {
-        LinearLayout mLayout1 = (LinearLayout) findViewById(R.id.header_layout);
+        LinearLayout mLayout1 = (LinearLayout) findViewById(R.id.touxiang_layout);
         LinearLayout mLayout2 = (LinearLayout) findViewById(R.id.nick_layout);
         LinearLayout mLayout3 = (LinearLayout) findViewById(R.id.username_layout);
         LinearLayout mLayout4 = (LinearLayout) findViewById(R.id.password_layout);
@@ -79,7 +79,7 @@ public class UserInfoActivity extends BaseActivity {
     private void initData() {
         Glide.with(this)
                 .load(ConnectUrl.testUrl)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.touxiang)
                 .fitCenter()
                 .transform(new GlideCircleTransform(this))
                 .into(mHeaderIV);

@@ -129,6 +129,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     fragmentTransaction.show(homeFragment);
                 }
+//                homeFragment = new HomeFragment();
+//                fragmentTransaction.add(R.id.frameLayout, homeFragment);
                 break;
             //预告
             case NOTICE:
@@ -138,6 +140,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     fragmentTransaction.show(noticeFragment);
                 }
+//                noticeFragment = new NoticeFragment();
+//                fragmentTransaction.add(R.id.frameLayout, noticeFragment);
                 break;
             //发布
             case RELEASE:
@@ -147,6 +151,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     fragmentTransaction.show(releaseFragment);
                 }
+//                releaseFragment = new ReleaseFragment();
+//                fragmentTransaction.add(R.id.frameLayout, releaseFragment);
                 break;
             //用户中心
             case USER:
@@ -156,6 +162,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     fragmentTransaction.show(userFragment);
                 }
+//                userFragment = new MyFragment();
+//                fragmentTransaction.add(R.id.frameLayout, userFragment);
                 break;
         }
 

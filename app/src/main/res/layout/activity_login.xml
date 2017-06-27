@@ -9,13 +9,13 @@
     tools:context="com.linkhand.activity.LoginActivity">
 
     <include
-        layout="@layout/include_header_red"/>
+        layout="@layout/include_header_blue"/>
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/x140"
         android:scaleType="fitXY"
-        android:src="@mipmap/icon_login"/>
+        android:src="@drawable/register_bg"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_phone"/>
+            android:src="@drawable/icon_phone_blue"/>
 
         <EditText
             android:id="@+id/username"
@@ -67,7 +67,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_lock"/>
+            android:src="@drawable/icon_lock"/>
 
         <EditText
             android:id="@+id/password"
@@ -93,7 +93,7 @@
         android:layout_marginLeft="@dimen/x10"
         android:layout_marginRight="@dimen/x10"
         android:layout_marginTop="@dimen/x30"
-        android:background="@drawable/background_corner_button_red_color"
+        android:background="@drawable/background_corner_button_bluetopic_color"
         android:gravity="center"
         android:paddingBottom="@dimen/x10"
         android:paddingTop="@dimen/x10"

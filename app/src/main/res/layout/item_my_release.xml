@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorWhite"
+              android:orientation="vertical">
+
+    <View
+        style="@style/grayline"
+        android:layout_height="@dimen/x10"
+        android:background="@color/defaultBackgroundGray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/x15"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:paddingTop="@dimen/x15">
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:background="@drawable/background_no_corner_kuang"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_housekeeping_bg"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_toRightOf="@+id/image"
+            android:paddingTop="@dimen/x1"
+            android:text="@string/string22"
+            android:textColor="@color/blackText"/>
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/type"
+            android:layout_alignLeft="@+id/name"
+            android:layout_marginBottom="@dimen/x10"
+            android:text="裕华区 空中花园"
+            android:textColor="@color/grayText"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image"
+            android:layout_alignLeft="@+id/name"
+            android:background="@drawable/background_textview_corner_line_blue_small"
+            android:paddingBottom="@dimen/x2"
+            android:paddingLeft="@dimen/x5"
+            android:paddingRight="@dimen/x5"
+            android:paddingTop="@dimen/x2"
+            android:text="家政"
+            android:textColor="@color/blueTopic"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/image"
+            android:text="2017-06-20"
+            android:textColor="@color/grayText"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/fabu"
+            android:paddingTop="@dimen/x10"
+            android:paddingBottom="@dimen/x10"
+            android:paddingRight="@dimen/x7"
+            android:paddingLeft="@dimen/x7"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_alignBottom="@+id/image"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/circle_blue"
+            android:text="发布"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+
+    <View style="@style/grayline"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/x10">
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="发布中"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+
+        <TextView
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_textview_big_corner_line_red"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x3"
+            android:paddingTop="@dimen/x3"
+            android:text="删除"
+            android:textColor="@color/redTopic"
+            android:textSize="14sp"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="1"
+            android:background="@drawable/background_textview_big_corner_line_red"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x3"
+            android:paddingTop="@dimen/x3"
+            android:text="编辑"
+            android:textColor="@color/redTopic"
+            android:textSize="14sp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottom_line"
+        style="@style/grayline"
+        android:layout_height="@dimen/x10"
+        android:background="@color/defaultBackgroundGray"
+        android:visibility="gone"/>
+
+</LinearLayout>

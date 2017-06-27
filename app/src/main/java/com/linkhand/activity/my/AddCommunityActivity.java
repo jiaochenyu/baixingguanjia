@@ -46,7 +46,7 @@ public class AddCommunityActivity extends BaseActivity {
 
     private void initView() {
         mTitleTV.setText("添加我的小区");
-        LinearLayout mLayout0 = (LinearLayout) findViewById(R.id.header_layout);
+        RelativeLayout mLayout0 = (RelativeLayout) findViewById(R.id.header_layout);
         LinearLayout mLayout1 = (LinearLayout) findViewById(R.id.layout1);
         LinearLayout mLayout2 = (LinearLayout) findViewById(R.id.layout2);
         LinearLayout mLayout3 = (LinearLayout) findViewById(R.id.layout3);
@@ -54,12 +54,10 @@ public class AddCommunityActivity extends BaseActivity {
         LinearLayout mLayout5 = (LinearLayout) findViewById(R.id.layout5);
         LinearLayout mLayout6 = (LinearLayout) findViewById(R.id.layout6);
         LinearLayout mLayout7 = (LinearLayout) findViewById(R.id.layout7);
-        RelativeLayout mRelativeLayout = (RelativeLayout) mLayout0.findViewById(R.id.layout);
-        mRelativeLayout.setBackground(getResources().getDrawable(R.color.colorSystemBlack));
+        mLayout0.setBackground(getResources().getDrawable(R.color.colorSystemBlack));
         TextView title = ((TextView) mLayout0.findViewById(R.id.title));
         title.setTextColor(getResources().getColor(R.color.colorWhite));
         title.setText("添加我的小区");
-        mBack.setImageDrawable(getResources().getDrawable(R.mipmap.icon_back_gray));
         ((TextView) mLayout1.findViewById(R.id.text_left)).setText("小区名称");
         ((TextView) mLayout2.findViewById(R.id.text_left)).setText("期数");
         ((TextView) mLayout3.findViewById(R.id.text_left)).setText("组团数");

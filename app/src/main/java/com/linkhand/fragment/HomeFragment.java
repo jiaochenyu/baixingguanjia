@@ -73,7 +73,11 @@ public class HomeFragment extends BaseFragment {
         initListener();
         return mView;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        setStatusBarColor(R.color.colorSystemBlue);
+    }
 
     private void initView() {
         //初始化recyclerview
@@ -188,6 +192,17 @@ public class HomeFragment extends BaseFragment {
         homeType4.setType(4);
         homeType4.setPopularIconList(popularIconList);
         mList.add(homeType4);
+    }
+
+
+    public void onHiddenChanged(boolean hidden) {
+// TODO Auto-generated method stub
+        super.onHiddenChanged(hidden);
+        if (hidden) {// 不在最前端界面显示
+
+        } else {// 重新显示到最前端中
+            setStatusBarColor(R.color.colorSystemBlue);
+        }
     }
 
 }

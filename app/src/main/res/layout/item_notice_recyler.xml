@@ -11,17 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/x120"
         android:scaleType="fitXY"
-        android:src="@mipmap/good"/>
+        android:src="@drawable/notice_image"/>
 
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/blue7BA"
-        android:paddingBottom="@dimen/x5"
-        android:paddingLeft="@dimen/x10"
-        android:paddingRight="@dimen/x10"
-        android:paddingTop="@dimen/x5"
+        android:background="@drawable/icon_blue_corner"
+        android:gravity="center"
+        android:paddingBottom="@dimen/x4"
+        android:paddingRight="@dimen/x4"
         android:text="明日预告"
         android:textColor="@color/colorWhite"/>
 

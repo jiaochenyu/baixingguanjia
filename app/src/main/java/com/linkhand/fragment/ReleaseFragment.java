@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.linkhand.R;
@@ -21,9 +20,9 @@ import com.linkhand.activity.release.RecruitReleaseActivity;
 import com.linkhand.activity.release.SecondCarReleaseActivity;
 import com.linkhand.adapter.ReleaseGridViewAdapter;
 import com.linkhand.base.BaseFragment;
-import com.linkhand.entity.Release;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -43,20 +42,27 @@ public class ReleaseFragment extends BaseFragment {
     @Bind(R.id.gridView)
     GridView mGridView;
     private View mView;
+    String[] titles = {"房产", "闲置物品", "二手车", "家政", "教育", "招聘", "寻人", "寻物", "善行"};
+    int[] icons = {R.drawable.fangchan, R.drawable.xianzhi, R.drawable.che, R.drawable.jiazheng,
+            R.drawable.jiaoyu, R.drawable.zhaopin, R.drawable.xunren, R.drawable.xunwu, R.drawable.shanxing};
 
     private ReleaseGridViewAdapter mAdapter;
-    private List<Release> mList;
+    private List<String> mList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_release, null);
         ButterKnife.bind(this, mView);
-        setStatusBarColor(R.color.colorSystemBlue);
         initView();
         initData();
         initListener();
         return mView;
+    }
+
+    public void onResume() {
+        super.onResume();
+        setStatusBarColor(R.color.colorSystemBlue);
     }
 
 
@@ -65,10 +71,9 @@ public class ReleaseFragment extends BaseFragment {
 
     private void initData() {
         mList = new ArrayList<>();
-        mAdapter = new ReleaseGridViewAdapter(getActivity(), R.layout.item_release_gridview, mList);
-        mGridView.setAdapter((ListAdapter) mAdapter);
-        getData();
-
+        Collections.addAll(mList, titles);
+        mAdapter = new ReleaseGridViewAdapter(getActivity(), R.layout.item_release_gridview, mList,icons);
+        mGridView.setAdapter(mAdapter);
     }
 
 
@@ -111,13 +116,6 @@ public class ReleaseFragment extends BaseFragment {
         });
     }
 
-    private void getData() {
-        for (int i = 0; i < 9; i++) {
-            mList.add(new Release("小区通知", ""));
-        }
-        mAdapter.notifyDataSetChanged();
-
-    }
 
 
     @OnClick(R.id.option)
@@ -128,5 +126,15 @@ public class ReleaseFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    public void onHiddenChanged(boolean hidden) {
+// TODO Auto-generated method stub
+        super.onHiddenChanged(hidden);
+        if (hidden) {// 不在最前端界面显示
+
+        } else {// 重新显示到最前端中
+            setStatusBarColor(R.color.colorSystemBlue);
+        }
     }
 }

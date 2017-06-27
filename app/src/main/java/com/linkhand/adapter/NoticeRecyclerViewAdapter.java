@@ -47,7 +47,7 @@ public class NoticeRecyclerViewAdapter extends CommonAdapter {
         ));
         Glide.with(mContext)
                 .load(mList.get(position).getImageUrl())
-                .placeholder(R.mipmap.good)
+                .placeholder(R.drawable.notice_image)
                 .into(mImageIV);
 
         LinearLayout linearLayout = holder.getView(R.id.line);

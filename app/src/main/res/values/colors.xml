@@ -8,6 +8,7 @@
     <color name="colorSystemBlack">#333333</color>
     <color name="colorSystemGray">#999999</color>
     <color name="colorSystemBlue">#1983D1</color>
+    <color name="colorSystemBlueDeep">#11619C</color>
 
     <color name="defaultBackgroundGray">#EEEEEE</color>
 

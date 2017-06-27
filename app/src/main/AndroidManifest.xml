@@ -9,14 +9,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            >
+        <activity android:name=".MainActivity">
         </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTask"
-            android:theme="@style/sys_title_red">
+            android:theme="@style/sys_title_bluedeep">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -26,7 +24,7 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:launchMode="singleTask"
-            android:theme="@style/sys_title_red">
+            android:theme="@style/sys_title_bluedeep">
             >
         </activity>
         <activity
@@ -130,6 +128,8 @@
         <activity
             android:name=".activity.MessageActivity"
             android:theme="@style/sys_title_blue">
+        </activity>
+        <activity android:name=".activity.my.MyReleaseActivity">
         </activity>
     </application>
 

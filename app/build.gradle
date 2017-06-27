@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.linkhand"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -45,5 +45,6 @@ dependencies {
     compile 'com.zhy:base-rvadapter:3.0.3'
     compile 'com.zhy:base-adapter:3.0.3'
     compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.androidkun:XTabLayout:1.1.1'
     testCompile 'junit:junit:4.12'
 }

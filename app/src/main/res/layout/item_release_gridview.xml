@@ -5,15 +5,15 @@
               android:background="@color/colorWhite"
               android:gravity="center"
               android:orientation="vertical"
-              android:paddingBottom="@dimen/x10"
+              android:paddingBottom="@dimen/x15"
               android:paddingTop="@dimen/x15"
     >
 
     <ImageView
         android:id="@+id/relese_icon"
-        android:layout_width="@dimen/x20"
+        android:layout_width="@dimen/x25"
         android:layout_height="@dimen/x25"
-        android:src="@mipmap/icon_bell"/>
+        />
 
     <TextView
         android:id="@+id/relese_iconName"

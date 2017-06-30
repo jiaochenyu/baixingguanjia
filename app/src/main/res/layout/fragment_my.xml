@@ -225,7 +225,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/true_layout"
+            android:id="@+id/appointment_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0.5dp"

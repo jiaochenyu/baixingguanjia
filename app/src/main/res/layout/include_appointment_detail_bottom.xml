@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorWhite"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系人"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/contact_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="李小红"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/grayline"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务类型"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="家庭保洁"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/grayline"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系人"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x5"
+            android:layout_toLeftOf="@+id/image1"
+            android:text="珠峰大街裕华路口"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="@dimen/x16"
+            android:layout_height="@dimen/x16"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_right_arrow"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/grayline"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电话"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="13091617887"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/grayline"
+        android:layout_height="@dimen/x5"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/x10"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:paddingTop="@dimen/x10">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="@dimen/x3"
+                android:layout_height="@dimen/x14"
+                android:background="@color/redTopic"
+                />
+
+            <TextView
+                android:layout_width="@dimen/x35"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x10"
+                android:text="评价"
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <View
+            style="@style/grayline"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x10"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x3"
+                android:paddingLeft="@dimen/x10"
+                android:text="内容哈哈哈哈哈哈技术等级覅技术等级自己就祭祀等级时间地附近几十斤几就"
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x10"
+            android:gravity="center"
+            >
+
+
+            <TextView
+                android:id="@+id/shouqi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_textview_corner_line_red"
+                android:paddingBottom="@dimen/x2"
+                android:paddingLeft="@dimen/x5"
+                android:paddingRight="@dimen/x5"
+                android:paddingTop="@dimen/x2"
+                android:text="点击收起"
+                android:textColor="@color/redFE5"
+                android:textSize="14sp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

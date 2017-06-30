@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.sort.PublicWelfareActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.sort.PublicWelfareActivity">
 
     <include
         layout="@layout/include_common_header_setting"/>

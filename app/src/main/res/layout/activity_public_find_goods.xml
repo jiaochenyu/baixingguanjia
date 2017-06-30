@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.linkhand.activity.release.PublicFindGoodsReleaseActivity">
+    tools:context="com.linkhand.baixingguanjia.activity.release.PublicFindGoodsReleaseActivity">
 
 </RelativeLayout>

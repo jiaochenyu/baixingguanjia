@@ -40,6 +40,7 @@
     <color name="blue22B">#22B9E8</color>
     <color name="blueTopic">#1983D1</color>
     <color name="blue1D3">#1D384D</color>
+    <color name="light_blue">#6593cb</color>
 
     <!--黑色调-->
     <color name="blackText">#494949</color>
@@ -52,4 +53,6 @@
     <color name="redTopic">#FE6150</color>
     <color name="redFE5">#FE5052</color>
     <color name="redD24">#D24B51</color>
+
+
 </resources>

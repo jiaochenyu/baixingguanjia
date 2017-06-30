@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.my.MyReleaseActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.my.MyReleaseActivity">
 
     <include
         layout="@layout/include_common_header"/>
@@ -22,11 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
-            app:xTabDividerWidthWidthText="true"
+            app:xTabDividerWidthWidthText="false"
             app:xTabIndicatorColor="@color/blueTopic"
             app:xTabSelectedTextColor="@color/blueTopic"
             app:xTabTextAppearance="@style/tabTitleText"
-            app:xTabTextColor="@color/grayText"/>
+            app:xTabTextColor="@color/grayText"
+            app:xTabIndicatorWidth="@dimen/x45"
+            />
         <View
             android:layout_width="@dimen/x1"
             android:layout_height="@dimen/x25"

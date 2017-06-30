@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
     android:orientation="vertical"
-    tools:context=".activity.LoginByPhoneActivity">
+    tools:context=".baixingguanjia.ui.activity.LoginByPhoneActivity">
 
     <include
         layout="@layout/include_header_gray"/>

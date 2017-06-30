@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.linkhand.customView.GradationScrollView
+<com.linkhand.baixingguanjia.customView.GradationScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollview"
@@ -103,7 +103,7 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/shanxing"/>
 
-                <com.linkhand.customView.AlignedTextView
+                <com.linkhand.baixingguanjia.customView.AlignedTextView
                     android:layout_width="@dimen/x40"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x3"
@@ -135,7 +135,7 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/shanxing"/>
 
-                <com.linkhand.customView.AlignedTextView
+                <com.linkhand.baixingguanjia.customView.AlignedTextView
                     android:id="@+id/chandi"
                     android:layout_width="@dimen/x40"
                     android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/shanxing"/>
 
-                <com.linkhand.customView.AlignedTextView
+                <com.linkhand.baixingguanjia.customView.AlignedTextView
                     android:layout_width="@dimen/x40"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x3"
@@ -199,7 +199,7 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/shanxing"/>
 
-                <com.linkhand.customView.AlignedTextView
+                <com.linkhand.baixingguanjia.customView.AlignedTextView
                     android:layout_width="@dimen/x40"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x3"
@@ -328,4 +328,4 @@
             android:layout_height="0.5dp"
             android:background="@color/defaultBackgroundGray"/>
     </LinearLayout>
-</com.linkhand.customView.GradationScrollView>
+</com.linkhand.baixingguanjia.customView.GradationScrollView>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
-    tools:context="com.linkhand.activity.SelectAddressActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.SelectAddressActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

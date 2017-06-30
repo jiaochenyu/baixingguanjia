@@ -22,5 +22,19 @@
     <string name="string20">江苏省苏州市工业园区直属镇工业园区星湖街 328 号创意产业园 22 幢 203 室</string>
     <string name="string21">精装修  114平</string>
     <string name="string22">个人iphone7Plus</string>
+    <string name="title_activity_my_feed_back">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 </resources>

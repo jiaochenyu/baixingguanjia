@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.car.SecondhandCarDetailActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.car.SecondhandCarDetailActivity">
 
 
 

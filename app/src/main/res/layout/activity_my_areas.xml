@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.sort.MyAreasActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.sort.MyAreasActivity">
 
     <include
         layout="@layout/include_common_header_setting"/>

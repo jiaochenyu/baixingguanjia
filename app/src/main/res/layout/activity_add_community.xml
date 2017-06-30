@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.my.AddCommunityActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.my.AddCommunityActivity">
 
     <include
         layout="@layout/include_common_header"

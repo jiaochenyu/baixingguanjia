@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.MessageActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.MessageActivity">
 
     <include
         layout="@layout/include_common_header"/>

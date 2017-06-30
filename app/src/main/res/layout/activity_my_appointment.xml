@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.linkhand.baixingguanjia.ui.activity.my.MyAppointmentActivity">
+
+    <include
+        layout="@layout/include_common_header"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.androidkun.xtablayout.XTabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            app:xTabDividerWidthWidthText="false"
+            app:xTabIndicatorColor="@color/blueTopic"
+            app:xTabIndicatorWidth="@dimen/x45"
+            app:xTabSelectedTextColor="@color/blueTopic"
+            app:xTabTextAppearance="@style/tabTitleText"
+            app:xTabTextColor="@color/grayText"
+            />
+
+        <View
+            android:layout_width="@dimen/x1"
+            android:layout_height="@dimen/x25"
+            android:layout_centerInParent="true"
+            android:background="@color/defaultBackgroundGray"/>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

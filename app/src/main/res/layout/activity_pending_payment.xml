@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.order.OrderDetailActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.order.OrderDetailActivity">
 
     <include
         layout="@layout/include_common_header_setting"/>

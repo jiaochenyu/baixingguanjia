@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
-    tools:context="com.linkhand.activity.order.ConfirmOrderActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.order.ConfirmOrderActivity">
 
     <include
         android:id="@+id/top_layout"

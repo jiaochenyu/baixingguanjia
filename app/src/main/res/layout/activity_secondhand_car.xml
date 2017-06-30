@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.car.SecondhandCarActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.sort.SecondhandCarActivity">
 
     <include
         layout="@layout/include_search_header"/>

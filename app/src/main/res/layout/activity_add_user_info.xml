@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.car.AddUserInfoActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.car.AddUserInfoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
     android:orientation="vertical"
-    tools:context="com.linkhand.activity.my.UserInfoActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.my.UserInfoActivity">
 
     <include
         layout="@layout/include_common_header"/>

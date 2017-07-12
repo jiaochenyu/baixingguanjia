@@ -3,6 +3,9 @@ package com.linkhand.baixingguanjia.ui.activity.car;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -11,9 +14,10 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.customView.NoScrollListView;
+import com.linkhand.baixingguanjia.entity.Car;
 import com.linkhand.baixingguanjia.entity.Picture;
-import com.linkhand.baixingguanjia.kits.NetworkImageHolderView;
 import com.linkhand.baixingguanjia.ui.adapter.SecondhandCarDetailAdapter;
+import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +36,29 @@ public class SecondhandCarDetailActivity extends BaseActivity implements OnItemC
     SecondhandCarDetailAdapter mAdapter;
     @Bind(R.id.tv_car_detail_buy)
     TextView mContactTV;
+    @Bind(R.id.pic_position)
+    TextView mPicPositionTV;
+    @Bind(R.id.c_name)
+    TextView mCarNameTV;
+    @Bind(R.id.release_time)
+    TextView mReleaseTimeTV;
+    @Bind(R.id.share_iv)
+    ImageView mShareIV;
+    @Bind(R.id.price)
+    TextView mPriceTV;
+    @Bind(R.id.location)
+    TextView mLocationTV;
+    @Bind(R.id.shangpai_time)
+    TextView mShangpaiTimeTV;
+    @Bind(R.id.iv_good_detai_back)
+    ImageView mBack;
+    @Bind(R.id.iv_good_detai_collect_select)
+    ImageView mCollectIV;
+    @Bind(R.id.ll_good_detail_collect)
+    LinearLayout mCollectLL;
     private List<String> mPictureList;
     private List<Picture> mGoodsPicList;
+    private Car mCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +69,26 @@ public class SecondhandCarDetailActivity extends BaseActivity implements OnItemC
         initData();
     }
 
+    @Override
+    protected void getBundleExtras(Bundle extras) {
+        super.getBundleExtras(extras);
+        if (extras != null) {
+            mCar = (Car) extras.getSerializable("car");
+            mPictureList = new ArrayList<>();
+            for (int i = 0; i < mCar.getPic().size(); i++) {
+                mPictureList.add(mCar.getPic().get(i).getUrl());
+            }
+        }
+    }
+
     private void initView() {
 
     }
 
     private void initData() {
-        mPictureList = new ArrayList<>();
         mGoodsPicList = new ArrayList<>();
         mAdapter = new SecondhandCarDetailAdapter(this, R.layout.item_hot_good_detail_imgs, mGoodsPicList);
         mListView.setAdapter(mAdapter);
-
-
         initBanner();
         getData();
     }
@@ -111,5 +145,19 @@ public class SecondhandCarDetailActivity extends BaseActivity implements OnItemC
     @OnClick(R.id.tv_car_detail_buy)
     public void onViewClicked() {
         startActivity(new Intent(SecondhandCarDetailActivity.this, AddUserInfoActivity.class));
+    }
+
+    @OnClick({R.id.share_iv, R.id.price, R.id.iv_good_detai_back, R.id.tv_car_detail_buy})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.share_iv:
+                break;
+            case R.id.price:
+                break;
+            case R.id.iv_good_detai_back:
+                break;
+            case R.id.tv_car_detail_buy:
+                break;
+        }
     }
 }

@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorSystemBlue</item>
-        <item name="colorPrimaryDark">@color/colorSystemBlue</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorSystemBlack</item>
+        <item name="colorPrimaryDark">@color/colorSystemBlack</item>
+        <item name="colorAccent">@color/colorSystemBlack</item>
     </style>
 
 
@@ -68,6 +68,16 @@
 
     </style>
 
+    <!--选择菜单的popupwindow-->
+    <style name="menu_popwindow_anim_style">
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <!-- 指定消失的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
+        <!-- <item name="android:windowBackground">@android:color/transparent</item>-->
+
+    </style>
+
 
     <!--灰色的线-->
     <style name="grayline">
@@ -85,6 +95,70 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <!--  -->
+    <style name="WrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+    <style name="searchTypeTabRightDivider" parent="vertical_line">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="searchTypeTabBottomPressLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:background">@color/blueTopic</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="vertical_line">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/defaultBackgroundGray</item>
+    </style>
+
+    <style name="horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/defaultBackgroundGray</item>
+    </style>
+
+    <!--<style name="moreItem">-->
+        <!--<item name="android:layout_width">match_parent</item>-->
+        <!--<item name="android:layout_height">@dimen/app_cus_popuwindow_item_h</item>-->
+        <!--<item name="android:background">@color/white</item>-->
+    <!--</style>-->
+
+    <!--<style name="moreItemLeftText" parent="WrapContent">-->
+        <!--<item name="android:textSize">@dimen/appTextSizeFourteen</item>-->
+        <!--<item name="android:textColor">@color/app_custom_popup_view_list_text</item>-->
+        <!--<item name="android:layout_marginLeft">10dp</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="moreItemRight" parent="WrapContent">-->
+        <!--<item name="android:textSize">@dimen/appTextSizeThirteen</item>-->
+        <!--<item name="android:textColor">@color/app_custom_popup_view_list_text</item>-->
+        <!--<item name="android:layout_marginRight">10dp</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="moreItemarrow" parent="WrapContent">-->
+        <!--<item name="android:layout_alignParentRight">true</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+        <!--<item name="android:layout_marginRight">15dp</item>-->
+        <!--<item name="android:src">@drawable/icon_search_arrow</item>-->
+    <!--</style>-->
+
+    <style name="PopupWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
     </style>
 
 </resources>

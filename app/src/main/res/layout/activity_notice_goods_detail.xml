@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     tools:context="com.linkhand.baixingguanjia.ui.activity.goods.HotGoodsDetailActivity">
     <!--android:layout_above="@+id/ll_good_detail_bottom"-->
     <ScrollView

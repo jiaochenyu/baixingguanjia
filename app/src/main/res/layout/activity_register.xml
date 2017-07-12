@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/defaultBackgroundGray"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.linkhand.baixingguanjia.ui.activity.RegisterActivity">
 
     <include
@@ -28,7 +29,7 @@
         >
 
         <ImageView
-            android:id="@+id/phone"
+            android:id="@+id/phone_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -36,7 +37,7 @@
             android:src="@drawable/icon_phone_blue"/>
 
         <EditText
-            android:id="@+id/yanzheng_num"
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -45,7 +46,7 @@
             android:layout_marginRight="@dimen/x10"
             android:layout_marginTop="@dimen/x13"
             android:layout_toLeftOf="@+id/yanzheng"
-            android:layout_toRightOf="@+id/phone"
+            android:layout_toRightOf="@+id/phone_iv"
             android:background="@null"
             android:digits="0123456789qwertyuioplkjhgfdsazxcvbnm"
             android:gravity="left|center_vertical"
@@ -95,7 +96,7 @@
             android:src="@drawable/icon_verification_code"/>
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/x13"

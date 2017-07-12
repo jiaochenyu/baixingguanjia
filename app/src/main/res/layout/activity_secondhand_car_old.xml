@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/defaultBackgroundGray"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.linkhand.baixingguanjia.ui.activity.sort.SecondhandCarActivity">
+<!-- 二手车 老界面-->
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/include_search_header"/>
+
+        <include
+            layout="@layout/include_filter_menu"/>
+
+        <View
+            android:id="@+id/line"
+            style="@style/grayline"/>
+
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout"
+        android:divider="@null">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
+    <RelativeLayout
+        android:id="@+id/null_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout"
+        android:background="@color/colorWhite"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/dataNull"
+            android:textColor="@color/blackText"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

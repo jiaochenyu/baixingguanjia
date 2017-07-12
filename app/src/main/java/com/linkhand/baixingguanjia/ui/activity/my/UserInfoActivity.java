@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
-import com.linkhand.baixingguanjia.kits.GlideCircleTransform;
+import com.linkhand.baixingguanjia.utils.GlideCircleTransform;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,7 +44,6 @@ public class UserInfoActivity extends BaseActivity {
         initView();
         initData();
     }
-
 
 
     private void initView() {
@@ -87,17 +86,17 @@ public class UserInfoActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.back, R.id.address_layout, R.id.face_layout, R.id.header_layout, R.id.nick_layout, R.id.username_layout, R.id.password_layout})
+    @OnClick({R.id.back, R.id.address_layout, R.id.face_layout, R.id.header_layout, R.id.nick_layout, R.id.username_layout, R.id.password_layout,R.id.touxiang_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.address_layout:
-                startActivity(new Intent(UserInfoActivity.this,AddCommunityActivity.class));
+                startActivity(new Intent(UserInfoActivity.this, AddCommunityActivity.class));
                 break;
             case R.id.face_layout:
-                startActivity(new Intent(UserInfoActivity.this,FaceApproveActivity.class));
+                startActivity(new Intent(UserInfoActivity.this, FaceApproveActivity.class));
                 break;
             case R.id.header_layout:
 
@@ -110,6 +109,9 @@ public class UserInfoActivity extends BaseActivity {
                 break;
             case R.id.password_layout:
 
+                break;
+            case R.id.touxiang_layout:
+                go(PreviewActivity.class);
                 break;
         }
     }

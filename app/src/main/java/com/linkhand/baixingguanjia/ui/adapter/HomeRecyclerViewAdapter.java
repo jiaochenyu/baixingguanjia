@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.customView.NoScrollGridView;
 import com.linkhand.baixingguanjia.entity.HomeType;
-import com.linkhand.baixingguanjia.kits.SpannableStringUtils;
+import com.linkhand.baixingguanjia.utils.SpannableStringUtils;
 import com.linkhand.baixingguanjia.ui.activity.sort.EducationActivity;
 import com.linkhand.baixingguanjia.ui.activity.sort.HousePropertyActivity;
 import com.linkhand.baixingguanjia.ui.activity.sort.HousekeepingActivity;

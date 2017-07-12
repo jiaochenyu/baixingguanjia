@@ -21,7 +21,7 @@ import com.linkhand.baixingguanjia.customView.GradationScrollView;
 import com.linkhand.baixingguanjia.customView.NoScrollListView;
 import com.linkhand.baixingguanjia.entity.Picture;
 import com.linkhand.baixingguanjia.entity.Tag;
-import com.linkhand.baixingguanjia.kits.NetworkImageHolderView;
+import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
 import com.linkhand.baixingguanjia.ui.adapter.HotGoodsDetailAdapter;
 
 import java.util.ArrayList;

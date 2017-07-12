@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/menu_layout"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/x40"
+              android:layout_marginTop="0dp"
+              android:background="@color/colorWhite"
+              android:orientation="horizontal">
+
+
+    
+    <RadioButton
+        android:id="@+id/location_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="全城"
+        android:textSize="16sp"
+        android:drawableRight="@mipmap/icon_sanjiao"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:button="@null"
+        android:textColor="@drawable/pop_menu_text_selector_color"
+        >
+
+    </RadioButton>
+
+
+    <RelativeLayout
+        android:id="@+id/type_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="类型"
+            android:textColor="@color/blackText"
+            android:textSize="16sp"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            android:layout_alignBottom="@+id/type"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/x2"
+            android:layout_marginLeft="@dimen/x5"
+            android:layout_toRightOf="@+id/type"
+            android:src="@mipmap/icon_sanjiao"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/price_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="价格"
+            android:textColor="@color/blackText"
+            android:textSize="16sp"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            android:layout_alignBottom="@+id/price"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/x2"
+            android:layout_marginLeft="@dimen/x5"
+            android:layout_toRightOf="@+id/price"
+            android:src="@mipmap/icon_sanjiao"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/store_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="商家"
+            android:textColor="@color/blackText"
+            android:textSize="16sp"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            android:layout_alignBottom="@+id/store"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/x2"
+            android:layout_marginLeft="@dimen/x5"
+            android:layout_toRightOf="@+id/store"
+            android:src="@mipmap/icon_sanjiao"
+            />
+    </RelativeLayout>
+
+</RadioGroup>

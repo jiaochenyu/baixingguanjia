@@ -1,5 +1,6 @@
 package com.linkhand.baixingguanjia.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -16,18 +17,33 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
+import com.linkhand.baixingguanjia.base.BaseAppManager;
+import com.linkhand.baixingguanjia.base.ConnectUrl;
+import com.linkhand.baixingguanjia.entity.Sheng;
 import com.linkhand.baixingguanjia.ui.adapter.ListviewAdapter;
 import com.linkhand.baixingguanjia.ui.fragment.HomeFragment;
 import com.linkhand.baixingguanjia.ui.fragment.MyFragment;
 import com.linkhand.baixingguanjia.ui.fragment.NoticeFragment;
 import com.linkhand.baixingguanjia.ui.fragment.ReleaseFragment;
+import com.linkhand.baixingguanjia.ui.service.HttpService;
+import com.linkhand.baixingguanjia.utils.JSONUtils;
+import com.linkhand.baixingguanjia.utils.SPUtils;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.OnResponseListener;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.RequestQueue;
+import com.yanzhenjie.nohttp.rest.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-
+    private final static int REQUEST = 0;
     ListviewAdapter hListViewAdapter;
     @Bind(R.id.frameLayout)
     FrameLayout mFrameLayout;
@@ -54,6 +70,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public Handler mHandler;
     public static String city = "";
 
+    RequestQueue mQueue = NoHttp.newRequestQueue();
+
     private String[] name = {"首页", "预告", "发布", "我的"};
     private int[] image = {
             R.drawable.icon_home_gray,
@@ -72,11 +90,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        BaseAppManager.getInstance().clearBackActivities();
         initView();
         initData();
         initLocation();
+        //获取地区 并且保存到偏好设置里
+        httpGetDiqu();
+        initHttpService();
 
     }
+
+
+
 
     private void initView() {
         linearLayout1 = (LinearLayout) findViewById(R.id.linearlayout1);
@@ -140,6 +165,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mLocationClient.setLocOption(option);
         mLocationClient.start();
+    }
+
+    private void initHttpService() {
+        Intent intent = new Intent(MainActivity.this, HttpService.class);
+        startService(intent);
     }
 
 
@@ -243,7 +273,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
             city = location.getCity();
-            mHandler.sendMessage(mHandler.obtainMessage(101,city));
+            mHandler.sendMessage(mHandler.obtainMessage(101, city));
         }
 
         @Override
@@ -313,6 +343,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         textView.setText(name[3]);
         textView.setTextColor(getResources().getColor(R.color.grayText));
         imageView.setImageDrawable(getResources().getDrawable(image[6]));
+    }
+
+
+    /**
+     * 获取地区并且 保存到偏好设置里
+     */
+    private void httpGetDiqu() {
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_DINGWEI, RequestMethod.POST);
+        request.add("sheng","河北省");
+        request.add("shi","石家庄市");
+        mQueue.add(REQUEST, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+                showLoading();
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == REQUEST) {
+                    String resultCode = null;
+                    try {
+                        JSONObject jsonObject = response.get();
+                        resultCode = jsonObject.getString("code");
+                        if (resultCode.equals("200")) {
+                            JSONObject json = jsonObject.getJSONObject("data");
+                            Sheng sheng  = JSONUtils.getLocationData(json);
+                            SPUtils.put(MainActivity.this, "DiQu", sheng);
+
+                        } else {
+                            showToast("获取接口地区失败");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+                hideLoading();
+            }
+
+            @Override
+            public void onFinish(int what) {
+                hideLoading();
+            }
+        });
     }
 
     @Override

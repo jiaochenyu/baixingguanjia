@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.entity.Notice;
-import com.linkhand.baixingguanjia.kits.SpannableStringUtils;
+import com.linkhand.baixingguanjia.utils.SpannableStringUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 

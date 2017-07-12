@@ -35,7 +35,8 @@
             android:layout_weight="1"
             android:background="@drawable/background_big_corner_white"
             android:gravity="center"
-            android:padding="5dp"
+            android:paddingLeft="@dimen/x5"
+            android:paddingRight="@dimen/x5"
             android:visibility="gone">
 
             <ImageView

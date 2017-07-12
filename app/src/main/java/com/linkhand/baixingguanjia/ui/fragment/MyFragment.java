@@ -15,7 +15,8 @@ import com.bumptech.glide.Glide;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseFragment;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
-import com.linkhand.baixingguanjia.kits.GlideCircleTransform;
+import com.linkhand.baixingguanjia.ui.activity.my.UserInfoActivity;
+import com.linkhand.baixingguanjia.utils.GlideCircleTransform;
 import com.linkhand.baixingguanjia.ui.activity.my.MyAppointmentActivity;
 import com.linkhand.baixingguanjia.ui.activity.my.MyCollectActivity;
 import com.linkhand.baixingguanjia.ui.activity.my.MyFeedBackActivity;
@@ -24,6 +25,8 @@ import com.linkhand.baixingguanjia.ui.activity.my.MyReleaseActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.linkhand.baixingguanjia.R.id.header_iv;
 
 /**
  * Created by JCY on 2017/6/14.
@@ -35,7 +38,7 @@ public class MyFragment extends BaseFragment {
     LinearLayout mSettingLayout;
     @Bind(R.id.message)
     LinearLayout mMessageLayout;
-    @Bind(R.id.header_iv)
+    @Bind(header_iv)
     ImageView mHeaderIV;
     @Bind(R.id.name)
     TextView mNameTV;
@@ -61,21 +64,17 @@ public class MyFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_my, null);
         ButterKnife.bind(this, mView);
+        setStatusBarColor(R.color.colorSystemBlack);
         initView();
         initListener();
         return mView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        setStatusBarColor(R.color.colorSystemBlack);
-    }
 
     private void initView() {
         Glide.with(this)
                 .load(ConnectUrl.testUrl)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.touxiang)
                 .fitCenter()
                 .transform(new GlideCircleTransform(getActivity()))
                 .into(mHeaderIV);
@@ -102,7 +101,7 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.info_layout, R.id.appointment_layout, R.id.fabu_layout, R.id.fankui_layout, R.id.collect_layout, R.id.pingjia_layout})
+    @OnClick({R.id.info_layout, R.id.appointment_layout, R.id.fabu_layout, R.id.fankui_layout, R.id.collect_layout, R.id.pingjia_layout,R.id.header_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.info_layout:
@@ -121,6 +120,12 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.pingjia_layout:
                 break;
+            case header_iv:
+                go(UserInfoActivity.class);
+                break;
         }
     }
+
+
+
 }

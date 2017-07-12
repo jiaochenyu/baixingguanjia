@@ -22,9 +22,10 @@ import com.linkhand.baixingguanjia.customView.GradationScrollView;
 import com.linkhand.baixingguanjia.customView.NoScrollListView;
 import com.linkhand.baixingguanjia.entity.Picture;
 import com.linkhand.baixingguanjia.entity.Tag;
-import com.linkhand.baixingguanjia.kits.NetworkImageHolderView;
 import com.linkhand.baixingguanjia.ui.activity.order.ConfirmOrderActivity;
 import com.linkhand.baixingguanjia.ui.adapter.HotGoodsDetailAdapter;
+import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
+import com.linkhand.bxgj.lib.utils.DateTimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.iwgang.countdownview.CountdownView;
 
 public class HotGoodsDetailActivity extends BaseActivity implements GradationScrollView.ScrollViewListener, OnItemClickListener, ViewPager.OnPageChangeListener {
 
@@ -45,6 +47,8 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     RelativeLayout mFormatLayout;
     @Bind(R.id.evaluate_layout)
     RelativeLayout mEvaluateLayout;
+    @Bind(R.id.CountdownView)
+    CountdownView mCountdownView;
     private List<String> mPictureList;
     private HotGoodsDetailAdapter mAdapter;
     private List<Picture> mGoodsPicList;
@@ -53,6 +57,9 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
 
     private int byNum = 1; //购买数量
 
+    private long start_time = 1499392800;
+    private long end_time = 1499574070*1000L;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +67,9 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         ButterKnife.bind(this);
         initView();
         initData();
+        initListener();
     }
+
 
     private void initView() {
 
@@ -74,8 +83,24 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         mNoScrollListView.setAdapter(mAdapter);
 
 
+        //开启倒计时
+        mCountdownView.start(DateTimeUtils.compareTime(end_time));
+//        mCountdownView.start(end_time);
+//        for (int time = 0; time < 1000; time++) {
+//            mCountdownView.updateShow(time);
+//        }
+
         initBanner();
         getData();
+    }
+
+    private void initListener() {
+        mCountdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
+            @Override
+            public void onEnd(CountdownView cv) {
+                showToast("倒计时结束");
+            }
+        });
     }
 
     private void initBanner() {
@@ -85,7 +110,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                 return new NetworkImageHolderView();
             }
         }, mPictureList)
-                .setPageIndicator(new int[]{R.drawable.circle_grey, R.drawable.circle_white})
+                .setPageIndicator(new int[]{R.drawable.circle_grey, R.drawable.circle_blue})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                 .setOnPageChangeListener(this).setOnItemClickListener(this);
 
@@ -149,7 +174,6 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                 break;
         }
     }
-
 
 
     private void showDialog() {

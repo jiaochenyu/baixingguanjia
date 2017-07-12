@@ -1,7 +1,7 @@
 package com.linkhand.baixingguanjia.widget.popup;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +39,15 @@ public class LoadingPopup extends PopupWindow {
         percentBar= (CircleProgressBar) pickPhotoView.findViewById(R.id.percent_bar);
 //        pickPhotoView.getBackground().setAlpha(150);
         setContentView(pickPhotoView);
-        setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setFocusable(true);
         setTouchable(true);
         setOutsideTouchable(false);
-        setBackgroundDrawable(new ColorDrawable(0));
+//        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        setBackgroundDrawable(new ColorDrawable(0));
+        setBackgroundDrawable(new BitmapDrawable());
+
     }
 
 }

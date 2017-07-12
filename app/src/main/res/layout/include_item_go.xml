@@ -25,13 +25,14 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="@dimen/x30"
-            android:layout_height="@dimen/x30"
-            android:layout_marginBottom="@dimen/x5"
-            android:layout_marginLeft="@dimen/x15"
-            android:layout_marginTop="@dimen/x5"
-            android:layout_toRightOf="@+id/text_left"
+            android:layout_width="@dimen/x36"
+            android:layout_height="@dimen/x36"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/x5"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginTop="@dimen/x5"
+            android:src="@drawable/touxiang"
+            android:layout_toLeftOf="@+id/image_right"
             android:visibility="gone"/>
 
         <TextView

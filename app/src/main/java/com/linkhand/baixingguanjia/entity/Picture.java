@@ -1,11 +1,13 @@
 package com.linkhand.baixingguanjia.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by JCY on 2017/6/20.
  * 说明：
  */
 
-public class Picture {
+public class Picture implements Serializable {
     private String url;
 
 

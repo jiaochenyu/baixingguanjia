@@ -1,30 +1,32 @@
 package com.linkhand.baixingguanjia.base;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.linkhand.baixingguanjia.widget.popup.LoadingPopup;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * Created by jcy on 2016/12/19.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends BaseAppCompatActivity {
     private static final String TAG = "BaseActivity";
     protected LoadingPopup loadingPop;
     private int currentPercent;
     private boolean canSideOut;
+    private Toast toast = null;
 
     private Handler myHandler = new Handler();
 
@@ -74,24 +76,83 @@ public class BaseActivity extends AppCompatActivity {
     };
 
 
+//    @Override
+//    public void setContentView(@LayoutRes int layoutResID) {
+//        super.setContentView(layoutResID);
+//    }
+
+    // @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        if (isBindEventBusHere()) {
+//            EventBus.getDefault().register(this);
+//        }
+//        super.onCreate(savedInstanceState);
+//
+//
+//    }
 
     @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        super.setContentView(layoutResID);
+    protected void initSubscription() {
 
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if (isBindEventBusHere()) {
-            EventBus.getDefault().register(this);
-        }
-        super.onCreate(savedInstanceState);
+    protected void setCustomTitle(CharSequence title) {
 
+    }
+
+    @Override
+    protected boolean hasTitlebar() {
+        return false;
+    }
+
+    @Override
+    protected void onNavigateClick() {
+
+    }
+
+    @Override
+    protected boolean hasSoft() {
+        return false;
+    }
+
+    @Override
+    protected void onEditOutSideClick() {
+
+    }
+
+    @Override
+    protected boolean isOverridePendingTransition() {
+        return false;
+    }
+
+    @Override
+    protected void onNetworkDisconnect() {
+
+    }
+
+    @Override
+    protected void onNetworkConnected() {
+
+    }
+
+    @Override
+    protected void initViewsAndEvents() {
+
+    }
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return 0;
     }
 
     protected boolean isBindEventBusHere() {
         return false;
+    }
+
+    @Override
+    protected TransitionMode getTransitionMode() {
+        return null;
     }
 
     //***********隐藏软键盘*************
@@ -132,7 +193,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-
     public synchronized void showLoading() {
         Log.e(TAG, ">>>>>>  showLoading");
         getWindow().getDecorView().post(new Runnable() {
@@ -142,6 +202,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
     }
+
     public void showLoading(boolean canSideOut) {
         this.canSideOut = canSideOut;
         getWindow().getDecorView().post(new Runnable() {
@@ -173,13 +234,73 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+
+    public void showToast(String msg) {
+        if (null != msg) {
+            if (toast == null) {
+                toast = Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+            } else {
+                toast.setText(msg);
+            }
+            toast.show();
+        }
+    }
+
+    public void showToast(int msg) {
+        if (toast == null) {
+            toast = Toast.makeText(BaseActivity.this, getString(msg), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+        } else {
+            toast.setText(msg);
+        }
+        toast.show();
+
+    }
+
+    // 判断list是否不为空且有值
+    public boolean adjustList(List<?> list) {
+        if (list != null && list.size() > 0 && (!list.isEmpty())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getStrgRes(int res){
+        return getResources().getString(res);
+    }
+
+    //PullToRefreshListView 自定义头部尾部加载信息
+    public void initRefreshListView(PullToRefreshListView mListview) {
+        ILoadingLayout startLables = mListview.getLoadingLayoutProxy(true,false);
+        startLables.setPullLabel("下拉刷新");
+        startLables.setRefreshingLabel("玩命刷新中...");
+        startLables.setReleaseLabel("放开刷新");
+        ILoadingLayout endLables = mListview.getLoadingLayoutProxy(false,true);
+        endLables.setPullLabel("上拉加载");
+        endLables.setRefreshingLabel("玩命加载中...");
+        endLables.setReleaseLabel("放开加载");
+    }
+
+
     @Override
     protected void onDestroy() {
-
         if (isBindEventBusHere()) {
             EventBus.getDefault().unregister(this);
         }
         hideLoading();
+        toast = null;
         super.onDestroy();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (toast != null) {
+            toast.cancel();
+        }
+    }
+
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x50"
                 android:background="@color/redTopic"
@@ -11,9 +12,9 @@
         android:id="@+id/money_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/price"
         android:layout_centerVertical="true"
         android:layout_marginBottom="@dimen/x1"
-        android:layout_alignBottom="@+id/price"
         android:text="￥"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"
@@ -98,15 +99,43 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x3"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="@dimen/x2">
+
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/CountdownView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"
+                android:visibility="visible"
+                app:isHideTimeBackground="false"
+                app:isShowDay="true"
+                app:isShowHour="true"
+                app:isShowMillisecond="false"
+                app:isShowMinute="true"
+                app:isShowSecond="true"
+                app:isSuffixTextBold="true"
+                app:isTimeTextBold="true"
+                app:suffix=":"
+                app:suffixGravity="center"
+                app:suffixTextColor="#000000"
+                app:suffixTextSize="18sp"
+                app:timeBgDivisionLineColor="#30FFFFFF"
+                app:timeBgDivisionLineSize="1dp"
+                app:timeBgRadius="3dp"
+                app:timeBgSize="20dp"
+                app:timeTextColor="#FFFFFF"
+                app:timeTextSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/x2"
                 android:text="15:36:00:2"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite"
+                android:visibility="gone"/>
 
         </RelativeLayout>
     </LinearLayout>

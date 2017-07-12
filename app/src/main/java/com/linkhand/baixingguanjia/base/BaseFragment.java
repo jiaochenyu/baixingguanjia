@@ -1,5 +1,7 @@
 package com.linkhand.baixingguanjia.base;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.linkhand.baixingguanjia.widget.popup.LoadingPopup;
 
 import org.greenrobot.eventbus.EventBus;
+
+import static com.linkhand.baixingguanjia.base.BaseAppCompatActivity.NON_CODE;
 
 /**
  * Created by jcy on 2016/12/19.
@@ -26,6 +31,7 @@ public class BaseFragment extends Fragment {
     protected LoadingPopup loadingPop;
     private int currentPercent;
     private boolean canSideOut;
+    private Toast toast = null;
 
     private Handler myHandler = new Handler();
 
@@ -144,4 +150,100 @@ public class BaseFragment extends Fragment {
             window.setStatusBarColor(getResources().getColor(color));
         }
     }
+
+
+
+    protected void go(Class<? extends Activity> clazz) {
+        _goActivity(clazz, null, NON_CODE, false);
+    }
+
+    /**
+     * startActivity with bundle
+     *
+     * @param clazz  target Activity
+     * @param bundle
+     */
+    protected void go(Class<? extends Activity> clazz, Bundle bundle) {
+        _goActivity(clazz, bundle, NON_CODE, false);
+    }
+
+    protected void goForResult(Class<? extends Activity> clazz, int requestCode) {
+        _goActivity(clazz, null, requestCode, false);
+    }
+
+    protected void goForResult(Class<? extends Activity> clazz, Bundle bundle, int requestCode) {
+        _goActivity(clazz, bundle, requestCode, false);
+    }
+
+    /**
+     * Activity 跳转
+     *
+     * @param clazz  目标activity
+     * @param bundle 传递参数
+     * @param finish 是否结束当前activity
+     */
+    private void _goActivity(Class<? extends Activity> clazz, Bundle bundle, int requestCode, boolean finish) {
+        if (null == clazz) {
+            throw new IllegalArgumentException("you must pass a target activity where to go.");
+        }
+        Intent intent = new Intent(getActivity(), clazz);
+        if (null != bundle) {
+            intent.putExtras(bundle);
+        }
+        if (requestCode > NON_CODE) {
+            startActivityForResult(intent, requestCode);
+        } else {
+            startActivity(intent);
+        }
+        if (finish) {
+            getActivity().finish();
+        }
+    }
+
+
+    public void showToast(String msg) {
+        if (null != msg) {
+            if (toast == null) {
+                toast = Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+            } else {
+                toast.setText(msg);
+            }
+            toast.show();
+        }
+    }
+
+    public void showToast(int msg) {
+        if (toast == null) {
+            toast = Toast.makeText(getActivity(), getString(msg), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+        } else {
+            toast.setText(msg);
+        }
+        toast.show();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (toast != null) {
+            toast.cancel();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+
+        toast = null;
+        if (isBindEventBusHere()) {
+            EventBus.getDefault().unregister(this);
+        }
+        super.onDestroy();
+    }
+
+
+
+
+
 }

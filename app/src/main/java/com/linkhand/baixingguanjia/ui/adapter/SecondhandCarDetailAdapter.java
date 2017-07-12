@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.entity.Picture;
-import com.linkhand.baixingguanjia.kits.MyImageLoader;
+import com.linkhand.baixingguanjia.utils.MyImageLoader;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 

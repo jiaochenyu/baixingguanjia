@@ -5,22 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     tools:context="com.linkhand.baixingguanjia.ui.activity.goods.HotGoodsDetailActivity">
     <!--android:layout_above="@+id/ll_good_detail_bottom"-->
     <ScrollView
         android:id="@+id/sv_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/view1"
-        android:layout_marginBottom="0dp"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/include_hot_goods_detail_top"/>
+            <include layout="@layout/include_notice_goods_detail_top"/>
 
             <include layout="@layout/include_hot_goods_detail_bottom"/>
         </LinearLayout>

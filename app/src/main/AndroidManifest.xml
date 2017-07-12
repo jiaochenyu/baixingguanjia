@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.linkhand.baixingguanjia">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -58,6 +59,9 @@
     <!-- SD卡读取权限，用户写入离线定位数据-->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
 
+    <!--Mob第三方分享-->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:name="com.linkhand.baixingguanjia.base.MyApplication"
@@ -65,7 +69,51 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:theme">
+
+
+        <!--*******************华丽的分割线 Mob社会化分享*******************************************-->
+        <!-- ShareSDK的activity -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <data android:scheme="tencent100371282"/>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+
+        </activity>
+
+        <activity
+            android:name=".ui.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="1f1cc40bdd97c"/>
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="9a8e4405fbbd681f9954352f3741e728"/>
+
+        <!--******************华丽的分割线******************************************-->
+
         <activity android:name="com.linkhand.baixingguanjia.ui.activity.MainActivity">
         </activity>
         <activity
@@ -199,6 +247,8 @@
         <activity android:name="com.linkhand.baixingguanjia.ui.activity.PassiveAppointmentDetailActivity">
         </activity>
 
+        <service android:name=".ui.service.HttpService"/>
+
 
         <!--*************华丽的分割线* 极光推送*************************************************************************************-->
         <!-- JPush Required SDK 核心功能-->
@@ -279,20 +329,36 @@
         <!--QQ第三方登录-->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
-            android:noHistory="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="1106257128" />
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="1106257128"/>
             </intent-filter>
         </activity>
 
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity
+            android:name=".utils.MultiSelectPhotoGridActivity"
+            android:label="相册"/>
+
+
+        <activity
+            android:name=".utils.CommonPhotoViewActivity"
+            android:label="预览"/>
+
+        <activity
+            android:name=".ui.activity.my.PreviewActivity"
+            android:label="我的头像"/>
+
 
     </application>
 

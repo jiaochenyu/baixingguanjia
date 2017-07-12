@@ -15,7 +15,7 @@
     <string name="string13">您的商品兑换码为</string>
     <string name="string14">可在订单详情中查看</string>
     <string name="string15">我知道了</string>
-    <string name="string16">搜索商品的关键字</string>
+    <string name="string16">请输入搜索商品的关键字</string>
     <string name="string17">奔驰GL级2015款GL400 3.0 手自一体4MATIC豪华型-精品</string>
     <string name="string18">2016年-2.8万公里</string>
     <string name="string19">信息真实 绝对靠谱</string>
@@ -36,5 +36,39 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+
+    <string name="loginFail">登录失败</string>
+    <string name="successUpdatePass">修改成功，请登录</string>
+    <string name="commonFail">网络异常请稍后再试</string>
+    <string name="codenotnull">验证码不能为空</string>
+    <string name="codeerror">验证码错误</string>
+    <string name="passmore">密码大于6位</string>
+    <string name="passnotnull">请输入电话号码</string>
+    <string name="phonenotnull">电话号码不能为空</string>
+    <string name="inputrightphone">请输入正确的电话号码</string>
+    <string name="sendsuccess">发送成功</string>
+    <string name="sendfail">发送失败</string>
+    <string name="updatePassFail">重置密码失败</string>
+    <string name="phoneNotRegister">手机号未注册</string>
+    <string name="requestVerification">获取验证码</string>
+    <string name="sendVerification">发送验证码</string>
+    <string name="phoneAlreadyExist">手机号已注册</string>
+    <string name="registerFail">注册失败</string>
+    <string name="registerSuccess">注册成功</string>
+    <string name="update">修改</string>
+    <string name="preview">预览</string>
+    <string name="complete">完成</string>
+    <string name="dataNull">暂无数据！</string>
+    <string name="allCity">全城</string>
+    <string name="allQu">全区</string>
+    <string name="sortType">类型</string>
+    <string name="sortScale">价格</string>
+    <string name="sortStore">发布人</string>
+    <string name="buxian">不限</string>
+    <string name="search">搜索</string>
+    <string name="cancel">取消</string>
+    <string name="toastSearch">请输入搜索内容</string>
+
 
 </resources>

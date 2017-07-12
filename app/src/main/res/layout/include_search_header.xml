@@ -4,7 +4,7 @@
               android:layout_height="@dimen/x40"
               android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grayF9F"
@@ -13,60 +13,121 @@
         android:paddingLeft="@dimen/x10"
         android:paddingRight="@dimen/x10">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="@dimen/x20"
-            android:layout_height="@dimen/x20"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/icon_back_black"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_back_black"/>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_search"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:layout_marginBottom="@dimen/x5"
             android:layout_marginLeft="@dimen/x5"
             android:layout_marginRight="@dimen/x5"
             android:layout_marginTop="@dimen/x5"
-            android:layout_toLeftOf="@+id/menu_layout"
-            android:layout_toRightOf="@+id/back"
-            android:layout_weight="1"
+            android:layout_weight="9"
             android:background="@drawable/background_big_corner_white"
             android:gravity="center"
-            android:padding="5dp">
+            android:paddingLeft="@dimen/x5"
+            android:paddingRight="@dimen/x5">
 
-            <ImageView
-                android:layout_width="@dimen/x15"
-                android:layout_height="15dp"
-                android:src="@mipmap/icon_search"/>
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/show_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="@string/string16"
-                android:textColor="@color/grayText"
-                android:textSize="14sp"/>
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/x15"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/icon_search"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/string16"
+                    android:textColor="@color/grayText"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/edit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="6"
+                    android:background="@null"
+                    android:textColor="@color/grayText"
+                    android:textSize="14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/cha"
+                        android:layout_width="@dimen/x16"
+                        android:layout_height="@dimen/x16"
+                        android:src="@drawable/icon_cha"
+                        android:scaleType="fitXY"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/menu_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x5"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/x18"
                 android:layout_height="@dimen/x18"
+                android:visibility="gone"
                 />
 
+            <TextView
+                android:id="@+id/search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/blackText"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

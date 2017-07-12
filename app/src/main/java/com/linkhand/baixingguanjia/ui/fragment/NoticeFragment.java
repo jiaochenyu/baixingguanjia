@@ -54,10 +54,7 @@ public class NoticeFragment extends BaseFragment {
 
         return mView;
     }
-    public void onResume() {
-        super.onResume();
-//        setStatusBarColor(R.color.colorSystemBlue);
-    }
+
 
     private void initView() {
         mRecylerview.setLayoutManager(new LinearLayoutManager(getActivity()));

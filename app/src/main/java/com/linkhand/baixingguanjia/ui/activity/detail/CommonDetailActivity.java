@@ -20,13 +20,12 @@ import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
 import com.linkhand.baixingguanjia.base.MyApplication;
 import com.linkhand.baixingguanjia.customView.CommonPromptDialog;
-import com.linkhand.baixingguanjia.entity.Education;
+import com.linkhand.baixingguanjia.entity.Common;
 import com.linkhand.baixingguanjia.entity.EventFlag;
 import com.linkhand.baixingguanjia.entity.Picture;
 import com.linkhand.baixingguanjia.ui.activity.LoginActivity;
 import com.linkhand.baixingguanjia.ui.activity.my.MyAppointmentActivity;
 import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
-import com.linkhand.bxgj.lib.utils.DateTimeUtils;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
@@ -45,7 +44,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EducationDetailActivity extends BaseActivity implements OnItemClickListener, ViewPager.OnPageChangeListener {
+public class CommonDetailActivity extends BaseActivity implements OnItemClickListener, ViewPager.OnPageChangeListener {
     private static final int HTTP_REQUEST = 0;
     private static final int REQUEST_WHAT = 1;
     private static final int HTTP_REQUEST_IS_AAP = 2; //是否预约
@@ -101,7 +100,7 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
 
     private List<String> mPictureList;
     private List<Picture> mGoodsPicList;
-    private Education mEducation;
+    private Common mCommon;
     private boolean isCollect; //是否收藏
     private RequestQueue mRequestQueue = NoHttp.newRequestQueue();
     private CommonPromptDialog mDialog;
@@ -130,10 +129,10 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
     protected void getBundleExtras(Bundle extras) {
         super.getBundleExtras(extras);
         if (extras != null) {
-            mEducation = (Education) extras.getSerializable("education");
-            if (mEducation != null) {
-                if (adjustList(mEducation.getImage_url())) {
-                    mPictureList = mEducation.getImage_url();
+            mCommon = (Common) extras.getSerializable("mCommon");
+            if (mCommon != null) {
+                if (adjustList(mCommon.getImage_url())) {
+                    mPictureList = mCommon.getImage_url();
                 } else {
                     mPictureList = new ArrayList<>();
                 }
@@ -147,13 +146,12 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
     }
 
     private void initView() {
-        mEducationLayout.setVisibility(View.VISIBLE);
-        if (mEducation != null) {
+        mEducationLayout.setVisibility(View.GONE);
+        if (mCommon != null) {
             setViewData();
             if (MyApplication.getUser() != null && MyApplication.getUser().getUserid() != null) {
                 httpIsAppoinment();
             }
-
         } else {
             httpGetDetiles();
         }
@@ -201,7 +199,7 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
             @Override
             public void onClick(View v) {
                 //1下线2不下线
-                if (mEducation.getOffline().equals("1")) {
+                if (mCommon.getOffline()==1) {
                     if (position != -1) {
                         EventBus.getDefault().post(new EventFlag("offlineEducation", position));
                     }
@@ -267,17 +265,20 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
             public void onSucceed(int what, Response<JSONObject> response) {
                 if (what == REQUEST_WHAT_DETILES) {
                     String resultCode = null;
-                    Log.e("tag", response.get().toString());
+                    Log.e("tag","id:"+goodsid+"  type:"+goods_type+ "  "+response.get().toString());
                     try {
                         Gson gson = new Gson();
                         JSONObject jsonObject = response.get();
                         resultCode = jsonObject.getString("code");
                         if (resultCode.equals("200")) {
-                            mEducation = gson.fromJson(jsonObject.getJSONObject("data").toString(), Education.class);
+                            mCommon = gson.fromJson(jsonObject.getJSONObject("data").toString(), Common.class);
                         }
                         setViewData();
-                        mPictureList = mEducation.getImage_url();
+                        mPictureList = mCommon.getImage_url();
                         if (adjustList(mPictureList)) {
+                            for (int i = 0; i < mPictureList.size(); i++) {
+                                mPictureList.set(i,ConnectUrl.REQUESTURL_IMAGE+mPictureList.get(i));
+                            }
                             mBanner.notifyDataSetChanged();
                         }
 
@@ -308,35 +309,18 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
     }
 
     private void setViewData() {
-        mObjectTV.setText(mEducation.getObject());
-        mHouseNameTV.setText(mEducation.getTitle());
-        if (mEducation.getCategory() == null) {
-            mStoreTypeTV.setText(R.string.store);
-        } else {
-            if (mEducation.getCategory().equals("4")) {
-                mStoreTypeTV.setText(R.string.store);
-            } else if (mEducation.getCategory().equals("5")) {
-                mStoreTypeTV.setText(R.string.geren);
-            }
-        }
-
-        mReleaseTimeTV.setText(DateTimeUtils.formatdian(mEducation.getAdd_time()));// 1出租2出售【默认2】
-        mContentTV.setText(mEducation.getContent());
+//        mObjectTV.setText(mCommon.getObject());
+        mHouseNameTV.setText(mCommon.getTitle());
+        mStoreTypeTV.setVisibility(View.GONE);
+        mReleaseTimeTV.setText(mCommon.getTime());
+        mContentTV.setText(mCommon.getMessage());
         mPriceTV.setVisibility(View.GONE);
         mRmbTV.setVisibility(View.GONE);
         mPhoneTV.setText("******");
-        mFuwuTypeTV.setText(R.string.educationType);
-        if (mEducation.getCategory().equals("4")) {
-            mStoreTypeTV.setText(R.string.store);
-            mCompanyLayout.setVisibility(View.VISIBLE);
-            mCompanyTV.setText(mEducation.getCompany());
-        } else if (mEducation.getCategory().equals("5")) {
-            mStoreTypeTV.setText(R.string.geren);
-            mCompanyLayout.setVisibility(View.GONE);
-        }
+        mFuwuTypeTV.setText(mCommon.getMokuainame());
         mChakanTV.setVisibility(View.GONE);
-        mAddressTV.setText(mEducation.getAddress());
-        mContactTV.setText(mEducation.getCreator());
+        mAddressTV.setText(mCommon.getAddress());
+        mContactTV.setText(mCommon.getPhone());
     }
 
     /**
@@ -346,13 +330,13 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
      */
     private void httpCollect(final boolean var) {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_COLLECT, RequestMethod.POST);
-        if (mEducation == null) {
+        if (mCommon == null) {
             request.add("goodsid", goodsid);
             request.add("goodstype", goods_type);
 
         } else {
-            request.add("goodsid", mEducation.getFamily_id());
-            request.add("goodstype", mEducation.getGoods_type());
+            request.add("goodsid", mCommon.getCommon_id());
+            request.add("goodstype", mCommon.getGoods_type());
         }
         request.add("userid", MyApplication.getUser().getUserid());
 
@@ -437,8 +421,8 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
 //            request.add("goodsid", goodsid);
 //            request.add("goodstype", goods_type);
 //        } else { }
-        request.add("goodsid", mEducation.getFamily_id());
-        request.add("goodstype", mEducation.getGoods_type());
+        request.add("goodsid", mCommon.getCommon_id());
+        request.add("goodstype", mCommon.getGoods_type());
         request.add("userid", MyApplication.getUser().getUserid());
 
         Log.d("是否预约", request.getParamKeyValues().values().toString());
@@ -459,7 +443,7 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
                     try {
                         if (jsonObject.getString("code").equals("200")) {
                             //已预约
-                            mPhoneTV.setText(mEducation.getPhone());
+                            mPhoneTV.setText(mCommon.getPhone());
                         } else if (jsonObject.getString("code").equals("216")) {
                             mPhoneTV.setText("******");
                         }
@@ -488,9 +472,9 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
      */
     private void httpAppointment() {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_SERVICE_APPOINTMENT, RequestMethod.POST);
-        request.add("goodsid", mEducation.getFamily_id());
-        request.add("goodstype", mEducation.getGoods_type());
-        request.add("offline", mEducation.getOffline());
+        request.add("goodsid", mCommon.getCommon_id());
+        request.add("goodstype", mCommon.getGoods_type());
+        request.add("offline", mCommon.getOffline());
         request.add("userid", MyApplication.getUser().getUserid());
         Log.d("预约", request.getParamKeyValues().values().toString());
 
@@ -557,18 +541,18 @@ public class EducationDetailActivity extends BaseActivity implements OnItemClick
                 finish();
                 break;
             case R.id.tv_car_detail_buy:
-                if (mEducation != null) {
+                if (mCommon != null) {
                     httpAppointment();
                 }
                 break;
             case R.id.btn_jubao:
                 Bundle bundle = new Bundle();
-                if (mEducation == null) {
+                if (mCommon == null) {
                     bundle.putString("goodsid", goodsid);
                     bundle.putString("goodstype", goods_type);
                 } else {
-                    bundle.putString("goodsid", mEducation.getFamily_id());
-                    bundle.putString("goodstype", mEducation.getGoods_type());
+                    bundle.putString("goodsid", mCommon.getCommon_id());
+                    bundle.putString("goodstype", mCommon.getGoods_type());
                 }
                 go(ReportActivity.class, bundle);
                 break;

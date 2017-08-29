@@ -27,9 +27,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/x5"
-            android:text="众美B区"
+            android:text=""
             android:textColor="@color/colorWhite"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -37,7 +38,19 @@
             android:layout_height="@dimen/x10"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/x5"
-            android:src="@drawable/icon_down_arrow_white"/>
+            android:src="@drawable/icon_down_arrow_white"
+            android:visibility="visible"/>
+
+        <com.linkhand.baixingguanjia.customView.ExpandTabView
+            android:id="@+id/expandtabTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x5"
+            android:visibility="gone">
+
+        </com.linkhand.baixingguanjia.customView.ExpandTabView>
+
     </LinearLayout>
 
 
@@ -51,18 +64,35 @@
         android:textSize="16sp"/>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/message"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/x40"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:gravity="center_vertical|right"
+        android:gravity="right"
         android:orientation="vertical">
 
+
         <ImageView
+            android:id="@+id/message_image"
             android:layout_width="@dimen/x18"
             android:layout_height="@dimen/x18"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x7"
             android:src="@drawable/icon_message_white"/>
+
+        <TextView
+            android:id="@+id/message_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/x2"
+            android:background="@drawable/icon_information_circle"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,5 +101,5 @@
             android:textColor="@color/colorWhite"
             android:textSize="12sp"
             android:visibility="gone"/>
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

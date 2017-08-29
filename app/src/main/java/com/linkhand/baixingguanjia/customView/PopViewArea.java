@@ -2,6 +2,7 @@ package com.linkhand.baixingguanjia.customView;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,6 +109,7 @@ public class PopViewArea extends LinearLayout implements PopViewBaseActionListen
                         if (position < children.size()) {
                             childrenItem.clear();
                             childrenItem.addAll(children.get(position));
+                            Log.e("地区接口参数", "onItemClick: "+childrenItem.size() );
                             plateListViewAdapter.notifyDataSetChanged();
                         }
                         if (position == 0) {

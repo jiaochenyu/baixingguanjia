@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_checked="true" android:color="@color/colorWhite" />
+    <item android:state_checked="true" android:drawable="@drawable/background_corner_line_blue" />
     <!-- not selected -->
-    <item android:state_checked="false" android:color="@color/gray666"/>
+    <item android:state_checked="false" android:drawable="@drawable/background_textview_6dp_corner_line_gray"/>
 
     <!--<item android:state_enabled="false">
         <shape>

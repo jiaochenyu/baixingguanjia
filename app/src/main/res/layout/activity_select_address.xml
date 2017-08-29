@@ -4,44 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/defaultBackgroundGray"
+    android:fitsSystemWindows="true"
     tools:context="com.linkhand.baixingguanjia.ui.activity.SelectAddressActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/submit"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
 
         <include
             layout="@layout/include_common_header"/>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/defaultBackgroundGray"/>
+            style="@style/grayline"/>
 
         <include
             layout="@layout/include_select_address_menu"/>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/defaultBackgroundGray"/>
+            style="@style/grayline"/>
 
-        <ListView
-            android:background="@color/colorWhite"
+        <!--android:divider="@color/defaultBackgroundGray"-->
+        <!--android:dividerHeight="0.5dp"-->
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="0.5dp"
-            android:paddingLeft="@dimen/x10"
-            android:paddingRight="@dimen/x10"
-            android:divider="@color/defaultBackgroundGray"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
             >
-        </ListView>
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </LinearLayout>
 
     <TextView
@@ -52,8 +49,8 @@
         android:layout_alignParentRight="true"
         android:background="@color/colorTopic"
         android:gravity="center"
-        android:paddingBottom="@dimen/x15"
-        android:paddingTop="@dimen/x15"
+        android:paddingBottom="@dimen/x10"
+        android:paddingTop="@dimen/x10"
         android:text="确定"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"/>

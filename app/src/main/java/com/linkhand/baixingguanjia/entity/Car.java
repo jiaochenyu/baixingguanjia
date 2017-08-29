@@ -32,12 +32,12 @@ import java.util.List;
  * county : 测试区B
  * village : 测试小区B
  * time : 1970-01-01
-
+ * <p>
  * img : [{"image_url":"图片链接1"},{"image_url":"图片链接1"},{"image_url":"图片链接1"}]
  */
 
 
-public class Car implements Serializable{
+public class Car implements Serializable {
     private String carid;
     private String usersid;
     private String category;
@@ -47,7 +47,7 @@ public class Car implements Serializable{
     private String creator;
     private double distance;
     private String contact;
-    private int phone;
+    private String phone;
     private String Insertdate;
     private String deletedate;
     private String logo_url;
@@ -64,8 +64,23 @@ public class Car implements Serializable{
     private String village;
     private String time;
     private List<Picture> pic;
+    private String company;
+    private String address;
+    private List<String> image_url;
+    private String offline;
+    private String leibie;
+    private String quname;
+    private String xiaoquname;
 
     public Car() {
+    }
+
+    public String getOffline() {
+        return offline;
+    }
+
+    public void setOffline(String offline) {
+        this.offline = offline;
     }
 
 
@@ -141,11 +156,11 @@ public class Car implements Serializable{
         this.contact = contact;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -277,5 +292,51 @@ public class Car implements Serializable{
         this.pic = pic;
     }
 
+    public String getCompany() {
+        return company;
+    }
 
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<String> getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(List<String> image_url) {
+        this.image_url = image_url;
+    }
+
+    public String getLeibie() {
+        return leibie;
+    }
+
+    public void setLeibie(String leibie) {
+        this.leibie = leibie;
+    }
+
+    public String getQuname() {
+        return quname;
+    }
+
+    public void setQuname(String quname) {
+        this.quname = quname;
+    }
+
+    public String getXiaoquname() {
+        return xiaoquname;
+    }
+
+    public void setXiaoquname(String xiaoquname) {
+        this.xiaoquname = xiaoquname;
+    }
 }

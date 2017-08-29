@@ -1,8 +1,8 @@
-package com.linkhand.baixingguanjia.ui.activity;
+package com.linkhand.baixingguanjia.ui.activity.release;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -22,24 +22,21 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.google.gson.reflect.TypeToken;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
-import com.linkhand.baixingguanjia.base.MyApplication;
 import com.linkhand.baixingguanjia.customView.SideBar;
 import com.linkhand.baixingguanjia.customView.adapter.PopListTextAdapter;
 import com.linkhand.baixingguanjia.entity.EventFlag;
 import com.linkhand.baixingguanjia.entity.Qu;
 import com.linkhand.baixingguanjia.entity.Sheng;
-import com.linkhand.baixingguanjia.entity.Shi;
 import com.linkhand.baixingguanjia.entity.Xiaoqu;
-import com.linkhand.baixingguanjia.ui.service.HttpService;
 import com.linkhand.baixingguanjia.utils.JSONUtils;
 import com.linkhand.baixingguanjia.utils.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +45,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeAreaSearchActivity extends BaseActivity {
+
+public class ReleaseAreaSearchActivity extends BaseActivity {
 
     @Bind(R.id.back)
     ImageView mBack;
@@ -83,7 +81,7 @@ public class HomeAreaSearchActivity extends BaseActivity {
     //    @Bind(R.id.sidebar)
     SideBar mSidebar;
 
-    List<Sheng> mShengs;
+    Sheng mSheng;
     PopupWindow locationPop;
     PopupWindow locationPop2;
     ListView mListView;
@@ -91,22 +89,17 @@ public class HomeAreaSearchActivity extends BaseActivity {
     LinearLayout mLayout1;
     @Bind(R.id.layout_2)
     LinearLayout mLayout2;
-    private SparseArray<LinkedList<Shi>> mShis = new SparseArray<LinkedList<Shi>>();
-    private SparseArray<SparseArray<LinkedList<Qu>>> mQus = new SparseArray<>();
-    private SparseArray<SparseArray<SparseArray<LinkedList<Xiaoqu>>>> mXiaoqus = new SparseArray<>();
-    private LinkedList<Shi> shiItem = new LinkedList<Shi>();
-    private LinkedList<Qu> quItem = new LinkedList<Qu>();
+    @Bind(R.id.home_header_layout)
+    LinearLayout mHomeHeaderLayout;
+    @Bind(R.id.commom_layout)
+    LinearLayout mCommomLayout;
+    private List<Qu> mQus = new ArrayList<Qu>();
+    private SparseArray<LinkedList<Xiaoqu>> mXiaoqus = new SparseArray<LinkedList<Xiaoqu>>();
     private LinkedList<Xiaoqu> xiaoquItem = new LinkedList<Xiaoqu>();
-    private PopListTextAdapter mShengAdapter;
-    private PopListTextAdapter mShiAdapter;
     private PopListTextAdapter mQuAdapter;
     private PopListTextAdapter mXiaoquAdapter;
-    private int tShengPosition = 0;  //省
-    private int tShiPosition = 0; //市
     private int tQuPosition = 0; //区
     private int tXiaoquPosition = 0; //小区
-
-    private Sheng userSheng; //用户存储的省市区信息
 
 
     public LocationClient mLocationClient = null;
@@ -116,6 +109,9 @@ public class HomeAreaSearchActivity extends BaseActivity {
 
     String mTitleStr;
 
+    String acFlag = "";//判断是哪个activity传过来的
+    Sheng eventSheng; // 传递的参数
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,96 +120,32 @@ public class HomeAreaSearchActivity extends BaseActivity {
         initView();
         initData();
         initBDLocation();
-//        initPop();
-//        initAdatper();
-//        initListener();
+
     }
 
     @Override
     protected void getBundleExtras(Bundle extras) {
         super.getBundleExtras(extras);
         if (extras != null) {
-            mTitleStr = extras.getString("selectLocation", "石家庄");
+            acFlag = extras.getString("acFlag");
         }
     }
 
     private void initView() {
-        if (userSheng == null) {
-            mTitle.setText("当前定位城市-" + mTitleStr);
-        } else {
-            mTitle.setText("当前选择地区-" + mTitleStr);
-        }
+        mSubmitTV.setText(R.string.sure_select);
+        mCommomLayout.setVisibility(View.VISIBLE);
+        mHomeHeaderLayout.setVisibility(View.GONE);
+        mLayout1.setVisibility(View.GONE);
+        mTitle.setText(R.string.select_address);
+
     }
 
     private void initData() {
-        mShengs = (List<Sheng>) SPUtils.get(this, "Location", new TypeToken<List<Sheng>>() {
-        }.getType());
-        if (mShengs != null && mShengs.size() > 0) {
-            Map<String, Object> map = JSONUtils.getDiquAll(mShengs);
-            mShis = (SparseArray<LinkedList<Shi>>) map.get("shis");
-            mQus = (SparseArray<SparseArray<LinkedList<Qu>>>) map.get("qus");
-            mXiaoqus = (SparseArray<SparseArray<SparseArray<LinkedList<Xiaoqu>>>>) map.get("xiaoqus");
-        }
-        //设置默认  也就是选中的 省市区小区
-        userSheng = (Sheng) SPUtils.get(this, "UserLocation", Sheng.class);
-        updateSheng = userSheng;
-        if (userSheng == null && MyApplication.getLocation() != null) {
-//            mShengTv.setText("省");
-        } else if (userSheng != null) {
-            mShengTv.setText(userSheng.getName());
-            mShiTv.setText(userSheng.getShi().getName());
-            Sheng flagSheng = null;
-            Shi flagShi = null;
-            Qu flagQu = null;
-            Xiaoqu flagXiaoqu = null;
-            for (int i = 0; i < mShengs.size(); i++) {
-                if (mShengs.get(i).getName().equals(userSheng.getName())) {
-                    tShengPosition = i;
-                    flagSheng = mShengs.get(i);
-                    break;
-                }
-
-            }
-            if (flagSheng != null) {
-                for (int i = 0; i < flagSheng.getShiList().size(); i++) {
-                    if (flagSheng.getShiList().get(i).getName().equals(userSheng.getShi().getName())) {
-                        tShiPosition = i;
-                        flagShi = flagSheng.getShiList().get(i);
-                        break;
-                    }
-                }
-            }
-            if (userSheng.getQu() != null) {
-                mQuTv.setText(userSheng.getQu().getName());
-                if (flagShi != null) {
-                    for (int i = 0; i < flagShi.getQuList().size(); i++) {
-                        if (flagShi.getQuList().get(i).getName().equals(userSheng.getQu().getName())) {
-                            flagQu = flagShi.getQuList().get(i);
-                            tQuPosition = i + 1;
-                            break;
-                        }
-                    }
-                }
-                Log.e("qu", userSheng.getQu().getName() + " " + tQuPosition);
-            }
-            if (userSheng.getXiaoqu() != null) {
-                Log.e("xiaoqu", userSheng.getXiaoqu().getName());
-                mXiaoquTv.setText(userSheng.getXiaoqu().getName());
-//                if (flagQu != null) {
-////                    for (int i = 0; i < flagQu.getXiaoquList().size(); i++) {
-////                        if (flagQu.getXiaoquList().get(i).getName().equals(userSheng.getXiaoqu().getName())) {
-////                            flagXiaoqu = flagQu.getXiaoquList().get(i);
-//////                            tXiaoquPosition = i;
-////                            break;
-////                        }
-////                    }
-//                }
-            }
-
-        } else if (userSheng == null && MyApplication.getLocation() == null) {
-//            mShengTv.setText("省");
-        }
-
+        eventSheng = new Sheng();
+        mSheng = (Sheng) SPUtils.get(this, "DiQu", Sheng.class);
+        Map<String, Object> map = JSONUtils.getDiqu2(mSheng.getShiList().get(0).getQuList());
+        mQus = (ArrayList<Qu>) map.get("groups");
+        mXiaoqus = (SparseArray<LinkedList<Xiaoqu>>) map.get("children");
 
     }
 
@@ -258,27 +190,6 @@ public class HomeAreaSearchActivity extends BaseActivity {
         mLocationClient.start();
     }
 
-
-    private void initSidebarListener() {
-        mSidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                char letter;
-                letter = s.toUpperCase().charAt(0);
-
-//                for (int i = 0; i < mXiaoqus.size(); i++) {
-                for (int i = 0; i < xiaoquItem.size(); i++) {
-//                    Log.e("theLetter", "onTouchingLetterChanged: " + xiaoquItem.get(i).getName());
-                    if (xiaoquItem.get(i).getLetter() == letter) {
-                        Log.e("onTouchingLetterChanged", "onTouchingLetterChanged: " + i);
-                        mListview.setSelection(i);
-                        break;
-                    }
-                }
-            }
-        });
-    }
-
     private void showPop(int flag) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.from(this).inflate(R.layout.view_list_popuwindow_sidebar, null);
@@ -289,16 +200,8 @@ public class HomeAreaSearchActivity extends BaseActivity {
 //        initSidebarListener();
         switch (flag) {
             case 1:
-                mSidebar.setVisibility(View.GONE);
-                mShowletter.setVisibility(View.GONE);
-                initShengAdatper();
-                mListView.setAdapter(mShengAdapter);
                 break;
             case 2:
-                mSidebar.setVisibility(View.GONE);
-                mShowletter.setVisibility(View.GONE);
-                initShiAdatper();
-                mListView.setAdapter(mShiAdapter);
                 break;
             case 3:
                 mSidebar.setVisibility(View.GONE);
@@ -323,82 +226,8 @@ public class HomeAreaSearchActivity extends BaseActivity {
         locationPop.setBackgroundDrawable(new BitmapDrawable());
     }
 
-
-    private void initShengAdatper() {
-        mShengAdapter = new PopListTextAdapter(mShengs, this,
-                R.color.colorWhite,
-                R.drawable.pop_list_choose_eara_item_selector, 1);
-        mShengAdapter.setTextSize(13);
-        mShengAdapter.setTextColor(getResources().getColor(R.color.blackText));
-        mShengAdapter.setSelectedPositionNoNotify(tShengPosition);
-//        mListview.setAdapter(mShengAdapter);
-        mShengAdapter
-                .setOnItemClickListener(new PopListTextAdapter.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        if (position < mShis.size()) {
-                            updateSheng = mShengs.get(position);
-                            updateSheng.setShi(updateSheng.getShiList().get(0));
-
-                            mShengTv.setText(updateSheng.getName());
-                            showToast("" + updateSheng.getName() + "" + mShis.get(position).get(0).getName());
-                            mShiTv.setText(mShis.get(position).get(0).getName());
-
-                            mQuTv.setText("区");
-                            mXiaoquTv.setText("小区");
-                            quItem.clear();
-                            xiaoquItem.clear();
-                            locationPop.dismiss();
-
-                        }
-                        tShengPosition = position;
-                    }
-                });
-
-    }
-
-    private void initShiAdatper() {
-        if (tShengPosition < mShis.size()) {
-            shiItem.clear();
-            shiItem.addAll(mShis.get(tShengPosition));
-        }
-
-        mShiAdapter = new PopListTextAdapter(shiItem, this, 0,
-                R.drawable.pop_list_choose_plate_item_selector, 1);
-        mShiAdapter.setTextSize(13);
-        mShiAdapter.setTextColor(getResources().getColor(R.color.blackText));
-        mShiAdapter.setSelectedPositionNoNotify(tShiPosition);
-//        mListview.setAdapter(mShiAdapter);
-        mShiAdapter
-                .setOnItemClickListener(new PopListTextAdapter.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(View view, final int position) {
-                        mShiTv.setText(mShis.get(tShengPosition).get(position).getName());
-                        locationPop.dismiss();
-
-                        mQuTv.setText("区");
-                        mXiaoquTv.setText("小区");
-                        quItem.clear();
-                        xiaoquItem.clear();
-
-                        updateSheng = mShengs.get(tShengPosition);
-                        updateSheng.setShi(updateSheng.getShiList().get(position));
-
-                        tShiPosition = position;
-                    }
-                });
-
-    }
-
     private void initQuAdatper() {
-        if (tShiPosition < mQus.size()) {
-            quItem.clear();
-            quItem.addAll(mQus.get(tShengPosition).get(tShiPosition));
-        }
-
-        mQuAdapter = new PopListTextAdapter(quItem, this, 0,
+        mQuAdapter = new PopListTextAdapter(mQus, this, 0,
                 R.drawable.pop_list_choose_plate_item_selector, 1);
         mQuAdapter.setTextSize(13);
         mQuAdapter.setTextColor(getResources().getColor(R.color.blackText));
@@ -409,16 +238,9 @@ public class HomeAreaSearchActivity extends BaseActivity {
 
                     @Override
                     public void onItemClick(View view, final int position) {
-                        if (position == 0) { //表示选择全城
-                            updateSheng = mShengs.get(tShengPosition);
-                            updateSheng.setShi(mShis.get(tShengPosition).get(tShiPosition));
-                        } else {
-                            updateSheng = mShengs.get(tShengPosition);
-                            updateSheng.setShi(mShis.get(tShengPosition).get(tShiPosition));
-                            updateSheng.setQu(mQus.get(tShengPosition).get(tShiPosition).get(position));
-                        }
-
-                        mQuTv.setText(mQus.get(tShengPosition).get(tShiPosition).get(position).getName());
+                        eventSheng.setQu(mQus.get(position));
+                        eventSheng.setXiaoqu(null);
+                        mQuTv.setText(mQus.get(position).getName());
                         locationPop.dismiss();
                         tQuPosition = position;
 
@@ -432,13 +254,14 @@ public class HomeAreaSearchActivity extends BaseActivity {
 
 
     private void initXiaoquAdatper() {
-//        if (tQuPosition < mXiaoqus.size() && tQuPosition > 0) {  //position 0 是全城
-        if (tQuPosition > 0) {  //position 0 是全城
-            xiaoquItem.clear();
-            xiaoquItem.addAll(mXiaoqus.get(tShengPosition).get(tShiPosition).get(tQuPosition));
-            showToast(xiaoquItem.size() + " " + xiaoquItem.get(0).getName());
-            sort();
-        }
+//        if (tQuPosition >= 0) {  //position 0
+//            xiaoquItem.clear();
+//            xiaoquItem.addAll(mXiaoqus.get(tQuPosition));
+//            showToast(xiaoquItem.size() + " " + xiaoquItem.get(0).getName());
+//            sort();
+//        }
+        xiaoquItem.addAll(mXiaoqus.get(tQuPosition));
+        sort();
         mXiaoquAdapter = new PopListTextAdapter(xiaoquItem, this, 0,
                 R.drawable.pop_list_choose_plate_item_selector, 1);
         mXiaoquAdapter.setTextSize(13);
@@ -449,17 +272,8 @@ public class HomeAreaSearchActivity extends BaseActivity {
                 .setOnItemClickListener(new PopListTextAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, final int position) {
-                        if (position == 0) { //表示选择全区
-                            updateSheng = mShengs.get(tShengPosition);
-                            updateSheng.setShi(mShis.get(tShengPosition).get(tShiPosition));
-                            updateSheng.setQu(mQus.get(tShengPosition).get(tShiPosition).get(tQuPosition));
-                        } else {
-                            updateSheng = mShengs.get(tShengPosition);
-                            updateSheng.setShi(mShis.get(tShengPosition).get(tShiPosition));
-                            updateSheng.setQu(mQus.get(tShengPosition).get(tShiPosition).get(tQuPosition));
-                            updateSheng.setXiaoqu(xiaoquItem.get(position));
-                        }
 //                        mXiaoquTv.setText(mXiaoqus.get(tShengPosition).get(tShiPosition).get(tQuPosition).get(position).getName());
+                        eventSheng.setXiaoqu(xiaoquItem.get(position));
                         mXiaoquTv.setText(xiaoquItem.get(position).getName());
                         tXiaoquPosition = position;
                         locationPop.dismiss();
@@ -523,7 +337,7 @@ public class HomeAreaSearchActivity extends BaseActivity {
      * @param v
      */
     private void popUtils(View v) {
-        if (android.os.Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= 24) {
             int[] a = new int[2];
             v.getLocationInWindow(a);
             locationPop.showAtLocation(getWindow().getDecorView(), Gravity.NO_GRAVITY, 0, a[1] + v.getHeight());
@@ -554,20 +368,20 @@ public class HomeAreaSearchActivity extends BaseActivity {
 //                locationPop.showAsDropDown(mLayout2);
                 break;
             case R.id.xiaoqu_layout:
-                if (tQuPosition > 0) {
                     showPop(4);
                     popUtils(mLayout2);
 //                    locationPop.showAsDropDown(mLayout2);
-                }
                 break;
             case R.id.submit:
-//                showToast(updateSheng.getName() + updateSheng.getShi().getName()+updateSheng.getQu().getName()+updateSheng.getXiaoqu().getName());
-//                Log.e("地区接口参数", updateSheng.getName() + updateSheng.getShi().getName()+updateSheng.getQu().getName()+updateSheng.getXiaoqu().getName());
-                SPUtils.put(HomeAreaSearchActivity.this, "UserLocation", updateSheng);
-                Intent intent = new Intent(getApplicationContext(), HttpService.class);
-                intent.putExtra("sheng", updateSheng);
-                startService(intent);
-                EventBus.getDefault().post(new EventFlag("updateLocation", ""));
+                if (eventSheng.getQu() == null) {
+                    showToast("请选择区");
+                    return;
+                }
+                if (eventSheng.getXiaoqu() == null) {
+                    showToast("请选择小区");
+                    return;
+                }
+                EventBus.getDefault().post(new EventFlag(acFlag, eventSheng));
                 finish();
                 break;
         }

@@ -15,7 +15,7 @@
         android:layout_width="@dimen/x80"
         android:layout_height="@dimen/x80"
         android:background="@drawable/background_no_corner_kuang"
-        android:src="@mipmap/icon_bell"
+        android:src="@drawable/default_pic_show"
         />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_marginLeft="@dimen/x10"
         android:layout_marginRight="@dimen/x15"
         android:layout_toRightOf="@+id/image_good"
-        android:text="@string/string7"
+        android:text=""
         android:textColor="@color/colorBlack"/>
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_alignLeft="@+id/good_name"
         android:layout_below="@+id/good_name"
         android:layout_marginTop="@dimen/x5"
-        android:text="@string/string8"
+        android:text=""
         android:textColor="@color/grayText"
         android:textSize="12sp"/>
 
@@ -52,7 +52,7 @@
         android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/num"
+        android:id="@+id/goods_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/price1"
@@ -61,5 +61,6 @@
         android:textColor="@color/blackText"
         android:textSize="14sp"
         android:text="×1"/>
+
 </RelativeLayout>
 

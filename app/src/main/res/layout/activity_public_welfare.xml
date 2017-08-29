@@ -10,7 +10,7 @@
     tools:context="com.linkhand.baixingguanjia.ui.activity.sort.PublicWelfareActivity">
 
     <include
-        layout="@layout/include_common_header_setting"/>
+        layout="@layout/include_search_header"/>
 
     <View
         style="@style/grayline"/>

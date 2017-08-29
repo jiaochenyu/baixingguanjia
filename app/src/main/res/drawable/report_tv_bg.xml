@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/fuli_checked_bg"
+        android:drawable="@drawable/report_checked_bg"
         android:state_checked="true"
         >
     </item>
     <item
-        android:drawable="@drawable/fuli_normal_bg"></item>
+        android:drawable="@drawable/report_normal_bg"></item>
 </selector>

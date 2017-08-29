@@ -37,7 +37,7 @@
                     android:text="金牌月嫂小时工"/>
 
                 <TextView
-                    android:id="@+id/type"
+                    android:id="@+id/store_type"
                     style="@style/goodsBlackTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 >
 
                 <TextView
-                    android:id="@+id/g_statu"
+                    android:id="@+id/btn_jubao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -73,25 +73,68 @@
                     android:gravity="center"
                     android:textSize="12sp"
                     android:text="举报"
+                    android:visibility="visible"
                     android:textColor="@color/grayText"/>
+
+                <ImageView
+                    android:id="@+id/share_iv"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_yes"/>
 
                 <TextView
                     android:id="@+id/text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:gravity="center"
                     android:text="发布时间"
+                    android:layout_centerVertical="true"
                     android:textColor="@color/grayText"/>
 
                 <TextView
+                    android:id="@+id/creatortime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x5"
+                    android:layout_marginLeft="@dimen/x5"
                     android:layout_toRightOf="@+id/text1"
-                    android:gravity="center"
+                    android:layout_centerVertical="true"
                     android:text="2017.6.25"
                     android:textColor="@color/grayText"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/rmb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/price"
+                    android:layout_alignParentLeft="@+id/price"
+                    android:layout_marginBottom="@dimen/x1"
+                    android:text="¥"
+                    android:textColor="@color/redFE5"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x2"
+                    android:layout_toRightOf="@+id/rmb"
+                    android:text=""
+                    android:textColor="@color/redFE5"
+                    android:textSize="18sp"/>
+
 
             </RelativeLayout>
 
@@ -139,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x3"
                     android:paddingLeft="@dimen/x10"
-                    android:text="内容哈哈哈哈哈哈技术等级覅技术等级自己就祭祀等级时间地附近几十斤几就"
+                    android:text=""
                     android:textColor="@color/blackText"
                     android:textSize="14sp"/>
 

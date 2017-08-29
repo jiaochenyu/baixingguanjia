@@ -19,6 +19,7 @@ public class CustomToggleButton extends RelativeLayout {
 
 	private TextView tvTitle;
 	private ImageView ivPressBottomLine;
+	private ImageView ivToggle;
 	private View rlCusToggle,verticalDivider,vBottomDivider;
 	private boolean checked;
 	private OnToggleListener onToggleListener;
@@ -27,6 +28,19 @@ public class CustomToggleButton extends RelativeLayout {
 	public CustomToggleButton(Context context) {
 		super(context);
 		this.context = context;
+	}
+	public CustomToggleButton(Context context,int ivRes,int textRes) {
+		super(context);
+		this.context = context;
+	}
+
+	public  void setIVRes(){
+		ivToggle.setImageDrawable(getResources().getDrawable(R.drawable.icon_down_arrow_white));
+	}
+
+	public void setTextRes() {
+		tvTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+
 	}
 
 	public CustomToggleButton(Context context, AttributeSet attrs) {
@@ -39,6 +53,7 @@ public class CustomToggleButton extends RelativeLayout {
 		verticalDivider = findViewById(R.id.verticalDivider);
 		rlCusToggle = findViewById(R.id.rlCusToggle);
 		vBottomDivider = findViewById(R.id.v_tab_bottom_divider);
+		ivToggle = (ImageView) findViewById(R.id.image_toggle);
 		rlCusToggle.setOnClickListener(new OnClickListener() {
 
 			@Override

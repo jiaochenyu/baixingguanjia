@@ -77,6 +77,17 @@ public class BaseAppManager {
     }
 
     /**
+     * 结束指定类名的Activity
+     */
+    public synchronized void finishActivity(Class<?> cls) {
+        for (Activity activity : mActivities) {
+            if (activity.getClass().equals(cls)) {
+                removeActivity(activity);
+            }
+        }
+    }
+
+    /**
      * 结束所有Activity
      */
     public synchronized void clear() {
@@ -86,6 +97,7 @@ public class BaseAppManager {
             activity.finish();
         }
     }
+
 
     /**
      * 结束所有后台Activity

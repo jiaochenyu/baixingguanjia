@@ -20,7 +20,7 @@
         android:gravity="center"
         android:paddingBottom="@dimen/x4"
         android:paddingRight="@dimen/x4"
-        android:text="明日预告"
+        android:text="预告"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"/>
 
@@ -36,9 +36,24 @@
         android:paddingBottom="@dimen/x8"
         android:paddingRight="@dimen/x10"
         android:paddingTop="@dimen/x8"
-        android:text="明日10点开抢"
+        android:text=""
         android:textColor="@color/blue7BA"
         android:textSize="14sp"/>
 
+    <RelativeLayout
+        android:id="@+id/finish_event"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x120"
+        android:alpha="0.8"
+        android:background="@color/defaultBackgroundGray"
+        android:visibility="gone">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="敬请期待"/>
+
+
+    </RelativeLayout>
 </RelativeLayout>

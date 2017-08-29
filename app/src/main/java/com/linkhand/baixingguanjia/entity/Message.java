@@ -8,9 +8,18 @@ import java.io.Serializable;
  */
 
 public class Message implements Serializable {
+    private String id;
     private String iconUrl;
     private String title;
     private String content;
+    /**
+     * add_time : 1970-01-01
+     * state : 1
+     */
+
+    private String add_time;
+    private String state;
+
 
     public Message() {
     }
@@ -37,5 +46,29 @@ public class Message implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getAdd_time() {
+        return add_time;
+    }
+
+    public void setAdd_time(String add_time) {
+        this.add_time = add_time;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

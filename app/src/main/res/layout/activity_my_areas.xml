@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.sort.MyAreasActivity">
 
@@ -16,36 +16,74 @@
     <View
         style="@style/grayline"/>
 
-
-    <TextView
-        android:id="@+id/feed_back"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/x5"
-        android:layout_marginLeft="@dimen/x10"
-        android:layout_marginRight="@dimen/x10"
-        android:layout_marginTop="@dimen/x5"
-        android:background="@drawable/background_textview_corner_line_blue"
-        android:gravity="center"
-        android:paddingBottom="@dimen/x5"
-        android:paddingTop="@dimen/x5"
-        android:text="+ 反馈信息"
-        android:textColor="@color/blueTopic"
-        android:textSize="14sp"
-        />
+        android:layout_height="match_parent">
 
-    <View
-        style="@style/grayline"/>
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/feed_back_layout"
+            android:divider="@null">
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/listview"
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        <LinearLayout
+            android:id="@+id/feed_back_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/blueTopic"
+            android:padding="@dimen/x8"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_feed_back_white"/>
+
+            <TextView
+                android:id="@+id/feed_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x5"
+                android:background="@color/blueTopic"
+                android:gravity="center"
+                android:paddingBottom="@dimen/x5"
+                android:paddingTop="@dimen/x5"
+                android:text="@string/yezhu_feedback"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/null_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null">
+        android:layout_below="@+id/layout"
+        android:visibility="gone">
 
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        <ImageView
+            android:id="@+id/null_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/x30"
+            android:src="@drawable/null_data_show"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/null_image"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/x10"
+            android:text="@string/myareasnotdata"
+            android:textColor="@color/blackText"/>
 
+    </RelativeLayout>
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"

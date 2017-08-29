@@ -36,7 +36,7 @@
         android:paddingBottom="@dimen/x8"
         android:paddingRight="@dimen/x10"
         android:paddingTop="@dimen/x8"
-        android:text="明日10点开抢"
+        android:text="结束"
         android:textColor="@color/blackText"
         android:textSize="14sp"/>
 

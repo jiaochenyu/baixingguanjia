@@ -45,7 +45,7 @@
         android:orientation="horizontal">
 
         <ListView
-            android:id="@+id/lvRegion"
+            android:id="@+id/lvSheng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -57,7 +57,7 @@
         </ListView>
 
         <ListView
-            android:id="@+id/lvPlate"
+            android:id="@+id/lvShi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,6 +65,28 @@
             android:cacheColorHint="@color/transparent"
             android:divider="@color/defaultBackgroundGray"
             android:dividerHeight="0.5dp">
+        </ListView>
+        <ListView
+            android:id="@+id/lvQu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:cacheColorHint="@color/transparent"
+            android:divider="@color/defaultBackgroundGray"
+            android:dividerHeight="0.5dp"
+            android:scrollbars="none">
+        </ListView>
+        <ListView
+            android:id="@+id/lvXiaoqu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:cacheColorHint="@color/transparent"
+            android:divider="@color/defaultBackgroundGray"
+            android:dividerHeight="0.5dp"
+            android:scrollbars="none">
         </ListView>
     </LinearLayout>
 

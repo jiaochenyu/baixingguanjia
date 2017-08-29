@@ -1,4 +1,4 @@
-package com.linkhand.baixingguanjia.ui.activity.car;
+package com.linkhand.baixingguanjia.ui.activity.detail;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -21,6 +21,7 @@ import com.linkhand.baixingguanjia.customView.NoScrollListView;
 import com.linkhand.baixingguanjia.entity.Car;
 import com.linkhand.baixingguanjia.entity.Picture;
 import com.linkhand.baixingguanjia.ui.activity.LoginActivity;
+import com.linkhand.baixingguanjia.ui.activity.car.AddUserInfoActivity;
 import com.linkhand.baixingguanjia.ui.adapter.SecondhandCarDetailAdapter;
 import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
 import com.yanzhenjie.nohttp.NoHttp;

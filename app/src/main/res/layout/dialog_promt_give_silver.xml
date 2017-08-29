@@ -3,6 +3,7 @@
               android:layout_width="@dimen/x300"
               android:layout_height="wrap_content"
               android:orientation="vertical"
+
     >
 
     <RelativeLayout
@@ -10,71 +11,106 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x15"
             android:background="@drawable/background_corner_white"
             android:orientation="vertical"
             android:paddingBottom="@dimen/x20"
-            android:paddingLeft="@dimen/x10"
-            android:paddingRight="@dimen/x10"
+            android:paddingLeft="@dimen/x8"
+            android:paddingRight="@dimen/x8"
             android:paddingTop="@dimen/x20">
 
-            <EditText
-                android:id="@+id/content_edit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/x160"
-                android:layout_marginTop="@dimen/x10"
-                android:background="@drawable/background_corner_line_blue"
-                android:gravity="left"
-                android:hint="请输入要反馈的信息..."
-                android:padding="@dimen/x10"
-                android:scrollbars="vertical"
-                android:textColor="@color/blackText"
-                android:textSize="14sp"
-                android:textColorHint="@color/grayText"/>
-
-            <EditText
-                android:id="@+id/phone_edit"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x10"
-                android:background="@drawable/background_corner_line_blue"
-                android:gravity="left|center_vertical"
-                android:hint="留下您的联系方式吧..."
-                android:padding="@dimen/x10"
-                android:textSize="14sp"
-                android:scrollbars="vertical"
-                android:textColor="@color/blackText"
-                android:textColorHint="@color/grayText"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/x5"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/x6"
+                    android:paddingTop="@dimen/x6"
+                    android:text="注册成功！"
+                    android:textColor="@color/redTopic"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/title"
+                    android:src="@drawable/icon_sliver_3"
+                    />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/x5"
+                    android:paddingBottom="@dimen/x6"
+                    android:paddingTop="@dimen/x6"
+                    android:text="@string/giveSliverPromt"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/x12"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:lineSpacingExtra="@dimen/x5"
+                    android:paddingBottom="@dimen/x6"
+                    android:paddingTop="@dimen/x6"
+                    android:text="@string/giveSliverDes"
+                    android:textColor="@color/grayText"
+                    android:textSize="@dimen/x11"/>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/submit"
-                android:layout_width="match_parent"
+                android:id="@+id/know"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x10"
-                android:layout_marginRight="@dimen/x10"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/x50"
+                android:layout_marginRight="@dimen/x50"
                 android:layout_marginTop="@dimen/x15"
-                android:background="@drawable/background_corner_button_bluetopic_color"
+                android:background="@drawable/background_textview_big_corner_line_red"
                 android:gravity="center"
                 android:paddingBottom="@dimen/x6"
+                android:paddingLeft="@dimen/x25"
+                android:paddingRight="@dimen/x25"
                 android:paddingTop="@dimen/x6"
-                android:text="提交"
-                android:textColor="@color/colorWhite"
+                android:text="我知道了"
+                android:textColor="@color/redTopic"
                 android:textSize="14sp"/>
 
         </LinearLayout>
 
         <ImageView
-            android:layout_width="@dimen/x36"
+            android:layout_width="@dimen/x40"
             android:layout_height="@dimen/x40"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/background_corner_white"
-            android:paddingLeft="@dimen/x3"
-            android:paddingRight="@dimen/x3"
-            android:paddingTop="@dimen/x1"
-            android:src="@drawable/icon_feed_back"
+            android:src="@drawable/icon_logo_circle"
             />
 
     </RelativeLayout>

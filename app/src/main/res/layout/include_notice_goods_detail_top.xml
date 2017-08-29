@@ -20,6 +20,7 @@
             app:canLoop="true"/>
 
         <RelativeLayout
+            android:id="@+id/layout_detail_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorTopic">
@@ -45,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/share_iv"
-                    android:text="日本卡乐比Calbee Jagabee 淡盐味"/>
+                    android:text=""/>
 
                 <ImageView
                     android:id="@+id/share_iv"
@@ -80,11 +81,12 @@
                     android:textColor="@color/blue22B"/>
 
                 <TextView
+                    android:id="@+id/kucun_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center"
-                    android:text="库存998"
+                    android:text=""
                     android:textColor="@color/blackText"/>
 
             </RelativeLayout>
@@ -136,7 +138,6 @@
                     android:src="@drawable/shanxing"/>
 
                 <com.linkhand.baixingguanjia.customView.AlignedTextView
-                    android:id="@+id/chandi"
                     android:layout_width="@dimen/x40"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x3"
@@ -145,7 +146,7 @@
                     android:textSize="12sp"/>
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/chandi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x5"
@@ -186,6 +187,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/x10"
@@ -212,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x5"
-                    android:text="有效期"
+                    android:text=""
                     android:textColor="@color/blackText"
                     android:textSize="12sp"/>
 
@@ -235,6 +237,7 @@
             >
 
             <TextView
+                android:id="@+id/guige_text_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -243,6 +246,7 @@
                 android:text="选择商品规格"
                 android:textColor="@color/blackText"
                 android:textSize="14sp"/>
+
 
             <ImageView
                 android:layout_width="@dimen/x16"
@@ -267,6 +271,7 @@
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/x10"
             android:paddingRight="@dimen/x10"
+            android:visibility="gone"
             >
 
             <TextView
@@ -291,6 +296,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/x8"
+            android:visibility="gone"
             android:background="@color/defaultBackgroundGray"/>
 
 

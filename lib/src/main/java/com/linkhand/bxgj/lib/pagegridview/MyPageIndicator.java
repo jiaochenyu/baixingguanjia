@@ -1,9 +1,11 @@
-package com.zgh.pagegridview;
+package com.linkhand.bxgj.lib.pagegridview;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.linkhand.bxgj.lib.R;
 
 /**
  * Created by zhuguohui on 2016/8/21 0021.

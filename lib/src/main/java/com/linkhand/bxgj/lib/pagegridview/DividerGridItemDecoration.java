@@ -1,4 +1,4 @@
-package com.zgh.pagegridview;
+package com.linkhand.bxgj.lib.pagegridview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;

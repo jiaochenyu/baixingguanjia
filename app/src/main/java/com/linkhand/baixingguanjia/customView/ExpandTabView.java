@@ -3,6 +3,7 @@ package com.linkhand.baixingguanjia.customView;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -74,6 +75,79 @@ public class ExpandTabView extends LinearLayout implements OnDismissListener{
 			return mToggleButton.get(position).getText().toString();
 		}
 		return "";
+	}
+
+	/**
+	 *
+	 */
+
+	/**
+	 * 设置tabitem的个数和初始值
+	 * @param textArray
+	 * @param viewArray
+	 * @param v_bg 设置在pupowindow底部的遮罩层
+	 */
+	public void setValueStyle(ArrayList<String> textArray, ArrayList<View> viewArray,final View v_bg) {
+		vBg = v_bg;
+//		vBg.getBackground().setAlpha(255);
+		if (mContext == null) {
+			return;
+		}
+		LayoutInflater inflater = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mTextArray = textArray;
+		for (int i = 0; i < viewArray.size(); i++) {
+			RelativeLayout r = new RelativeLayout(mContext);
+			int maxHeight = (int) (displayHeight * 0.7);
+			RelativeLayout.LayoutParams rl = new RelativeLayout
+					.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, maxHeight);
+			rl.leftMargin = 10;
+			rl.rightMargin = 10;
+			r.addView(viewArray.get(i), rl);
+//			r.setAlpha(0.0f);
+			mViewArray.add(r);
+			r.setTag(SMALL);
+			CustomToggleButton tButton = (CustomToggleButton)inflater
+					.inflate(R.layout.toggle_button, this,false);
+			tButton.setIVRes();
+			tButton.setTextRes();
+			addView(tButton);
+
+			mToggleButton.add(tButton);
+			tButton.setTag(i);
+			tButton.setText(mTextArray.get(i));
+			r.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					onPressBack();
+
+				}
+			});
+
+			r.setBackgroundColor(mContext.getResources().getColor(R.color.transparent));
+			tButton.setOnToggleListener(new CustomToggleButton.OnToggleListener() {
+
+				@Override
+				public void onClick(View v) {
+					if(vBg!=null){
+						vBg.setVisibility(View.VISIBLE);
+					}
+					CustomToggleButton tButton = (CustomToggleButton)v;
+					if (selectedButton != null && selectedButton != tButton) {
+						selectedButton.setChecked(false);
+						mToggleButton.set(selectPosition, selectedButton);
+					}
+					selectedButton = tButton;
+					selectPosition = (Integer) selectedButton.getTag();
+					startAnimation();
+					if (mOnButtonClickListener != null && tButton.isChecked()) {
+						mOnButtonClickListener.onClick(selectPosition);
+					}
+
+				}
+			});
+		}
 	}
 	
 	/**
@@ -182,7 +256,15 @@ public class ExpandTabView extends LinearLayout implements OnDismissListener{
 		if (popupWindow.getContentView() != mViewArray.get(position)) {
 			popupWindow.setContentView(mViewArray.get(position));
 		}
-		popupWindow.showAsDropDown(this, 0, 0);
+//		popupWindow.showAsDropDown(ExpandTabView.this, 0, 0);
+		if (android.os.Build.VERSION.SDK_INT >=24) {
+			int[] a = new int[2];
+			this.getLocationInWindow(a);
+			popupWindow.showAtLocation(((Activity) mContext).getWindow().getDecorView(), Gravity.NO_GRAVITY, 0 , a[1]+this.getHeight());
+		} else{
+			popupWindow.showAsDropDown(this, 0, 0);
+		}
+//		popupWindow.showAtLocation(this, Gravity.NO_GRAVITY, 0, 0);
 	}
 	
 	/**

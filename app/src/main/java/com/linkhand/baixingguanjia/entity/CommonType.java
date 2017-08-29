@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 /**
  * Created by JCY on 2017/7/11.
- * 说明：
+ * 说明： 获取类型 二手车类型  家政类型 等等。。。。。
  */
 
-public class CarType implements Serializable {
+public class CommonType implements Serializable {
 
     /**
      * id : 40
@@ -17,8 +17,13 @@ public class CarType implements Serializable {
     private String id;
     private String name;
 
-    public CarType() {
+    public CommonType() {
 
+    }
+
+    public CommonType(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public String getId() {

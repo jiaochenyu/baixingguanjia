@@ -37,10 +37,16 @@
         android:layout_height="0.5dp"/>
 
     <!--用户名-->
-    <include
-        android:id="@+id/username_layout"
-        layout="@layout/include_item_go"
-        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/username_layout"
+            layout="@layout/include_item_go"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,13 +84,13 @@
             android:visibility="visible"/>
 
         <TextView
-            android:id="@+id/text_left"
+            android:id="@+id/my_cell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
             android:layout_toRightOf="@+id/image1"
-            android:text="添加我的小区"
+            android:text="@string/addMyCell"
             android:textColor="@color/blackText"
             android:textSize="14sp"/>
 

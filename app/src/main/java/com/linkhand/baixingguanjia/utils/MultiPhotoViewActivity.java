@@ -1,4 +1,4 @@
-package com.scyd.czf.utils;
+package com.linkhand.baixingguanjia.utils;
 
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -9,16 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.scyd.czf.R;
-import com.scyd.czf.base.BaseActivity;
-import com.scyd.czf.base.Constants;
+import com.linkhand.baixingguanjia.R;
+import com.linkhand.baixingguanjia.base.BaseActivity;
+import com.linkhand.baixingguanjia.base.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 /**
  * 这是多图片预览工具类，不要使用CommonPhotoViewActivity进行预览。
@@ -33,16 +35,11 @@ public class MultiPhotoViewActivity extends BaseActivity implements ViewPager.On
     private List<PhotoView> imgViews;
     private int currentPosition;
 
-
     @Override
-    protected void getBundleExtras(Bundle extras) {
-        imageUrls = extras.getStringArrayList(Constants.Keys.IMAGE_ITEMS);
-        currentPosition = extras.getInt("position");
-    }
-
-    @Override
-    protected void initViewsAndEvents() {
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_multi_photo_view);
+        ButterKnife.bind(this);
         if (imageUrls == null || imageUrls.size() == 0) {
             finish();
 //            imageUrls = new ArrayList<String>(){
@@ -98,6 +95,18 @@ public class MultiPhotoViewActivity extends BaseActivity implements ViewPager.On
             gallery.setCurrentItem(currentPosition);
         }
     }
+
+    @Override
+    protected void getBundleExtras(Bundle extras) {
+        imageUrls = extras.getStringArrayList(Constants.Keys.IMAGE_ITEMS);
+        currentPosition = extras.getInt("position");
+    }
+
+//    @Override
+//    protected void initViewsAndEvents() {
+//
+//
+//    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

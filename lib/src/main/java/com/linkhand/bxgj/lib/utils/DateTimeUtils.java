@@ -1,5 +1,7 @@
 package com.linkhand.bxgj.lib.utils;
 
+import android.text.TextUtils;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +14,7 @@ import java.util.Date;
  * Created by tiangongyipin on 16/3/7.
  */
 public class DateTimeUtils {
+    public static long HOURS24 = 24 * 60 * 60 * 1000; //24小时转换成毫秒
 
     /**
      * 返回当前年月日 时分秒
@@ -47,9 +50,67 @@ public class DateTimeUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         return sdf.format(date);
     }
+
+    public static String formatdian(String var) {
+        if (TextUtils.isEmpty(var)) {
+            return "";
+        } else {
+            if (var.contains(" ")) {
+                var = var.split(" ")[0];
+                return var.replace("-", ".");
+            } else {
+                return "";
+            }
+        }
+
+//        var.replace(".","-");
+    }
+
     public static String format(long date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
+    }
+
+    /**
+     * yyyy-MM-dd hh:mm:ss
+     *
+     * @param date
+     * @return
+     */
+    public static String formatMoth(long date) {
+        long currtime = System.currentTimeMillis();
+        if (date - currtime > HOURS24) {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+            String time = sdf.format(date);
+            return time;
+        } else if (date - currtime < 0) {
+            return "结束";
+        } else if (date - currtime > 0 && date - currtime < HOURS24) {
+            return "明日预告";
+        }
+        return "";
+    }
+
+    /**
+     * 几月几号几点开抢 yyyy-MM-dd hh:mm:ss
+     *
+     * @param date
+     * @return
+     */
+    public static String formatMothHour(long date) {
+        long currtime = System.currentTimeMillis();
+        if (date - currtime > HOURS24) {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日HH点");
+            String time = sdf.format(date);
+            return time + "开抢";
+        } else if (date - currtime < 0) {
+            return "结束";
+        } else if (date - currtime > 0 && date - currtime < HOURS24) {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH点");
+            String time = sdf.format(date);
+            return "明日" + time + "开抢";
+        }
+        return "";
     }
 
 
@@ -109,6 +170,19 @@ public class DateTimeUtils {
             e.printStackTrace();
         }
         return date;
+    }
+
+    /**
+     * 判断 剩余时间 单位 天 小时  倒计时
+     */
+    public static int dateTransformation(long endTime) {
+        long time = compareTime(endTime);
+        int hour = (int) (time / 1000 / 60 / 60);
+        if (hour >= 0) {
+            return hour;
+        } else {
+            return -1;
+        }
     }
 
 

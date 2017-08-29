@@ -26,7 +26,7 @@ import com.linkhand.baixingguanjia.entity.Qu;
 import com.linkhand.baixingguanjia.entity.Sheng;
 import com.linkhand.baixingguanjia.entity.Shi;
 import com.linkhand.baixingguanjia.entity.Xiaoqu;
-import com.linkhand.baixingguanjia.ui.activity.car.SecondhandCarDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.SecondhandCarDetailActivity;
 import com.linkhand.baixingguanjia.ui.adapter.PopListviewAdapter;
 import com.linkhand.baixingguanjia.ui.adapter.SecondhandCarAdapter;
 import com.linkhand.baixingguanjia.utils.SPUtils;
@@ -40,7 +40,9 @@ import butterknife.OnClick;
 
 /**
  * 四级联动的 popupwindow。
+ * 停用
  */
+
 public class SecondhandCarOldActivity extends BaseActivity {
     private final static int SHENG = 1; //省
     private final static int SHI = 2; //市

@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="待付款"
+            android:text=""
             android:textColor="@color/colorTopic"
             android:textSize="14sp"/>
 
@@ -37,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/background_textview_corner_line_red"
+            android:background="@drawable/background_textview_big_corner_line_gray"
             android:gravity="center"
             android:paddingBottom="@dimen/x3"
             android:paddingTop="@dimen/x3"
@@ -52,14 +52,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x10"
             android:layout_weight="1"
-            android:background="@drawable/background_textview_corner_line_red"
+            android:background="@drawable/background_textview_big_corner_line_red"
             android:gravity="center"
             android:paddingBottom="@dimen/x3"
             android:paddingTop="@dimen/x3"
             android:text="button2"
             android:textColor="@color/blackText"
             android:textSize="14sp"/>
-
 
     </LinearLayout>
 

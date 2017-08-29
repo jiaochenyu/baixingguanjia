@@ -18,10 +18,15 @@ import com.linkhand.baixingguanjia.base.BaseFragment;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
 import com.linkhand.baixingguanjia.base.MyApplication;
 import com.linkhand.baixingguanjia.customView.CommonPromptDialog;
-import com.linkhand.baixingguanjia.entity.Collect;
-import com.linkhand.baixingguanjia.entity.Goods;
-import com.linkhand.baixingguanjia.ui.adapter.my.MyCollectListView2Adapter;
-import com.linkhand.baixingguanjia.ui.adapter.my.MyCollectListViewAdapter;
+import com.linkhand.baixingguanjia.entity.Comment;
+import com.linkhand.baixingguanjia.ui.activity.detail.EducationDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.HousePropertyDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.HousekeepingDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.IdleGoodsDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.PublicWelfareDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.RecruitDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.SecondhandCarDetail2Activity;
+import com.linkhand.baixingguanjia.ui.adapter.my.MyCommentListView2Adapter;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
@@ -44,7 +49,7 @@ import butterknife.ButterKnife;
  * 说明：  我的收藏  服务
  */
 
-public class MyCollect2Fragment extends BaseFragment {
+public class MyComment2Fragment extends BaseFragment {
     private static final String TAG = "info";
     private final static int REQUEST = 0;
     private static final int HTTP_REQUEST = 1;
@@ -54,17 +59,15 @@ public class MyCollect2Fragment extends BaseFragment {
     int pageFlag = 1;
     @Bind(R.id.listview)
     PullToRefreshListView mListview;
-    List<Collect> mServiceList;
-    List<Goods> mGoodsList;
-    MyCollectListViewAdapter mAdapter; // 商品
-    MyCollectListView2Adapter mAdapter2; //服务
+    List<Comment> mServiceList;
+    MyCommentListView2Adapter mAdapter2; //服务
     RequestQueue mRequestQueue = NoHttp.newRequestQueue();
     @Bind(R.id.null_bg)
     RelativeLayout mNullBg;
     CommonPromptDialog mCancelDialog;
     int cancelPosition;
 
-    public MyCollect2Fragment(int type) {
+    public MyComment2Fragment(int type) {
         this.type = type;
         switch (type) {
             case 1:
@@ -99,16 +102,9 @@ public class MyCollect2Fragment extends BaseFragment {
     }
 
     private void initData() {
-        if (type == 1) {
-            mGoodsList = new ArrayList<>();
-            mAdapter = new MyCollectListViewAdapter(getActivity(), R.layout.item_my_collect, mGoodsList);
-            mListview.setAdapter(mAdapter);
-        } else if (type == 2) {
-            mServiceList = new ArrayList<>();
-            mAdapter2 = new MyCollectListView2Adapter(getActivity(), R.layout.item_my_collect2, mServiceList);
-            mListview.setAdapter(mAdapter2);
-        }
-
+        mServiceList = new ArrayList<>();
+        mAdapter2 = new MyCommentListView2Adapter(getActivity(), R.layout.item_comment_service, mServiceList);
+        mListview.setAdapter(mAdapter2);
 
     }
 
@@ -138,7 +134,7 @@ public class MyCollect2Fragment extends BaseFragment {
     }
 
     private void httpGetList() {
-        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_MY_COLLECT_LIST, RequestMethod.POST);
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_MY_EVALUATE_LIST, RequestMethod.POST);
         Gson gson = new Gson();
         request.add("userid", MyApplication.getUser().getUserid());
         request.add("type", type);
@@ -164,8 +160,8 @@ public class MyCollect2Fragment extends BaseFragment {
                             JSONArray array = jsonObject.getJSONArray("data");
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonObject1 = array.getJSONObject(i);
-                                Collect collect = gson.fromJson(jsonObject1.toString(), Collect.class);
-                                mServiceList.add(collect);
+                                Comment comment = gson.fromJson(jsonObject1.toString(), Comment.class);
+                                mServiceList.add(comment);
                             }
 
                         } else if (resultCode.equals("201")) {
@@ -216,34 +212,27 @@ public class MyCollect2Fragment extends BaseFragment {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Collect collect = mServiceList.get(position - 1);
-                if (collect.getDelete().equals("1") || collect.getDelete().equals("2")) {
+                Comment comment = mServiceList.get(position - 1);
+                if (comment.getDelete().equals("1") || comment.getDelete().equals("2")) {
                     showToast(R.string.collectXiaxian);
                     return;
                 }
                 //跳转界面
                 Bundle bundle = new Bundle();
                 bundle.putString("flag", "my"); // 需要调用接口获取数据
-                bundle.putString("type", collect.getGoods_type());
-                bundle.putString("id", collect.getId());
+                bundle.putString("goods_type", comment.getGoods_type());
+                bundle.putString("goodsid", comment.getGoods_id());
+                goActivityDetail(comment.getGoods_type(), bundle);
 
             }
         });
 
-        mAdapter2.setCancelClick(new MyCollectListView2Adapter.CancelClick() {
-            @Override
-            public void cancelClick(int position) {
-                showToast("点击了取消" + position);
-//                httpCancelCollect(position);
-                cancelPosition = position;
-                mCancelDialog.show();
-            }
-        });
+
     }
 
     private void httpCancelCollect() {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_COLLECT, RequestMethod.POST);
-        request.add("goodsid", mServiceList.get(cancelPosition).getId());
+        request.add("goodsid", mServiceList.get(cancelPosition).getGoods_id());
         request.add("userid", MyApplication.getUser().getUserid());
         request.add("goodstype", mServiceList.get(cancelPosition).getGoods_type());
         request.add("boolean", "f");
@@ -299,6 +288,24 @@ public class MyCollect2Fragment extends BaseFragment {
 
             }
         });
+    }
+    public void goActivityDetail(String type, Bundle bundle) {
+        //1=>二手房产 2=>家政 3=>闲置物品 5=>招聘 6=>教育 7=>二手车 8=>公益
+        if (type.equals("1")) {
+            go(HousePropertyDetailActivity.class, bundle);
+        } else if (type.equals("2")) {
+            go(HousekeepingDetailActivity.class, bundle);
+        } else if (type.equals("3")) {
+            go(IdleGoodsDetailActivity.class, bundle);
+        } else if (type.equals("5")) {
+            go(RecruitDetailActivity.class, bundle);
+        } else if (type.equals("6")) {
+            go(EducationDetailActivity.class, bundle);
+        } else if (type.equals("7")) {
+            go(SecondhandCarDetail2Activity.class, bundle);
+        } else if (type.equals("8")) {
+            go(PublicWelfareDetailActivity.class, bundle);
+        }
     }
 
     @Override

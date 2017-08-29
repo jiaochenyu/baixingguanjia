@@ -1,0 +1,20 @@
+偏好设置
+key
+"UserLocation" : 用户选择的省市区小区
+"Location" : 四级联动 数据
+"DiQu" : 二级联动
+"CarType" : 二手车筛选 类型
+"userInfo" : 用户信息
+"homeList" : startpageActivity预加载首页信息
+"HouseKeepingType" : 家政筛选 类型
+"IdleGoodsType" : 闲置物品 类型
+"EducationObjectType" : 家教对象 类型
+"EducationType" : 家教分类 类型
+"RecruitType" : 招聘 类型
+"RecruitPosition" : 招聘 职位
+
+
+
+##### 1=>二手房产 2=>家政 3=>闲置物品 5=>招聘 6=>教育 7=>二手车 8=>公益
+##### delete 0正常 1下线 2删除
+##### offline 1下线2不下线

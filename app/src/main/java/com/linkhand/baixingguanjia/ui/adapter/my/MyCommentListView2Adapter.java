@@ -1,13 +1,12 @@
 package com.linkhand.baixingguanjia.ui.adapter.my;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
-import com.linkhand.baixingguanjia.entity.Collect;
+import com.linkhand.baixingguanjia.entity.Comment;
 import com.linkhand.baixingguanjia.utils.ImageUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -19,12 +18,12 @@ import java.util.List;
  * 说明：  我发布的 listview适配器
  */
 
-public class MyCollectListView2Adapter extends CommonAdapter {
-    List<Collect> mList;
+public class MyCommentListView2Adapter extends CommonAdapter {
+    List<Comment> mList;
     Context mContext;
     CancelClick mCancelClick;
 
-    public MyCollectListView2Adapter(Context context, int layoutId, List datas) {
+    public MyCommentListView2Adapter(Context context, int layoutId, List datas) {
         super(context, layoutId, datas);
         this.mContext = context;
         this.mList = datas;
@@ -36,25 +35,23 @@ public class MyCollectListView2Adapter extends CommonAdapter {
 
     @Override
     protected void convert(ViewHolder holder, Object item, final int position) {
+        TextView uname = holder.getView(R.id.user_name);
+        TextView time = holder.getView(R.id.time);
+        TextView content = holder.getView(R.id.content);
+
         ImageView imageView = holder.getView(R.id.image);
         TextView title = holder.getView(R.id.name);
-        TextView time = holder.getView(R.id.time);
         TextView location = holder.getView(R.id.location);
         TextView type = holder.getView(R.id.type);
-        TextView cancel = holder.getView(R.id.cancel);
+
 
         ImageUtils.setDefaultNormalImage(imageView, ConnectUrl.REQUESTURL_IMAGE+mList.get(position).getLogo_url(), R.drawable.default_pic_show);
         title.setText(mList.get(position).getTitle());
         time.setText(mList.get(position).getAdd_time());
-        location.setText(mList.get(position).getQuname() + " " + mList.get(position).getXiaoquname());
+        uname.setText(mList.get(position).getUsername());
+        content.setText(mList.get(position).getContent());
+        location.setText(mList.get(position).getQu()+mList.get(position).getXiaoqu());
         type.setText(mList.get(position).getModular());
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCancelClick.cancelClick(position);
-            }
-        });
     }
 
     public interface  CancelClick{

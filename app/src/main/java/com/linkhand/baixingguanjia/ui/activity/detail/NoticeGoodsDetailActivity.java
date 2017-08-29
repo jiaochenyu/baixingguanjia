@@ -32,12 +32,11 @@ import com.linkhand.baixingguanjia.entity.Goods;
 import com.linkhand.baixingguanjia.entity.GoodsTag;
 import com.linkhand.baixingguanjia.entity.GoodsTagsGuige;
 import com.linkhand.baixingguanjia.entity.Picture;
-import com.linkhand.baixingguanjia.entity.SerializableMap;
 import com.linkhand.baixingguanjia.ui.activity.LoginActivity;
-import com.linkhand.baixingguanjia.ui.activity.order.ConfirmOrderActivity;
 import com.linkhand.baixingguanjia.ui.adapter.HotGoodsDetailAdapter;
 import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
 import com.linkhand.bxgj.lib.utils.DateTimeUtils;
+import com.linkhand.bxgj.lib.utils.DecimalUtils;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
@@ -61,7 +60,7 @@ import cn.iwgang.countdownview.CountdownView;
 
 import static com.linkhand.baixingguanjia.R.id.price;
 
-public class HotGoodsDetailActivity extends BaseActivity implements GradationScrollView.ScrollViewListener, OnItemClickListener, ViewPager.OnPageChangeListener {
+public class NoticeGoodsDetailActivity extends BaseActivity implements GradationScrollView.ScrollViewListener, OnItemClickListener, ViewPager.OnPageChangeListener {
 
     private static final int REQUEST_WHAT = 0;
     private static final int HTTP_REQUEST = 1;
@@ -103,6 +102,18 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     LinearLayout mCollectLayout;
     @Bind(R.id.guige_text_show)
     TextView mShowGuigeTV;
+    @Bind(R.id.countdown_prompt_textview)
+    TextView mCountdownPromptTV; //距活动开始还剩
+    @Bind(R.id.countdownView_showday)
+    CountdownView mCountdownViewShowday;
+    @Bind(R.id.layout_buynow)
+    LinearLayout mLayoutBuynow;
+    @Bind(R.id.layout_detail_price)
+    RelativeLayout mLayoutPrice;
+    @Bind(R.id.tv_good_detail_buy)
+    TextView mBuyNowTV;
+    @Bind(R.id.tv_good_detail_shop_cart)
+    TextView mDetailShopTV;
 
 
     private List<String> mPictureList;
@@ -125,6 +136,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     Map<Integer, GoodsTag.Guige> mSelectGuigeMap;  //选择的商品规格
 
     private boolean isCollect = false; //是否收藏
+    private boolean isRemind = false; //是否提醒
 
     private CommonPromptDialog mCommonDialog;
 
@@ -146,7 +158,10 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
 
 
     private void initView() {
-
+        mCountdownPromptTV.setText("距活动开始还剩");
+        mLayoutPrice.setBackgroundColor(getResources().getColor(R.color.blueTopic));
+        mLayoutBuynow.setBackgroundColor(getResources().getColor(R.color.blueTopic));
+        mBuyNowTV.setText("提醒我");
     }
 
     private void initData() {
@@ -255,16 +270,6 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     }
 
 
-    private void getData() {
-        mGoodsPicList.add(new Picture("https://img.alicdn.com/imgextra/i4/714288429/TB2dLhGaVXXXXbNXXXXXXXXXXXX-714288429.jpg"));
-        mGoodsPicList.add(new Picture("https://img.alicdn.com/imgextra/i3/726966853/TB2vhJ6lXXXXXbJXXXXXXXXXXXX_!!726966853.jpg"));
-        mGoodsPicList.add(new Picture("https://img.alicdn.com/imgextra/i4/2081314055/TB2FoTQbVXXXXbuXpXXXXXXXXXX-2081314055.png"));
-        mAdapter.notifyDataSetChanged();
-
-
-    }
-
-
     @OnClick({R.id.format_layout, R.id.evaluate_layout, R.id.collect_layout, R.id.tv_good_detail_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -285,19 +290,25 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                 break;
             case R.id.tv_good_detail_buy:
                 if (MyApplication.getUser() != null && MyApplication.getUser().getUserid() != null) {
-                    if (mSelectGuigeMap.size() != mGoodsTagList.size()) {
-                        showToast(R.string.selectGuigeToast);
-                        return;
-                    }
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("goods",mGoods);
-                    bundle.putSerializable("guigemap",new SerializableMap(mSelectGuigeMap));
-                    bundle.putInt("goodnum",buyNum);
-                    bundle.putFloat("price",mPrice);
-                    go(ConfirmOrderActivity.class,bundle);
+                    isRemind = !isRemind;
+                    httpRemind();
                 } else {
                     mCommonDialog.show();
                 }
+//                if (MyApplication.getUser() != null && MyApplication.getUser().getUserid() != null) {
+//                    if (mSelectGuigeMap.size() != mGoodsTagList.size()) {
+//                        showToast(R.string.selectGuigeToast);
+//                        return;
+//                    }
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("goods", mGoods);
+//                    bundle.putSerializable("guigemap", new SerializableMap(mSelectGuigeMap));
+//                    bundle.putInt("goodnum", buyNum);
+//                    bundle.putFloat("price", mPrice);
+//                    go(ConfirmOrderActivity.class, bundle);
+//                } else {
+//                    mCommonDialog.show();
+//                }
 
 
                 break;
@@ -309,6 +320,9 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     private void httpGetDetiles() {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PRODUCT_GOODS_DETILES, RequestMethod.POST);
         request.add("goods_id", goodsId);
+        if (MyApplication.getUser() != null) {
+            request.add("user_id", MyApplication.getUser().getUserid());
+        }
         mQueue.add(REQUEST_WHAT, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {
@@ -326,6 +340,12 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                         resultCode = jsonObject.getString("code");
                         if (resultCode.equals("200")) {
                             mGoods = gson.fromJson(jsonObject.getJSONObject("date").toString(), Goods.class);
+                            String isRemind1 = jsonObject.getString("tixing");
+                            if (isRemind1.equals("1")) {
+                                isRemind = true;
+                            } else {
+                                isRemind = false;
+                            }
                             String o = jsonObject.getJSONObject("date").get("image_url").toString();
                             List<String> picList = new ArrayList<String>();
                             if (!o.equals("null")) {
@@ -338,6 +358,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                             JSONArray tagsArray = jsonObject.getJSONObject("date").getJSONArray("guige1");
                             List<GoodsTag.Guige> guiges = new ArrayList<GoodsTag.Guige>();
                             GoodsTag goodsTag = new GoodsTag();
+
                             int flag = 0; //
                             String temp = "";
                             for (int i = 0; i < tagsArray.length(); i++) {
@@ -374,6 +395,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                                 String picUrl = imageUrlArray.getJSONObject(i).getString("image_url");
                                 mPictureList.add(ConnectUrl.REQUESTURL_IMAGE + picUrl);
                             }
+
                             setViewData();
                         } else {
 
@@ -416,11 +438,21 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         mChangjiaTV.setText(mGoods.getChangjia());
         mChandiTV.setText(mGoods.getChandi());
         mFuzerenTV.setText(mGoods.getFuzeren());
-        mYouxiaoqiTV.setText(DateTimeUtils.formatdian(mGoods.getIn_time()) + "~" + DateTimeUtils.formatdian(mGoods.getOut_time()));
-        mCountdownView.start(DateTimeUtils.compareTime(mGoods.getEnd_time() * 1000L));
-        mPriceTV.setText(mGoods.getPrice() + "");
-        mSoldNumTV.setText("已售" + mGoods.getBuy_num() + "");
-        mYuanjiaPrice.setText(mGoods.getMarket_price() + "");
+//        mYouxiaoqiTV.setText(DateTimeUtils.formatdian(mGoods.getIn_time()) + "~" + DateTimeUtils.formatdian(mGoods.getOut_time()));
+        int time = DateTimeUtils.dateTransformation(mGoods.getStart_time() * 1000L);
+        if (time > 24) { //判断倒计时是天还是
+            mCountdownView.setVisibility(View.GONE);
+            mCountdownViewShowday.setVisibility(View.VISIBLE);
+            mCountdownViewShowday.start(DateTimeUtils.compareTime(mGoods.getStart_time() * 1000L));
+        } else if (time <= 24 && time >= 0) {
+            mCountdownView.setVisibility(View.VISIBLE);
+            mCountdownViewShowday.setVisibility(View.GONE);
+            mCountdownView.start(DateTimeUtils.compareTime(mGoods.getStart_time() * 1000L));
+        }
+        changeRemindView();
+        mPriceTV.setText(DecimalUtils.decimalFormat(mGoods.getShop_price()));
+        mSoldNumTV.setText(mGoods.getBuy_num() + "人想购买");
+        mYuanjiaPrice.setText(DecimalUtils.decimalFormat(mGoods.getMarket_price()));
         mKucunTV.setText("库存" + mGoods.getStore_count() + "");
         initListener();
         mBanner.notifyDataSetChanged();
@@ -490,6 +522,57 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     }
 
 
+    ///提醒
+    private void httpRemind() {
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_PROUCT_NOTICE_REMIND, RequestMethod.POST);
+        request.add("user_id", MyApplication.getUser().getUserid());
+        request.add("goods_id", mGoods.getType());
+        request.add("is_tixing", isRemind ? "1" : "0");
+        Log.d("收藏", request.getParamKeyValues().values().toString());
+
+        mQueue.add(HTTP_REQUEST, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+                showLoading();
+            }
+
+            //  code：206已收藏 207未收藏
+            //  code1：200收藏成功 204收藏失败 205收藏数量达到上限 208取消收藏成功 209取消收藏失败
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == HTTP_REQUEST) {// 根据what判断是哪个请求的返回，这样就可以用一个OnResponseListener来接受多个请求的结果。
+                    int responseCode = response.getHeaders().getResponseCode();// 服务器响应码。
+                    JSONObject jsonObject = response.get();
+                    try {
+                        if (jsonObject.getString("code").equals("200")) {
+                            //已提醒
+                            isRemind = true;
+                        } else if (jsonObject.getString("code").equals("300")) {
+                            //取消提醒成功
+                            isRemind = false;
+                        }
+                        showToast(jsonObject.getString("info"));
+                        changeRemindView();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+
+            }
+
+            @Override
+            public void onFinish(int what) {
+                hideLoading();
+            }
+        });
+    }
+
+
     /**
      * 改变收藏样式
      */
@@ -503,9 +586,20 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         }
     }
 
+    /**
+     * 改变提醒样式
+     */
+    private void changeRemindView() {
+        if (isRemind) {
+            mBuyNowTV.setText(R.string.alreadyRemind);
+        } else {
+            mBuyNowTV.setText(R.string.notRemind);
+        }
+    }
+
 
     private void showGuigeDialog() {
-        mDialog2 = new GoodsInfoSelectlTagListDialog(HotGoodsDetailActivity.this, R.style.goods_info_dialog, mGoodsTagList);
+        mDialog2 = new GoodsInfoSelectlTagListDialog(NoticeGoodsDetailActivity.this, R.style.goods_info_dialog, mGoodsTagList);
 //        mDialog2.setTags(mGoodsTagList);
 
         mDialog2.setSelectFenlei(feilei);
@@ -608,7 +702,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         String tagsIdKey[] = mGTGList.get(0).getKey().split("_");
         String keyJoin = "";
         for (GoodsTag.Guige v : mSelectGuigeMap.values()) {
-            keyJoin += v.getId() + "_";
+            keyJoin += v.getItem_id() + "_";
         }
         keyJoin = keyJoin.substring(0, keyJoin.length() - 1);
         for (GoodsTagsGuige g : mGTGList) {

@@ -16,16 +16,20 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.linkhand.baixingguanjia.widget.popup.LoadingPopup;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import static com.linkhand.baixingguanjia.base.BaseAppCompatActivity.NON_CODE;
 
 /**
  * Created by jcy on 2016/12/19.
  */
-public class BaseFragment extends Fragment {
+public  class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
 
     protected LoadingPopup loadingPop;
@@ -149,6 +153,29 @@ public class BaseFragment extends Fragment {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(color));
         }
+    }
+
+    public String getStrgRes(int res){
+        return getResources().getString(res);
+    }
+    // 判断list是否不为空且有值
+    public boolean adjustList(List<?> list) {
+        if (list != null && list.size() > 0 && (!list.isEmpty())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //PullToRefreshListView 自定义头部尾部加载信息
+    public void initRefreshListView(PullToRefreshListView mListview) {
+        ILoadingLayout startLables = mListview.getLoadingLayoutProxy(true,false);
+        startLables.setPullLabel("下拉刷新");
+        startLables.setRefreshingLabel("玩命刷新中...");
+        startLables.setReleaseLabel("放开刷新");
+        ILoadingLayout endLables = mListview.getLoadingLayoutProxy(false,true);
+        endLables.setPullLabel("上拉加载");
+        endLables.setRefreshingLabel("玩命加载中...");
+        endLables.setReleaseLabel("放开加载");
     }
 
 

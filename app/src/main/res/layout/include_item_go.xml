@@ -40,11 +40,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x15"
-            android:layout_toRightOf="@+id/text_left"
+            android:layout_marginRight="@dimen/x5"
+            android:layout_toLeftOf="@+id/image_right"
             android:gravity="left"
             android:singleLine="true"
-            android:text="鲁诺本"
+            android:visibility="visible"
+            android:text=""
             android:textColor="@color/grayText"
             android:textSize="14sp"/>
 

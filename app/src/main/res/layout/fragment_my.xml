@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:id="@+id/header_image_layout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
@@ -42,10 +42,70 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/x5"
-                android:text="罗本"
+                android:text=""
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/layout_silver"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/x8">
+
+                <ImageView
+                    android:id="@+id/baiyin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_silver"
+                    />
+
+                <TextView
+                    android:id="@+id/silver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@+id/baiyin"
+                    android:text="0"
+                    android:textColor="@color/colorWhite"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_gold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/x8">
+
+                <ImageView
+                    android:id="@+id/huangjin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_gold"/>
+
+                <TextView
+                    android:id="@+id/gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_toRightOf="@id/huangjin"
+                    android:text="0"
+                    android:textColor="@color/colorWhite"/>
+
+
+            </RelativeLayout>
+
         </LinearLayout>
     </RelativeLayout>
 

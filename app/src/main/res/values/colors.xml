@@ -34,6 +34,8 @@
     <color name="gray666">#666666</color>
     <color name="grayF9F">#F9F9F9</color>
     <color name="gray8e8e">#8e8e93</color>
+    <color name="grayF0F4">#F0F4F3</color>
+    <color name="grayE7E7">#E7E7E7</color>
 
 
     <!--蓝色调-->
@@ -61,5 +63,6 @@
     <color name="colorBorder">#cdcdcd</color>
     <!--一般：提示文字-->
     <color name="colorHint">#d2d2d2</color>
+
 
 </resources>

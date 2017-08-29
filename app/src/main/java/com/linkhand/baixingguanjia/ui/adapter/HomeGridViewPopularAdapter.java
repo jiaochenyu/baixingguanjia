@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.linkhand.baixingguanjia.R;
-import com.linkhand.baixingguanjia.entity.HomePopularIcon;
+import com.linkhand.baixingguanjia.entity.HomeNormalIcon;
 
 import java.util.List;
 
@@ -22,11 +22,11 @@ import java.util.List;
 public class HomeGridViewPopularAdapter extends BaseAdapter {
 
     Context mContext;
-    List<HomePopularIcon> mList;
+    List<HomeNormalIcon> mList;
 
     LayoutInflater mInflater;
 
-    public HomeGridViewPopularAdapter(Context context, List<HomePopularIcon> list) {
+    public HomeGridViewPopularAdapter(Context context, List<HomeNormalIcon> list) {
         mList = list;
         mContext = context;
         mInflater = LayoutInflater.from(mContext);

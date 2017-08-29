@@ -1,4 +1,4 @@
-package com.linkhand.baixingguanjia.listener;
+package com.linkhand.baixingguanjia.receiver;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -14,6 +14,7 @@ import com.linkhand.baixingguanjia.base.MyApplication;
 import com.linkhand.baixingguanjia.entity.EventFlag;
 import com.linkhand.baixingguanjia.ui.activity.LoginActivity;
 import com.linkhand.baixingguanjia.ui.activity.MessageActivity;
+import com.linkhand.baixingguanjia.utils.JPushUtils;
 import com.linkhand.baixingguanjia.utils.SPUtils;
 import com.linkhand.bxgj.lib.utils.ApplicationUtils;
 
@@ -48,7 +49,7 @@ public class JPushReceiver extends BroadcastReceiver {
             /**
              * 用户被举报强制下线处理
              */
-            offlineUser(bundle.getString(JPushInterface.EXTRA_EXTRA),context);
+            offlineUser(bundle.getString(JPushInterface.EXTRA_EXTRA), context);
 
 
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
@@ -89,6 +90,7 @@ public class JPushReceiver extends BroadcastReceiver {
         try {
             JSONObject json = new JSONObject(var);
             String code = json.getString("code");
+            String info = json.getString("data");
             if (!code.equals("200")) {
                 return;
             }
@@ -99,21 +101,32 @@ public class JPushReceiver extends BroadcastReceiver {
                 MyApplication.setUser(null);
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("强制下线广播");
-                builder.setMessage("你已被强制下线，请重新登陆。");
+                builder.setTitle("提示");
+                builder.setMessage("您因涉嫌："+info+"问题，已被平台禁用！");
                 builder.setCancelable(false);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                         BaseAppManager.getInstance().clear();
+                        SPUtils.put(context, "userInfo", null);
+                        MyApplication.setUser(null);
+                        JPushUtils.jPushMethod(context, "", null);
                         Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        MyApplication.getInst().startActivity(intent);
+                        context.startActivity(intent);
                     }
                 });
 
                 AlertDialog alterDialog = builder.create();
                 alterDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
                 alterDialog.show();
+//                BaseAppManager.getInstance().clear();
+//                SPUtils.put(context, "userInfo", null);
+//                MyApplication.setUser(null);
+//                JPushUtils.jPushMethod(context, "", null);
+//                Intent intent = new Intent(context, LoginActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(intent);
             }
         } catch (JSONException e) {
             e.printStackTrace();

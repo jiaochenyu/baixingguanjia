@@ -29,7 +29,7 @@ import static com.linkhand.baixingguanjia.base.BaseAppCompatActivity.NON_CODE;
 /**
  * Created by jcy on 2016/12/19.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseLazyFragment extends Fragment {
     private static final String TAG = "BaseFragment";
 
     protected LoadingPopup loadingPop;

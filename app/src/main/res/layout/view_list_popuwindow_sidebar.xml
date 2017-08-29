@@ -1,55 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:baselineAligned="false"
-    android:background="@color/transparent"
-    android:orientation="vertical" >
-	<LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:background="@color/transparent"
+              android:baselineAligned="false"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/list_layout_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_1"
+        android:background="@color/white"
+        android:visibility="visible">
 
-        <ImageView
-            android:id="@+id/ivUpOne"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@color/transparent" />
+        <ListView
+            android:id="@+id/listview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
 
-        <ImageView
-            android:id="@+id/ivUpTwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@color/transparent" />
+        <TextView
+            android:id="@+id/showletter"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/background_textview_corner_blue"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30dp"
+            android:visibility="invisible"/>
 
-        <ImageView
-            android:id="@+id/ivUpThree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@color/transparent" />
+        <com.linkhand.baixingguanjia.customView.SideBar
+            android:id="@+id/sidebar"
+            android:layout_width="38dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            />
 
-        <!--<ImageView-->
-            <!--android:id="@+id/ivUpFour"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:src="@drawable/icon_popuwindow_up" />-->
-    </LinearLayout>
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:cacheColorHint="@color/transparent"
-        android:divider="@color/defaultBackgroundGray"
-        android:dividerHeight="0.5dp"
-        android:scrollbars="none" >
-    </ListView>
+
+    </RelativeLayout>
 
 </LinearLayout>

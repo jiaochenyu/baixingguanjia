@@ -24,6 +24,11 @@
         android:text="明日预告"
         android:textColor="@color/colorWhite"/>
 
+
+    <View
+        style="@style/grayline"
+        android:layout_above="@+id/relative_layout"/>
+
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"

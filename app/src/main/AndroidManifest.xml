@@ -20,13 +20,37 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-    <!--JPush-->
-    <!--  JPush Required -->
+    <!-- 百度定位 -->
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <!-- Mob第三方分享 -->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <!-- 极光推送  JPUSH -->
+    <!-- Required -->
     <permission
         android:name="com.linkhand.baixingguanjia.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature"/>
-    <!--  JPush Required  一些系统要求的权限，如访问网络等-->
-    <uses-permission android:name="com.linkhand..baixingguanjia.permission.JPUSH_MESSAGE"/>
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.linkhand.baixingguanjia.permission.JPUSH_MESSAGE"/>
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -38,33 +62,19 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
-    <!--百度定位-->
-    <!-- 这个权限用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
-    <!-- 这个权限用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
-    <!-- 用于读取手机当前的状态-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <!-- 访问网络，网络定位需要上网-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- SD卡读取权限，用户写入离线定位数据-->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
-
-    <!--Mob第三方分享-->
-    <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+
     <application
-        android:name="com.linkhand.baixingguanjia.base.MyApplication"
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -72,187 +82,15 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:theme">
 
-
-        <!--*******************华丽的分割线 Mob社会化分享*******************************************-->
-        <!-- ShareSDK的activity -->
+        <!-- *************华丽的分割线* 极光推送************************************************************************************* -->
+        <!-- Rich push 核心功能 since 2.0.6 -->
         <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-
-            <intent-filter>
-                <data android:scheme="tencent100371282"/>
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-
-            <!-- 调用新浪原生SDK，需要注册的回调activity -->
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-
-
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle">
         </activity>
 
-        <activity
-            android:name=".ui.wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
-        <meta-data
-            android:name="Mob-AppKey"
-            android:value="1f1cc40bdd97c"/>
-        <meta-data
-            android:name="Mob-AppSecret"
-            android:value="9a8e4405fbbd681f9954352f3741e728"/>
-
-        <!--******************华丽的分割线******************************************-->
-
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.MainActivity">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.LoginActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_bluedeep">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.RegisterActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_bluedeep">
-            >
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.LoginByPhoneActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_gray">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.ForgetPasswordActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_gray">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.my.UserInfoActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_black">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.my.AddCommunityActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_black">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.my.FaceApproveActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_black">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.goods.HotGoodsDetailActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_gray">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.goods.NoticeGoodsDetailActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_gray">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.order.ConfirmOrderActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/sys_title_black">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.SelectAddressActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.my.MyOrderActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.order.OrderDetailActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.SecondhandCarActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.car.SecondhandCarDetailActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.car.AddUserInfoActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.MyAreasActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.HousekeepingActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.HousePropertyActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.EducationActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.IdleGoodsActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.RecruitActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.sort.PublicWelfareActivity">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.CommonReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.HousePropertyReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.IdleGoodsReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.SecondCarReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.HouseKeepReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.EducationReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.RecruitReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.release.PublicWelfareReleaseActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name="com.linkhand.baixingguanjia.ui.activity.MessageActivity"
-            android:theme="@style/sys_title_blue">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.my.MyReleaseActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.my.MyFeedBackActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.my.MyCollectActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.my.MyAppointmentActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.AppointmentDetailActivity">
-        </activity>
-        <activity android:name="com.linkhand.baixingguanjia.ui.activity.PassiveAppointmentDetailActivity">
-        </activity>
-
-        <service android:name=".ui.service.HttpService"/>
-
-
-        <!--*************华丽的分割线* 极光推送*************************************************************************************-->
-        <!-- JPush Required SDK 核心功能-->
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -262,10 +100,11 @@
                 <action android:name="cn.jpush.android.ui.PushActivity"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="com.linkhand..baixingguanjia"/>
+                <category android:name="com.linkhand.baixingguanjia"/>
             </intent-filter>
         </activity>
 
+        <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -279,15 +118,27 @@
             </intent-filter>
         </service>
 
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService"/>
 
-        <!--  JPush Required SDK核心功能-->
+                <category android:name="com.linkhand.baixingguanjia"/>
+            </intent-filter>
+        </service>
+
+        <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>   <!--Required  显示通知栏 -->
-                <category android:name="com.linkhand..baixingguanjia"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/> <!-- Required  显示通知栏 -->
+                <category android:name="com.linkhand.baixingguanjia"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT"/>
@@ -302,31 +153,81 @@
             </intent-filter>
         </receiver>
 
-        <!-- JPush Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false"/>
-        <!-- JPush Required  . Enable it you can get statistics data with channel -->
+        <receiver
+            android:name=".receiver.JPushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION"/> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.linkhand.baixingguanjia"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
             android:name="JPUSH_CHANNEL"
             android:value="developer-default"/>
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="8cbc568604edbd312aaf6c36"/> <!--  </>值来自开发者平台取得的AppKey-->
+            android:value="2047b6ab3040f8f0f807aa1e"/> <!-- </>值来自开发者平台取得的AppKey -->
 
 
-        <!--**********************华丽的分割线 百度定位***********************************************-->
+        <!-- *******************华丽的分割线 Mob社会化分享******************************************* -->
+        <!-- ShareSDK的activity -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="1f1cc40bdd97c"/>
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="9a8e4405fbbd681f9954352f3741e728"/>
+        <!-- **********************华丽的分割线 百度定位*********************************************** -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
         </service>
-        <!--百度地图AK-->
+        <!-- 百度地图AK -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="71GnHAM7QGs5QW3elVPhwG8pqSEH71Sr"/>
 
-        <!--QQ第三方登录-->
+        <!-- QQ第三方登录 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -340,25 +241,294 @@
                 <data android:scheme="1106257128"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!-- ********************************华丽的分割线 支付宝****************************** -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <!-- ******************华丽的分割线****************************************** -->
+        <activity
+            android:name=".ui.activity.StartPageActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.MainActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_bluedeep">
+        </activity>
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_bluedeep">
+            >
+        </activity>
+        <activity
+            android:name=".ui.activity.LoginByPhoneActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".ui.activity.ForgetPasswordActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.UserInfoActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.AddCommunityActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.FaceApproveActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.HotGoodsDetailActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.NoticeGoodsDetailActivityOld"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.NoticeGoodsDetailActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_gray">
+        </activity>
+        <activity
+            android:name=".ui.activity.order.ConfirmOrderActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/sys_title_black">
+        </activity>
+        <activity android:name=".ui.activity.SelectAddressActivity">
+        </activity>
+        <activity android:name=".ui.activity.my.MyOrderActivity">
+        </activity>
+        <activity android:name=".ui.activity.order.OrderDetailActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.SecondhandCarActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.SecondhandCarDetailActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.SecondhandCarDetail2Activity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".ui.activity.car.AddUserInfoActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.MyAreasActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.HousekeepingActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.HousePropertyActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.EducationActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.IdleGoodsActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.RecruitActivity">
+        </activity>
+        <activity android:name=".ui.activity.sort.PublicWelfareActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.CommonReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.HousePropertyReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.IdleGoodsReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.SecondCarReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.HouseKeepReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.EducationReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.RecruitReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.PublicWelfareReleaseActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.activity.MessageActivity"
+            android:theme="@style/sys_title_blue">
+        </activity>
+        <activity android:name=".ui.activity.my.MyReleaseActivity">
+        </activity>
+        <activity android:name=".ui.activity.my.MyFeedBackActivity">
+        </activity>
+        <activity android:name=".ui.activity.my.MyCollectActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.MyAppointmentActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.AppointmentDetailActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".ui.activity.PassiveAppointmentDetailActivity">
+        </activity>
+
+        <service android:name=".ui.service.HttpService"/>
 
         <activity
             android:name=".utils.MultiSelectPhotoGridActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="相册"/>
-
-
         <activity
             android:name=".utils.CommonPhotoViewActivity"
             android:label="预览"/>
-
         <activity
             android:name=".ui.activity.my.PreviewActivity"
             android:label="我的头像"/>
-
+        <activity
+            android:name=".utils.MultiPhotoViewActivity"
+            android:label="预览"/>
+        <activity android:name="com.yongchun.library.view.ImageSelectorActivity"/>
+        <activity android:name="com.yongchun.library.view.ImagePreviewActivity"/>
+        <activity android:name="com.yongchun.library.view.ImageCropActivity"/>
+        <activity
+            android:name=".ui.activity.release.CommonSelectedTypeActivity"
+            android:label="选择类别">
+        </activity>
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:label="设置">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.HousePropertyDetailActivity"
+            android:label="房产详情"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.HousekeepingDetailActivity"
+            android:label="家政详情"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.IdleGoodsDetailActivity"
+            android:label="闲置物品详情"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.EducationDetailActivity"
+            android:label="教育详情"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.RecruitDetailActivity"
+            android:label="招聘详情"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.PublicWelfareDetailActivity"
+            android:label="公益详情"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.HomeAreaSearchActivity"
+            android:label="位置定位">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.ReleaseDescribeActivity"
+            android:label="描述">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.HousePropertyTypeActivity"
+            android:label="选择户型">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.RecruitSalaryActivity"
+            android:label="选择薪资">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.RecruitFuliActivity"
+            android:label="选择福利">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.MyCommentActivity"
+            android:label="我的评价">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.ReportActivity"
+            android:label="举报">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.MessageDetailActivity"
+            android:label="消息详情">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.MyAccountActivity"
+            android:label="我的账户">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.MyAccountDetailActivity"
+            android:label="收支明细">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.PayCheckActivity"
+            android:label="充值">
+        </activity>
+        <activity
+            android:name=".ui.activity.my.PropertyPayActivity"
+            android:label="抵扣物业">
+        </activity>
+        <activity
+            android:name=".ui.activity.sort.CommonListActivity"
+            android:label="通用列表">
+        </activity>
+        <activity
+            android:name=".ui.activity.detail.CommonDetailActivity"
+            android:label="通用详情">
+        </activity>
+        <activity
+            android:name=".ui.activity.release.ReleaseAreaSearchActivity"
+            android:label="发布选择地址"/>
 
     </application>
 

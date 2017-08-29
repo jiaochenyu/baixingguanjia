@@ -147,9 +147,16 @@ public class GoodsInfoSelectDialog extends Dialog {
                 TextView textView = (TextView) inflater.inflate(R.layout.item_viewgroup_textview, null);
                 textView.setText(tags.get(i).getName());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(0, 5, 5, 5);
+                lp.setMargins(0, 5, 20, 5);
                 textView.setId(i);
                 textView.setLayoutParams(lp);
+                if (tags.get(i).isFlag()) {
+                    textView.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
+                    textView.setBackground(mContext.getResources().getDrawable(R.drawable.background_textview_10_corner_red));
+                } else {
+                    textView.setTextColor(mContext.getResources().getColor(R.color.blackText));
+                    textView.setBackground(mContext.getResources().getDrawable(R.drawable.background_textview_10_corner_gray));
+                }
                 mSizeTagsView.addView(textView);
             }
 //            initTagsView(mViewGroup);

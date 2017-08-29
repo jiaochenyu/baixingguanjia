@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical"
-    >
-
+              android:orientation="vertical">
 
     <View
         style="@style/grayline"
@@ -27,7 +25,7 @@
             android:layout_width="@dimen/x80"
             android:layout_height="@dimen/x80"
             android:scaleType="fitCenter"
-            android:src="@drawable/touxiang"
+            android:src="@drawable/default_pic_show"
             />
 
         <TextView
@@ -42,7 +40,7 @@
             android:textColor="@color/blackText"/>
 
         <TextView
-            android:id="@+id/location"
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/type"
@@ -84,6 +82,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/circle_red"
+            android:visibility="gone"
             />
 
     </RelativeLayout>

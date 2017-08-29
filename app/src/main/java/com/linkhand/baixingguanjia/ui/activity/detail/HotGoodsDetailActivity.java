@@ -1,9 +1,9 @@
-package com.linkhand.baixingguanjia.ui.activity.goods;
+package com.linkhand.baixingguanjia.ui.activity.detail;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -32,11 +32,13 @@ import com.linkhand.baixingguanjia.entity.Goods;
 import com.linkhand.baixingguanjia.entity.GoodsTag;
 import com.linkhand.baixingguanjia.entity.GoodsTagsGuige;
 import com.linkhand.baixingguanjia.entity.Picture;
+import com.linkhand.baixingguanjia.entity.SerializableMap;
 import com.linkhand.baixingguanjia.ui.activity.LoginActivity;
 import com.linkhand.baixingguanjia.ui.activity.order.ConfirmOrderActivity;
 import com.linkhand.baixingguanjia.ui.adapter.HotGoodsDetailAdapter;
 import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
 import com.linkhand.bxgj.lib.utils.DateTimeUtils;
+import com.linkhand.bxgj.lib.utils.DecimalUtils;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
@@ -58,6 +60,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.iwgang.countdownview.CountdownView;
 
+import static com.linkhand.baixingguanjia.R.id.price;
+
 public class HotGoodsDetailActivity extends BaseActivity implements GradationScrollView.ScrollViewListener, OnItemClickListener, ViewPager.OnPageChangeListener {
 
     private static final int REQUEST_WHAT = 0;
@@ -66,6 +70,8 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     ConvenientBanner mBanner;
     @Bind(R.id.nlv_good_detial_imgs)
     NoScrollListView mNoScrollListView;
+    @Bind(R.id.g_name)
+    TextView mGoodsNameTV;
     @Bind(R.id.sv_container)
     ScrollView mScrollContainer;
     @Bind(R.id.format_layout)
@@ -84,7 +90,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     TextView mFuzerenTV;
     @Bind(R.id.youxiaoqi)
     TextView mYouxiaoqiTV;
-    @Bind(R.id.price)
+    @Bind(price)
     TextView mPriceTV;  // 价格
     @Bind(R.id.num)
     TextView mSoldNumTV; //已经售出
@@ -96,7 +102,10 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     TextView mCollectTV;
     @Bind(R.id.collect_layout)
     LinearLayout mCollectLayout;
-
+    @Bind(R.id.guige_text_show)
+    TextView mShowGuigeTV;
+    @Bind(R.id.tv_good_detail_buy)
+    TextView mBuyNowTV;
 
     private List<String> mPictureList;
     private HotGoodsDetailAdapter mAdapter;
@@ -112,6 +121,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     Goods mGoods;
 
     String goodsId;
+    String eventId; //活动id
     private RequestQueue mQueue = NoHttp.newRequestQueue();
     GoodsInfoSelectlTagListDialog mDialog2 = null;
 
@@ -122,6 +132,10 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     private CommonPromptDialog mCommonDialog;
 
     List<GoodsTagsGuige> mGTGList; //商品规格"gui_price": [{"key": "1_5_9","price": "2.00","store_count": 2}
+    String feilei = "";
+    float mPrice;
+    private int guigeGoodsKuncun = -1; //商品规格中的库存数量
+    GoodsTagsGuige  mOrderGuige; //选中的规格
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +173,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
 //        }
 
         initBanner();
-        getData();
+//        getData();
 
     }
 
@@ -188,6 +202,7 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         super.getBundleExtras(extras);
         if (extras != null) {
             goodsId = extras.getString("goodsId");
+            eventId = extras.getString("eventId");
         }
     }
 
@@ -195,6 +210,8 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         mCountdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
             @Override
             public void onEnd(CountdownView cv) {
+                mBuyNowTV.setFocusable(false);
+                mBuyNowTV.setText("活动已结束");
                 showToast("倒计时结束");
             }
         });
@@ -256,13 +273,14 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
     }
 
 
-    @OnClick({R.id.format_layout, R.id.evaluate_layout, R.id.collect_layout})
+    @OnClick({R.id.format_layout, R.id.evaluate_layout, R.id.collect_layout, R.id.tv_good_detail_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.format_layout:
 
                 break;
             case R.id.evaluate_layout:
+
                 break;
             case R.id.collect_layout:
                 //收藏
@@ -274,7 +292,29 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                     mCommonDialog.show();
                 }
                 break;
-
+            case R.id.tv_good_detail_buy:
+                if (MyApplication.getUser() != null && MyApplication.getUser().getUserid() != null) {
+                    if (mSelectGuigeMap.size() != mGoodsTagList.size()) {
+                        showToast(R.string.selectGuigeToast);
+                        return;
+                    }
+                    if (buyNum<=0){
+                        showToast(R.string.selectBuynum);
+                        return;
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("goods", mGoods);
+                    bundle.putSerializable("guigemap", new SerializableMap(mSelectGuigeMap));
+                    bundle.putInt("goodnum", buyNum);
+                    bundle.putFloat("price", mPrice);
+                    bundle.putInt("kuncun", guigeGoodsKuncun);
+                    bundle.putSerializable("guige",mOrderGuige);
+                    bundle.putString("eventId",eventId);
+                    go(ConfirmOrderActivity.class, bundle);
+                } else {
+                    mCommonDialog.show();
+                }
+                break;
 
         }
     }
@@ -344,9 +384,9 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                             }
 
                             JSONArray imageUrlArray = jsonObject.getJSONObject("date").getJSONArray("image_url");
-                            for (int i = 0; i < imageUrlArray.length(); i++){
+                            for (int i = 0; i < imageUrlArray.length(); i++) {
                                 String picUrl = imageUrlArray.getJSONObject(i).getString("image_url");
-                                mPictureList.add(ConnectUrl.REQUESTURL_IMAGE+picUrl);
+                                mPictureList.add(ConnectUrl.REQUESTURL_IMAGE + picUrl);
                             }
                             setViewData();
                         } else {
@@ -386,16 +426,16 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         if (MyApplication.getUser() != null && MyApplication.getUser().getUserid() != null) {
             httpCollect(true);
         }
-//        showGuigeDialog();
+        mGoodsNameTV.setText(mGoods.getGoods_name());
         mChangjiaTV.setText(mGoods.getChangjia());
         mChandiTV.setText(mGoods.getChandi());
         mFuzerenTV.setText(mGoods.getFuzeren());
-        mYouxiaoqiTV.setText(DateTimeUtils.formatdian(mGoods.getIn_time()) + "~" + DateTimeUtils.formatdian(mGoods.getOut_time()));
-        mCountdownView.start(DateTimeUtils.compareTime(mGoods.getEnd_time()*1000L));
-        mPriceTV.setText(mGoods.getPrice()+"");
-        mSoldNumTV.setText("已售"+mGoods.getBuy_num()+"");
-        mYuanjiaPrice.setText(mGoods.getMarket_price()+"");
-        mKucunTV.setText("库存"+mGoods.getStore_count()+"");
+//        mYouxiaoqiTV.setText(DateTimeUtils.formatdian(mGoods.getIn_time()) + "~" + DateTimeUtils.formatdian(mGoods.getOut_time()));
+        mCountdownView.start(DateTimeUtils.compareTime(mGoods.getEnd_time() * 1000L));
+        mPriceTV.setText(DecimalUtils.decimalFormat(mGoods.getShop_price()));
+        mSoldNumTV.setText(mGoods.getBuy_num() + "件已售");
+        mYuanjiaPrice.setText(DecimalUtils.decimalFormat(mGoods.getMarket_price()));
+        mKucunTV.setText("库存" + mGoods.getStore_count() + "");
         initListener();
         mBanner.notifyDataSetChanged();
     }
@@ -480,27 +520,26 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
 
     private void showGuigeDialog() {
         mDialog2 = new GoodsInfoSelectlTagListDialog(HotGoodsDetailActivity.this, R.style.goods_info_dialog, mGoodsTagList);
-//        mDialog2.setTags(mGoodsTagList);
-        String feilei = "";
         mDialog2.setSelectFenlei(feilei);
-        for (GoodsTag.Guige v : mSelectGuigeMap.values()) {
-            feilei += " " + v.getItem();
-        }
+        mDialog2.setSelectNum(buyNum);
         if (mSelectGuigeMap.size() == mGoodsTagList.size()) {
             changeTagsDialogView();
-        }else {
+        } else {
             mDialog2.setKucun(mGoods.getStore_count());
             mDialog2.setPrice(mGoods.getPrice());
         }
 
-
-//        buyNum = mGoods.getStore_count();
-
         mDialog2.setAddOnClickListener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (buyNum < mGoods.getStore_count()) {
-                    mDialog2.setSelectNum(++buyNum);
+                if (guigeGoodsKuncun > 0) {
+                    if (buyNum < guigeGoodsKuncun) {
+                        mDialog2.setSelectNum(++buyNum);
+                    }
+                } else {
+//                    if (buyNum < mGoods.getStore_count()) {
+//                        mDialog2.setSelectNum(++buyNum);
+//                    }
                 }
             }
         });
@@ -522,17 +561,18 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                     Log.e("规格：", "onClick: " + v.toString());
                     flag++;
                 }
-                if (mSelectGuigeMap.size() != mGoodsTagList.size()) {
-                    showToast(R.string.selectGuigeToast);
-                    return;
-                }
-                startActivity(new Intent(HotGoodsDetailActivity.this, ConfirmOrderActivity.class));
+                if (TextUtils.isEmpty(feilei)) {
+                    mShowGuigeTV.setText("选择商品规格");
+                } else
+                    mShowGuigeTV.setText("已选规格:" + feilei);
+
                 mDialog2.dismiss();
             }
         });
         mDialog2.setItemClickListener(new GoodsInfoSelectlTagListDialog.OnItemClickListener() {
             @Override
             public void onItemClick(int position, int i) {
+//                mDialog2.setImage(ConnectUrl.REQUESTURL_IMAGE + mGoodsTagList.get(position).getGuiges().get(i).getSrc());
                 if (i >= 0) {
                     mGoodsTagList.get(position).getGuiges().get(i).setFlag(true);
                     mSelectGuigeMap.put(position, mGoodsTagList.get(position).getGuiges().get(i));
@@ -542,15 +582,18 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
                     setSeclectFalse(position);
                     mSelectGuigeMap.remove(position);
                 }
-                String feilei = "";
+
+                feilei = "";
+
                 for (GoodsTag.Guige v : mSelectGuigeMap.values()) {
                     feilei += " " + v.getItem();
                 }
+
                 mDialog2.setSelectFenlei(feilei);
                 //选择标签改变对应的价钱和库存
                 if (mSelectGuigeMap.size() == mGoodsTagList.size()) {
                     changeTagsDialogView();
-                }else {
+                } else {
                     mDialog2.setKucun(mGoods.getStore_count());
                     mDialog2.setPrice(mGoods.getPrice());
                 }
@@ -580,15 +623,34 @@ public class HotGoodsDetailActivity extends BaseActivity implements GradationScr
         String tagsIdKey[] = mGTGList.get(0).getKey().split("_");
         String keyJoin = "";
         for (GoodsTag.Guige v : mSelectGuigeMap.values()) {
-            keyJoin += v.getId() + "_";
+            keyJoin += v.getItem_id() + "_";
         }
         keyJoin = keyJoin.substring(0, keyJoin.length() - 1);
+        boolean flag = false; //false 显示默认的库存和价格
         for (GoodsTagsGuige g : mGTGList) {
             if (g.getKey().contains(keyJoin)) {
+                mOrderGuige = g;
                 mDialog2.setKucun(g.getStore_count());
                 mDialog2.setPrice(g.getPrice());
+                mPrice = g.getPrice();
+                guigeGoodsKuncun = g.getStore_count();
+                if (buyNum > g.getStore_count()) {
+                    buyNum = g.getStore_count();
+                    mDialog2.setSelectNum(buyNum);
+                }else {
+                    buyNum = 1;
+                    mDialog2.setSelectNum(buyNum);
+                }
+                flag = true;
                 break;
             }
+        }
+        if (!flag) {
+            guigeGoodsKuncun = -1;
+            mDialog2.setKucun(0);
+            mDialog2.setPrice(mGoods.getPrice());
+            buyNum = 0;
+            mDialog2.setSelectNum(buyNum);
         }
 
     }

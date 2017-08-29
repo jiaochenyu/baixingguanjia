@@ -2,14 +2,14 @@ package com.linkhand.baixingguanjia.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/24.
  */
-public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private String[] tabTitles;
     private List<Fragment> fragments;
 
@@ -33,4 +33,5 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return tabTitles[position];
     }
+
 }

@@ -1,4 +1,4 @@
-package com.zgh.pagegridview;
+package com.linkhand.bxgj.lib.pagegridview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +11,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.linkhand.bxgj.lib.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -249,7 +251,7 @@ public class PageGridView extends RecyclerView {
     int currentPage = 0;
     int lastPage = 0;
 
-    public class PagingScrollListener extends RecyclerView.OnScrollListener {
+    public class PagingScrollListener extends OnScrollListener {
 
 
         @Override
@@ -292,7 +294,7 @@ public class PageGridView extends RecyclerView {
     }
 
     //分割线
-    public static class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
+    public static class DividerGridItemDecoration extends ItemDecoration {
 
         private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
         private Drawable mDivider;
@@ -328,7 +330,7 @@ public class PageGridView extends RecyclerView {
             int childCount = parent.getChildCount();
             for (int i = 0; i < childCount; i++) {
                 final View child = parent.getChildAt(i);
-                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
+                final LayoutParams params = (LayoutParams) child
                         .getLayoutParams();
                 final int left = child.getLeft() - params.leftMargin;
                 final int right = child.getRight() + params.rightMargin
@@ -345,7 +347,7 @@ public class PageGridView extends RecyclerView {
             for (int i = 0; i < childCount; i++) {
                 final View child = parent.getChildAt(i);
 
-                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
+                final LayoutParams params = (LayoutParams) child
                         .getLayoutParams();
                 final int top = child.getTop() - params.topMargin;
                 final int bottom = child.getBottom() + params.bottomMargin;

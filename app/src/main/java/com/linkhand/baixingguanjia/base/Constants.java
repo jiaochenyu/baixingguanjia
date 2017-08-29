@@ -1,6 +1,14 @@
 package com.linkhand.baixingguanjia.base;
 
 public class Constants {
+    public static class Alipay{
+        // 商户收款账号
+        public static final String SELLER = "76949XXXX@qq.com";
+        // 支付宝公钥
+        public static final String RSA_PUBLIC ="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5I4AS+q8ka9ZRQpYh1jzvRXeu/80Bh8uy6Ib+ccF7c3ckPKHzt4t8nSowz475ArlovQB/Zu0/5DTXq5pcjh/e7JD+KsfGh0p0jvnH8oLrvPBsNX9enPXVeZk4EDsiJbgLpxdQ0mCAr4PbH6aRWcyA1sxrVtGPcdTm+wh6jT0EbRixejkeQbt0YheLFZ2xFP2WPMPN2+GWfE2tC/QvMQXRkgwWvFQ8dOuagugSL5TE5ILY8YWPtSauCP5K8lSq5Pn7Q5Swgj743gj5cI1ASMt983dAERdGBXcPblszQO5hIfZaPjhMsa9zTkzW1YpKNLBFX9mg0H6Ba40NAODqEIaKQIDAQAB/XiLmRyxvLuGNKswjQ7BLY/9G88M6g4c0iYv7A9Cn2NawR+HHZtinfKZECKNGFKzr92bJzs1Rr4ZNUZw7vz7Vx2w0I+og6Hx1hpTl3ikmcHZ7e6bZCk9TZoWQobUhPxVfQY8pnkb0uoEV0LuDvf0qrm2DUexqucHkj2bKTfDnKQk5BPGzyyytCn6nuKJGxaplr4OyqB4lW9pBlaWvyRkiH2mker8ABb+aLUVSSnlfN0pJt/ucdjpef2aEtMMbLJgcjIiP4yTac+kxrVhijvXpAr7xQIDAQAB";
+        // 商户私钥，pkcs8格式
+        public static final String RSA_PRIVATE = "";
+    }
 
     public static class RespCode {
         public static final int TOKEN_INVALID = 302;
@@ -64,7 +72,7 @@ public class Constants {
         public static final int BINDPHONE = 0x0004;
         public static final int RONG = 0x0005;
         public static final int ADDFRIEND = 0x0006;
-        public static final int ALBUM = 0x0007;
+        public static final int ALBUM = 0x0007; //相册
         public static final int VEIDO = 0x0047;
         public static final int CAMERA = 0x0008;
         public static final int LOCATION = 0x0009;

@@ -14,7 +14,10 @@ import com.google.gson.Gson;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
+import com.linkhand.baixingguanjia.base.MyApplication;
+import com.linkhand.baixingguanjia.entity.User;
 import com.linkhand.baixingguanjia.utils.RegexUtils;
+import com.linkhand.baixingguanjia.utils.SPUtils;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
@@ -197,7 +200,7 @@ public class RegisterActivity extends BaseActivity {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.LOGIN_SENDPHONECODE, RequestMethod.POST);
         Gson gson = new Gson();
         request.add("phone", phone);
-        request.add("product", code);
+        request.add("product", 1);
         mRequestQueue.add(REQUEST, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {
@@ -270,12 +273,66 @@ public class RegisterActivity extends BaseActivity {
                         String info = response.get().getString("info");
                         if (resultCode.equals("200")) {
                             showToast(R.string.registerSuccess);
+                            httpLogin();
                         } else if (resultCode.equals("202")) {
                             showToast(R.string.registerFail);
                         } else if (resultCode.equals("203")) {
                             showToast(R.string.phoneAlreadyExist);
                         } else {
                             showToast(R.string.registerFail);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+                hideLoading();
+            }
+
+            @Override
+            public void onFinish(int what) {
+                hideLoading();
+            }
+        });
+    }
+
+    private void httpLogin() {
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.LOGIN_MIMA, RequestMethod.POST);
+        Gson gson = new Gson();
+        request.add("phone", phone);
+        request.add("password", password);
+        mRequestQueue.add(REQUEST, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+                showLoading();
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == REQUEST) {
+                    String resultCode = null;
+                    try {
+                        JSONObject jsonObject = response.get();
+                        resultCode = jsonObject.getString("code");
+                        if (resultCode.equals("200")) {
+                            User user = new User();
+                            user = new Gson().fromJson(jsonObject.getJSONObject("data").toString(), User.class);
+                            SPUtils.put(RegisterActivity.this, "userInfo", user);
+                            SPUtils.put(RegisterActivity.this, "username", phone);
+                            SPUtils.put(RegisterActivity.this, "password", password);
+                            MyApplication.setUser(user);
+                            Bundle bundle = new Bundle();
+                            bundle.putBoolean("isRegister", true);
+                            goAndFinish(MainActivity.class, bundle);
+
+                        } else if (resultCode.equals("206")) {
+//                            Toast.makeText(RegisterActivity.this, "账号或密码有误", Toast.LENGTH_SHORT).show();
+                        } else if (resultCode.equals("214")) {
+//                            showOffliePop(jsonObject.getString("data"));
+//                            Toast.makeText(LoginActivity.this, "该账号已被禁用", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

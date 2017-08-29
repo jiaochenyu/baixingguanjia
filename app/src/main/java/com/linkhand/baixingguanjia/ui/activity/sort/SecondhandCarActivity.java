@@ -24,13 +24,14 @@ import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
 import com.linkhand.baixingguanjia.customView.ExpandTabView;
-import com.linkhand.baixingguanjia.customView.PopViewArea;
+import com.linkhand.baixingguanjia.customView.PopViewAreaSidebar;
 import com.linkhand.baixingguanjia.customView.PopViewList;
 import com.linkhand.baixingguanjia.entity.Car;
-import com.linkhand.baixingguanjia.entity.CarType;
+import com.linkhand.baixingguanjia.entity.CommonType;
+import com.linkhand.baixingguanjia.entity.EventFlag;
 import com.linkhand.baixingguanjia.entity.Picture;
 import com.linkhand.baixingguanjia.entity.Sheng;
-import com.linkhand.baixingguanjia.ui.activity.car.SecondhandCarDetailActivity;
+import com.linkhand.baixingguanjia.ui.activity.detail.SecondhandCarDetail2Activity;
 import com.linkhand.baixingguanjia.ui.adapter.SecondhandCarAdapter;
 import com.linkhand.baixingguanjia.utils.JSONUtils;
 import com.linkhand.baixingguanjia.utils.SPUtils;
@@ -41,6 +42,7 @@ import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,12 +92,12 @@ public class SecondhandCarActivity extends BaseActivity {
     EditText mEditText;
     @Bind(R.id.layout)
     LinearLayout mLayout;
-    private PopViewArea viewArea;
+    private PopViewAreaSidebar viewArea;
     private PopViewList viewType, viewSales, viewStore;
     private ArrayList<View> mViewArray = new ArrayList<View>();
 
     private List<String> salesItems = Arrays.asList(new String[]{"价格不限", "10万以下", "10万-30万", "30万-50万", "50万-100万", "100万以上"});
-    private List<String> salesItemsVaule = Arrays.asList(new String[]{"0", "001", "103", "305", "5010", "1000000"});
+    private List<String> salesItemsVaule = Arrays.asList(new String[]{"n-n", "0-10", "10-30", "30-50", "50-100", "min-100"});
     private List<String> typeItems = new ArrayList<>();
     private List<String> typeItemsVaule = new ArrayList<>();
     private List<String> storeItems = Arrays.asList(new String[]{"发布人不限", "个人", "商家"});
@@ -120,6 +122,7 @@ public class SecondhandCarActivity extends BaseActivity {
     String minPublisher; //百万以上筛选：（minPublisher：min； maxPublisher：100)
     String maxPublisher; //百万以上筛选：（minPublisher：min； maxPublisher：100)
 
+    Sheng mSheng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,12 +138,12 @@ public class SecondhandCarActivity extends BaseActivity {
 
 
     private void initView() {
-        List<CarType> mTList = (List<CarType>) SPUtils.get(this, "CarType", new TypeToken<List<CarType>>() {
+        List<CommonType> mTList = (List<CommonType>) SPUtils.get(this, "CarType", new TypeToken<List<CommonType>>() {
         }.getType());
         Map<String, List<String>> map = JSONUtils.getStrArray(mTList);
         typeItems = map.get("items");
         typeItemsVaule = map.get("itemsValue");
-        viewArea = new PopViewArea(this);
+        viewArea = new PopViewAreaSidebar(this);
         viewType = new PopViewList(this, typeItems, typeItemsVaule, 2);
         viewSales = new PopViewList(this, salesItems, salesItemsVaule, 3);
         viewStore = new PopViewList(this, storeItems, storeItemsVaule, 4);
@@ -161,6 +164,29 @@ public class SecondhandCarActivity extends BaseActivity {
         mTextArray.add(getStrgRes(R.string.sortType));
         mTextArray.add(getStrgRes(R.string.sortScale));
         mTextArray.add(getStrgRes(R.string.sortStore));
+
+
+        mSheng = (Sheng) SPUtils.get(SecondhandCarActivity.this, "UserLocation", Sheng.class);
+        if (mSheng != null) {
+            shengId = mSheng.getId();
+            shiId = mSheng.getShi().getId();
+//            mTextArray.set(0,mSheng.getShi().getName());
+            if (mSheng.getQu() != null){
+                quId = mSheng.getQu().getId();
+                mTextArray.set(0,mSheng.getQu().getName());
+            }
+
+            if (mSheng.getXiaoqu() != null){
+                xiaoquId = mSheng.getXiaoqu().getId();
+                mTextArray.set(0,mSheng.getXiaoqu().getName());
+            }
+
+        }else {
+            Sheng sheng = (Sheng) SPUtils.get(SecondhandCarActivity.this, "DiQu", Sheng.class);
+            shengId = sheng.getId();
+            shiId = sheng.getShiList().get(0).getId();
+        }
+
         expandTabView.setValue(mTextArray, mViewArray, v_bg);
 
 
@@ -197,7 +223,7 @@ public class SecondhandCarActivity extends BaseActivity {
 
 
         //* 选择小区
-        viewArea.setOnSelectListener(new PopViewArea.OnSelectListener() {
+        viewArea.setOnSelectListener(new PopViewAreaSidebar.OnSelectListener() {
 
             @Override
             public void getValue(Sheng s, int quPos, int xiaoquPos, String showText) {
@@ -241,8 +267,7 @@ public class SecondhandCarActivity extends BaseActivity {
 
             @Override
             public void getValue(String value, String showText) {
-                int price = Integer.parseInt(value);
-                saleType(price);
+                saleType(value);
                 v_bg.setVisibility(View.GONE);
                 onRefresh(viewSales, showText);
                 pageFlag = 1;
@@ -271,7 +296,8 @@ public class SecondhandCarActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("car", (Serializable) mList.get(position - 1));
-                go(SecondhandCarDetailActivity.class, bundle);
+                bundle.putInt("position", position - 1);
+                go(SecondhandCarDetail2Activity.class, bundle);
             }
         });
 
@@ -290,6 +316,20 @@ public class SecondhandCarActivity extends BaseActivity {
                 httpGetCarList();
             }
         });
+
+    }
+
+    @Override
+    protected boolean isBindEventBusHere() {
+        return true;
+    }
+    @Subscribe
+    public void onEvent(EventFlag eventFlag) {
+        if (eventFlag.getFlag().equals("offlineCar")) {
+            int position = (Integer) eventFlag.getObject();
+            mList.remove(position);
+            mAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -363,6 +403,11 @@ public class SecondhandCarActivity extends BaseActivity {
                 mListview.onRefreshComplete();
                 mAdapter.notifyDataSetChanged();
                 pageFlag++;
+                if (!adjustList(mList)){
+                    mNullBg.setVisibility(View.VISIBLE);
+                }else {
+                    mNullBg.setVisibility(View.GONE);
+                }
 //                refresh();
             }
         });
@@ -413,34 +458,11 @@ public class SecondhandCarActivity extends BaseActivity {
     /**
      * 价钱筛选
      */
-    private void saleType(int price) {
-        switch (price) {
-            case 0:
-                minPublisher = "n";
-                maxPublisher = "n";
-                break;
-            case 001:
-                minPublisher = "0";
-                maxPublisher = "10";
-                break;
-            case 103:
-                minPublisher = "10";
-                maxPublisher = "30";
-                break;
-            case 305:
-                minPublisher = "30";
-                maxPublisher = "50";
-                break;
-            case 5010:
-                minPublisher = "50";
-                maxPublisher = "100";
-                break;
-            case 1000000:
-                //1百万以上
-                minPublisher = "min";
-                maxPublisher = "100";
-                break;
-        }
+    private void saleType(String price) {
+        minPublisher = price.split("-")[0];
+        maxPublisher = price.split("-")[1];
+
+
     }
 
 
@@ -461,15 +483,14 @@ public class SecondhandCarActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.back, R.id.menu_layout, R.id.show_layout, R.id.cha, R.id.search_text})
+    @OnClick({R.id.back, R.id.show_layout, R.id.cha, R.id.search_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
-            case R.id.menu_layout:
-                break;
             case R.id.show_layout:
+                v_bg.setVisibility(View.GONE);
                 mLayoutShow.setVisibility(View.GONE);
                 mLayoutEdit.setVisibility(View.VISIBLE);
                 mSearchTV.setVisibility(View.VISIBLE);
@@ -478,6 +499,7 @@ public class SecondhandCarActivity extends BaseActivity {
                 mEditText.setText("");
                 break;
             case R.id.search_text:
+                v_bg.setVisibility(View.GONE);
                 if (mSearchTV.getText().equals(getStrgRes(R.string.cancel))) {
                     mLayoutShow.setVisibility(View.VISIBLE);
                     mLayoutEdit.setVisibility(View.GONE);

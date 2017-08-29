@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/defaultBackgroundGray"
-    tools:context="com.linkhand.baixingguanjia.ui.activity.release.EducationReleaseActivity">
+    android:fitsSystemWindows="true"
+    tools:context="com.linkhand.baixingguanjia.ui.activity.release.HousePropertyReleaseActivity">
 
 
     <LinearLayout
@@ -28,34 +28,53 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/x150"
-                    android:background="@drawable/icon_house_property_bg"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_height="@dimen/x180">
 
-                    <ImageView
-                        android:id="@+id/image"
-                        android:layout_width="@dimen/x46"
-                        android:layout_height="@dimen/x36"
-                        android:src="@drawable/icon_upload_image"/>
+                    <LinearLayout
+                        android:id="@+id/pic_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/icon_house_property_bg"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/text"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:id="@+id/image_df"
+                            android:layout_width="@dimen/x38"
+                            android:layout_height="@dimen/x28"
+                            android:src="@drawable/icon_upload_image"/>
+
+                        <TextView
+                            android:id="@+id/text_upload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/x5"
+                            android:alpha="0.5"
+                            android:background="@drawable/background_corner_gray_transparent_color"
+                            android:paddingBottom="@dimen/x1"
+                            android:paddingLeft="@dimen/x5"
+                            android:paddingRight="@dimen/x5"
+                            android:paddingTop="@dimen/x1"
+                            android:text="@string/uploadPic"
+                            android:textColor="@color/redD24"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <GridView
+                        android:id="@+id/gridview"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/x5"
-                        android:background="@drawable/background_corner_gray_transparent_color"
-                        android:paddingBottom="@dimen/x2"
-                        android:paddingLeft="@dimen/x5"
-                        android:paddingRight="@dimen/x5"
-                        android:paddingTop="@dimen/x2"
-                        android:text="上传照片"
-                        android:textColor="@color/redD24"
-                        android:textSize="14sp"/>
-                </LinearLayout>
+                        android:horizontalSpacing="5dp"
+                        android:listSelector="#00000000"
+                        android:numColumns="4"
+                        android:padding="@dimen/x10"
+                        android:verticalSpacing="@dimen/x10"
+                        android:visibility="gone"
+                        >
+                    </GridView>
+                </RelativeLayout>
 
                 <View
                     style="@style/grayline"
@@ -63,6 +82,7 @@
                     android:layout_height="@dimen/x5"/>
 
                 <RadioGroup
+                    android:id="@+id/sell_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
@@ -78,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/radiobutton_selector"
                         android:button="@null"
+                        android:checked="true"
                         android:paddingBottom="@dimen/x3"
                         android:paddingLeft="@dimen/x10"
                         android:paddingRight="@dimen/x10"
@@ -92,7 +113,7 @@
                         android:layout_marginLeft="@dimen/x10"
                         android:background="@drawable/radiobutton_selector"
                         android:button="@null"
-                        android:checked="true"
+
                         android:paddingBottom="@dimen/x3"
                         android:paddingLeft="@dimen/x10"
                         android:paddingRight="@dimen/x10"
@@ -106,6 +127,7 @@
                     />
 
                 <RadioGroup
+                    android:id="@+id/store_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
@@ -150,12 +172,16 @@
                 <!--小区-->
                 <include
                     android:id="@+id/area_layout"
-                    layout="@layout/include_item_edittext_3"/>
+                    layout="@layout/include_item_go2"/>
+
+                <View
+                    style="@style/grayline"
+                    />
 
                 <!--地址-->
-                <include
-                    android:id="@+id/address_layout"
-                    layout="@layout/include_item_edittext_3"/>
+                <!--<include-->
+                    <!--android:id="@+id/address_layout"-->
+                    <!--layout="@layout/include_item_edittext_3"/>-->
 
                 <View
                     style="@style/grayline"
@@ -168,13 +194,102 @@
                 <View
                     style="@style/grayline"/>
                 <!--面积-->
-                <include
-                    android:id="@+id/size_layout"
-                    layout="@layout/include_item_edittext_3"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingRight="@dimen/x10"
+                    android:paddingTop="@dimen/x10">
+
+                    <TextView
+                        android:layout_width="@dimen/x50"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="面积"
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                    <EditText
+                        android:id="@+id/edittext_mianji"
+                        android:layout_width="@dimen/x50"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x15"
+                        android:layout_marginRight="@dimen/x3"
+                        android:layout_toLeftOf="@+id/text_right2"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint=""
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/text_right2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="m²"
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+                <View
+                    style="@style/grayline"
+                    />
                 <!--租金-->
-                <include
-                    android:id="@+id/rendprice_layout"
-                    layout="@layout/include_item_edittext_4"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingRight="@dimen/x10"
+                    android:paddingTop="@dimen/x10">
+
+                    <TextView
+                        android:id="@+id/price_text"
+                        android:layout_width="@dimen/x50"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="租金"
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                    <EditText
+                        android:id="@+id/edittext_price"
+                        android:layout_width="@dimen/x50"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x15"
+                        android:layout_marginRight="@dimen/x3"
+                        android:layout_toLeftOf="@+id/price_unit"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint=""
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/price_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="元/月"
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
 
                 <View
                     style="@style/grayline"
@@ -184,9 +299,51 @@
                     android:id="@+id/title_layout"
                     layout="@layout/include_item_edittext_3"/>
                 <!--描述-->
-                <include
+                <RelativeLayout
                     android:id="@+id/abstract_layout"
-                    layout="@layout/include_item_edittext_3"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingRight="@dimen/x10"
+                    android:paddingTop="@dimen/x10">
+
+                    <TextView
+                        android:id="@+id/text_left"
+                        android:layout_width="@dimen/x50"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="描述"
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/describe"
+                        android:layout_width="@dimen/x200"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x15"
+                        android:layout_toRightOf="@+id/text_left"
+                        android:background="@null"
+                        android:gravity="left"
+                        android:hint="@string/hintEdittextCardetail"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/image_right"
+                        android:layout_width="@dimen/x16"
+                        android:layout_height="@dimen/x16"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/icon_go_right"
+                        android:visibility="gone"
+                        />
+                </RelativeLayout>
 
                 <View
                     style="@style/grayline"
@@ -200,6 +357,46 @@
                 <include
                     android:id="@+id/phone_layout"
                     layout="@layout/include_item_edittext_3"/>
+
+                <View
+                    style="@style/grayline"
+                    />
+                <!--商家名称-->
+                <RelativeLayout
+                    android:id="@+id/store_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="@dimen/x10"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingRight="@dimen/x10"
+                    android:paddingTop="@dimen/x10">
+
+                    <TextView
+                        android:id="@+id/text_sss"
+                        android:layout_width="@dimen/x50"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="商家名称"
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+
+                    <EditText
+                        android:id="@+id/company_name"
+                        android:layout_width="@dimen/x200"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x15"
+                        android:layout_toRightOf="@+id/text_sss"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/grayText"
+                        android:textSize="14sp"/>
+                    />
+                </RelativeLayout>
 
 
                 <TextView

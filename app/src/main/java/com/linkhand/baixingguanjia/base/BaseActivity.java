@@ -1,13 +1,20 @@
 package com.linkhand.baixingguanjia.base;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.ILoadingLayout;
@@ -283,6 +290,23 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
         endLables.setReleaseLabel("放开加载");
     }
 
+    // 图片选择器 横向滑动的GridView
+    public void horizontal_layout(List<?> mList, GridView mGridView) {
+        int size = mList.size();
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        float density = dm.density;
+        int allWidth = (int) (70 * size * density + 5 * density * (size - 1)); // 宽度加间距
+        int itemWidth = (int) (70 * density);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(allWidth,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        mGridView.setLayoutParams(params);
+        mGridView.setColumnWidth(itemWidth);
+        mGridView.setHorizontalSpacing((int) (5 * density));
+        mGridView.setStretchMode(GridView.NO_STRETCH);
+        mGridView.setNumColumns(size);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -300,6 +324,28 @@ public abstract class BaseActivity extends BaseAppCompatActivity {
         if (toast != null) {
             toast.cancel();
         }
+    }
+
+
+    /**
+     * 充值
+     * @param info
+     * @param clazz
+     */
+     public  void showBaseDialog(String info, final Class<? extends Activity> clazz){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage(info);
+        builder.setCancelable(false);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+             go(clazz);
+            }
+        });
+        AlertDialog alterDialog = builder.create();
+        alterDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        alterDialog.show();
     }
 
 

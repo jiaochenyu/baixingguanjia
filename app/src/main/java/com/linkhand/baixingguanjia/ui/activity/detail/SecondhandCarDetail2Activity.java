@@ -1,4 +1,4 @@
-package com.linkhand.baixingguanjia.ui.activity.car;
+package com.linkhand.baixingguanjia.ui.activity.detail;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,14 +13,17 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.google.gson.Gson;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
 import com.linkhand.baixingguanjia.base.MyApplication;
 import com.linkhand.baixingguanjia.customView.CommonPromptDialog;
 import com.linkhand.baixingguanjia.entity.Car;
+import com.linkhand.baixingguanjia.entity.EventFlag;
 import com.linkhand.baixingguanjia.entity.Picture;
 import com.linkhand.baixingguanjia.ui.activity.LoginActivity;
+import com.linkhand.baixingguanjia.ui.activity.my.MyAppointmentActivity;
 import com.linkhand.baixingguanjia.utils.NetworkImageHolderView;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
@@ -29,6 +32,7 @@ import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,8 +44,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SecondhandCarDetail2Activity extends BaseActivity implements OnItemClickListener, ViewPager.OnPageChangeListener {
-    private static final int HTTP_REQUEST = 0;
-
+    //    private static final int HTTP_REQUEST = 0;
+//    private static final int REQUEST_WHAT = 1;
+    private static final int HTTP_REQUEST_IS_AAP = 2; //是否预约
+    private static final int HTTP_REQUEST_COLLECT = 3; //是否收藏
+    private static final int REQUEST_WHAT_DETILES = 4; // 详情页
+    private static final int HTTP_REQUEST_APP = 5;//预约
     @Bind(R.id.iv_detai_img)
     ConvenientBanner mBanner;
     @Bind(R.id.tv_car_detail_buy)
@@ -94,7 +102,10 @@ public class SecondhandCarDetail2Activity extends BaseActivity implements OnItem
     private RequestQueue mRequestQueue = NoHttp.newRequestQueue();
     private CommonPromptDialog mDialog;
     private Dialog mOkDialog;
-
+    private String goods_type = "";
+    private String goodsid = "";
+    private RequestQueue mQueue = NoHttp.newRequestQueue();
+    private int position = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,33 +125,33 @@ public class SecondhandCarDetail2Activity extends BaseActivity implements OnItem
         super.getBundleExtras(extras);
         if (extras != null) {
             mCar = (Car) extras.getSerializable("car");
-            mPictureList = new ArrayList<>();
-            for (int i = 0; i < mCar.getPic().size(); i++) {
-                mPictureList.add(mCar.getPic().get(i).getUrl());
+            if (mCar != null) {
+                if (adjustList(mCar.getImage_url())) {
+                    mPictureList = mCar.getImage_url();
+                } else {
+                    mPictureList = new ArrayList<>();
+                }
+                position = extras.getInt("position", -1);
+            } else {
+                goods_type = extras.getString("goods_type", "");
+                goodsid = extras.getString("goodsid", "");
             }
         }
     }
 
     private void initView() {
         mCarLayout.setVisibility(View.VISIBLE);
-//        mPicPositionTV.setText(1 + "/" + mPictureList.size());
-        mCarNameTV.setText(mCar.getTitle());
-        mReleaseTimeTV.setText(mCar.getTime());
-        mLocationTV.setText(mCar.getCounty());
-        mShangpaiTimeTV.setText(mCar.getCreator() + "年");
-        mMileageTV.setText(mCar.getDistance() + "万公里");
-        mPriceTV.setText(mCar.getPrice() + "万元");
-        mContentTV.setText(mCar.getContent());
-        mPhoneTV.setText("******");
-        mFuwuTypeTV.setText(R.string.cartype);
-        if (mCar.getCategory().equals("4")) {
-            mStoreTypeTV.setText(R.string.store);
-        } else if (mCar.getCategory().equals("5")) {
-            mStoreTypeTV.setText(R.string.geren);
-        }
         mChakanTV.setVisibility(View.GONE);
-        mAddressTV.setText(mCar.getCounty() + mCar.getVillage());
-        mContactTV.setText(mCar.getContact());
+        if (mCar != null) {
+            setViewData();
+            if (MyApplication.getUser() != null && MyApplication.getUser().getUserid() != null) {
+                httpIsAppoinment();
+            }
+        } else {
+            httpGetDetiles();
+        }
+//        mPicPositionTV.setText(1 + "/" + mPictureList.size());
+
     }
 
     private void initData() {
@@ -171,16 +182,32 @@ public class SecondhandCarDetail2Activity extends BaseActivity implements OnItem
         mOkDialog = new Dialog(this, R.style.goods_info_dialog);
         mOkDialog.setContentView(R.layout.dialog_appointment_success);
         TextView okBtn = (TextView) mOkDialog.findViewById(R.id.btn_ok);
+        TextView noBtn = (TextView) mOkDialog.findViewById(R.id.btn_no);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOkDialog.dismiss();
+                goAndFinish(MyAppointmentActivity.class);
             }
         });
-
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //1下线2不下线
+                if (mCar.getOffline().equals("1")) {
+                    if (position != -1) {
+                        EventBus.getDefault().post(new EventFlag("offlineCar", position));
+                    }
+                }
+                finish();
+            }
+        });
     }
 
     private void initBanner() {
+        if (!adjustList(mPictureList)) {
+            mPictureList = new ArrayList<>();
+        }
         mBanner.setPages(new CBViewHolderCreator() {
             @Override
             public NetworkImageHolderView createHolder() {
@@ -220,15 +247,21 @@ public class SecondhandCarDetail2Activity extends BaseActivity implements OnItem
      */
     private void httpCollect(final boolean var) {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_COLLECT, RequestMethod.POST);
-        request.add("goodsid", mCar.getCarid());
+        if (mCar == null) {
+            request.add("goodsid", goodsid);
+            request.add("goodstype", goods_type);
+        } else {
+            request.add("goodsid", mCar.getCarid());
+            request.add("goodstype", mCar.getGoods_type());
+        }
         request.add("userid", MyApplication.getUser().getUserid());
-        request.add("goodstype", mCar.getGoods_type());
+
         if (!var) {
             request.add("boolean", isCollect ? "t" : "f");
         }
         Log.d("收藏", request.getParamKeyValues().values().toString());
 
-        mRequestQueue.add(HTTP_REQUEST, request, new OnResponseListener<JSONObject>() {
+        mRequestQueue.add(HTTP_REQUEST_COLLECT, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {
 
@@ -238,7 +271,7 @@ public class SecondhandCarDetail2Activity extends BaseActivity implements OnItem
             //  code1：200收藏成功 204收藏失败 205收藏数量达到上限 208取消收藏成功 209取消收藏失败
             @Override
             public void onSucceed(int what, Response<JSONObject> response) {
-                if (what == HTTP_REQUEST) {// 根据what判断是哪个请求的返回，这样就可以用一个OnResponseListener来接受多个请求的结果。
+                if (what == HTTP_REQUEST_COLLECT) {// 根据what判断是哪个请求的返回，这样就可以用一个OnResponseListener来接受多个请求的结果。
                     int responseCode = response.getHeaders().getResponseCode();// 服务器响应码。
                     JSONObject jsonObject = response.get();
                     try {
@@ -295,6 +328,188 @@ public class SecondhandCarDetail2Activity extends BaseActivity implements OnItem
         }
     }
 
+    private void httpGetDetiles() {
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_SERVICE_DTEAIL, RequestMethod.POST);
+        request.add("goodsid", goodsid);
+        request.add("goods_type", goods_type);
+        mQueue.add(REQUEST_WHAT_DETILES, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+                showLoading(false);
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == REQUEST_WHAT_DETILES) {
+                    String resultCode = null;
+                    Log.e("tag", response.get().toString());
+                    try {
+                        Gson gson = new Gson();
+                        JSONObject jsonObject = response.get();
+                        resultCode = jsonObject.getString("code");
+                        if (resultCode.equals("200")) {
+                            mCar = gson.fromJson(jsonObject.getJSONObject("data").toString(), Car.class);
+                        }
+                        setViewData();
+                        mPictureList = mCar.getImage_url();
+                        if (adjustList(mPictureList)) {
+                            mBanner.notifyDataSetChanged();
+                        }
+                        if (MyApplication.getUser() != null && MyApplication.getUser().getUserid() != null) {
+                            httpIsAppoinment();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+                hideLoading();
+            }
+
+            @Override
+            public void onFinish(int what) {
+                if (what == REQUEST_WHAT_DETILES) {
+//                    initListener();
+
+                    hideLoading();
+
+                }
+
+            }
+        });
+
+    }
+
+    private void setViewData() {
+        mCarNameTV.setText(mCar.getTitle());
+        mReleaseTimeTV.setText(mCar.getTime());
+        mLocationTV.setText(mCar.getCounty());
+        mShangpaiTimeTV.setText(mCar.getCreator() + "年");
+        mMileageTV.setText(mCar.getDistance() + "万公里");
+        mPriceTV.setText(mCar.getPrice() + "万元");
+        mContentTV.setText(mCar.getContent());
+        mPhoneTV.setText("******");
+        mFuwuTypeTV.setText(R.string.cartype);
+        if (mCar.getCategory().equals("4")) {
+            mStoreTypeTV.setText(R.string.store);
+        } else if (mCar.getCategory().equals("5")) {
+            mStoreTypeTV.setText(R.string.geren);
+        }
+
+        mAddressTV.setText(mCar.getAddress());
+        mContactTV.setText(mCar.getContact());
+    }
+
+
+    /**
+     * 是否预约
+     */
+    private void httpIsAppoinment() {
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_IS_APPOINTMENT, RequestMethod.POST);
+//        if (mEducation == null) {
+//            request.add("goodsid", goodsid);
+//            request.add("goodstype", goods_type);
+//        } else { }
+        request.add("goodsid", mCar.getCarid());
+        request.add("goodstype", mCar.getGoods_type());
+        request.add("userid", MyApplication.getUser().getUserid());
+
+        Log.d("是否预约", request.getParamKeyValues().values().toString());
+
+        mRequestQueue.add(HTTP_REQUEST_IS_AAP, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            //  code：206已收藏 207未收藏
+            //  code1：200收藏成功 204收藏失败 205收藏数量达到上限 208取消收藏成功 209取消收藏失败
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == HTTP_REQUEST_IS_AAP) {// 根据what判断是哪个请求的返回，这样就可以用一个OnResponseListener来接受多个请求的结果。
+                    int responseCode = response.getHeaders().getResponseCode();// 服务器响应码。
+                    JSONObject jsonObject = response.get();
+                    try {
+                        if (jsonObject.getString("code").equals("200")) {
+                            //已预约
+                            mPhoneTV.setText(mCar.getPhone());
+                        } else if (jsonObject.getString("code").equals("216")) {
+                            mPhoneTV.setText("******");
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+    }
+
+    /**
+     * 预约
+     */
+    private void httpAppointment() {
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_SERVICE_APPOINTMENT, RequestMethod.POST);
+        request.add("goodsid", mCar.getCarid());
+        request.add("goodstype", mCar.getGoods_type());
+        request.add("offline", mCar.getOffline());
+        request.add("userid", MyApplication.getUser().getUserid());
+        Log.d("预约", request.getParamKeyValues().values().toString());
+
+        mRequestQueue.add(HTTP_REQUEST_APP, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+                showLoading();
+            }
+
+            //  code：206已收藏 207未收藏
+            //  code1：200收藏成功 204收藏失败 205收藏数量达到上限 208取消收藏成功 209取消收藏失败
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == HTTP_REQUEST_APP) {// 根据what判断是哪个请求的返回，这样就可以用一个OnResponseListener来接受多个请求的结果。
+                    int responseCode = response.getHeaders().getResponseCode();// 服务器响应码。
+                    JSONObject jsonObject = response.get();
+                    try {
+                        if (jsonObject.getString("code").equals("200")) {
+                            mOkDialog.show();
+                        } else if (jsonObject.getString("code").equals("212")) {
+                            showToast(R.string.toast_not_appoinment_yourself);
+                        } else if (jsonObject.getString("code").equals("213")) {
+                            showToast(R.string.yuyueFail);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+
+            }
+
+            @Override
+            public void onFinish(int what) {
+                hideLoading();
+            }
+        });
+    }
 
     @OnClick({R.id.share_iv, R.id.ll_good_detail_collect, R.id.iv_good_detai_back, R.id.tv_car_detail_buy})
     public void onViewClicked(View view) {
@@ -316,11 +531,9 @@ public class SecondhandCarDetail2Activity extends BaseActivity implements OnItem
                 finish();
                 break;
             case R.id.tv_car_detail_buy:
-//                Bundle bundle = new Bundle();
-//                bundle.putString("type", "car");
-//                bundle.putSerializable("car", mCar);
-//                go(AddUserInfoActivity.class, bundle);
-                mOkDialog.show();
+                if (mCar != null) {
+                    httpAppointment();
+                }
                 break;
         }
     }

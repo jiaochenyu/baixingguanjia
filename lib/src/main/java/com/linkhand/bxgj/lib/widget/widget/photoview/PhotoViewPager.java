@@ -1,4 +1,4 @@
-package com.linkhand.bxgj.lib.widget.photoview;
+package com.linkhand.bxgj.lib.widget.widget.photoview;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

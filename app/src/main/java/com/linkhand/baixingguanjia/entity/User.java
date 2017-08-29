@@ -23,9 +23,13 @@ public class User {
      * Insertdate : 2017-07-04 17:03:26
      * modifydate : null
      * deletedate : null
+     * "total_amount": null, //消费额度
+     * "user_money": "1000.00", //  白银  用于发布
+     * "user_gold": "55.00", // 黄金
      */
 
-    public int userid;
+
+    public String userid;
     public String username;
     public String email;
     public String phone;
@@ -40,16 +44,58 @@ public class User {
     public String Insertdate;
     public String modifydate;
     public String deletedate;
-    public String avatarAddr;
+    public String head_url;
+    public int num;
+    /**
+     * qu_id : r
+     * qishu : r
+     * zutuan : r
+     * louhao : r
+     * danyuan : r
+     * louceng : r
+     * fangjian : r
+     * xiaoqu : r
+     */
+    //我的小区
+    private String qu_id;
+    private String qishu; //期数
+    private String zutuan; //组团数
+    private String louhao; // 楼号
+    private String danyuan; //单元
+    private String louceng; //楼层
+    private String fangjian; //房间号
+    /**
+     * sheng : r
+     * shi : r
+     * qu : r
+     * xiaoqu : r
+     * xiaoquname : r
+     */
+
+    private String sheng; //省市区id
+    private String shi;
+    private String qu;
+    private String xiaoqu;
+    private String xiaoquname; //我的小区名称
+    /**
+     * total_amount : null
+     * user_money : 1000.00
+     * user_gold : 55.00
+     */
+
+    private double total_amount;
+    private int user_money;
+    private int user_gold;
+
 
     public User() {
     }
 
-    public int getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
@@ -165,11 +211,131 @@ public class User {
         this.deletedate = deletedate;
     }
 
-    public String getAvatarAddr() {
-        return avatarAddr;
+    public String getHead_url() {
+        return head_url;
     }
 
-    public void setAvatarAddr(String avatarAddr) {
-        this.avatarAddr = avatarAddr;
+    public void setHead_url(String head_url) {
+        this.head_url = head_url;
+    }
+
+    public String getQu_id() {
+        return qu_id;
+    }
+
+    public void setQu_id(String qu_id) {
+        this.qu_id = qu_id;
+    }
+
+    public String getQishu() {
+        return qishu;
+    }
+
+    public void setQishu(String qishu) {
+        this.qishu = qishu;
+    }
+
+    public String getZutuan() {
+        return zutuan;
+    }
+
+    public void setZutuan(String zutuan) {
+        this.zutuan = zutuan;
+    }
+
+    public String getLouhao() {
+        return louhao;
+    }
+
+    public void setLouhao(String louhao) {
+        this.louhao = louhao;
+    }
+
+    public String getDanyuan() {
+        return danyuan;
+    }
+
+    public void setDanyuan(String danyuan) {
+        this.danyuan = danyuan;
+    }
+
+    public String getLouceng() {
+        return louceng;
+    }
+
+    public void setLouceng(String louceng) {
+        this.louceng = louceng;
+    }
+
+    public String getFangjian() {
+        return fangjian;
+    }
+
+    public void setFangjian(String fangjian) {
+        this.fangjian = fangjian;
+    }
+
+    public String getSheng() {
+        return sheng;
+    }
+
+    public void setSheng(String sheng) {
+        this.sheng = sheng;
+    }
+
+    public String getShi() {
+        return shi;
+    }
+
+    public void setShi(String shi) {
+        this.shi = shi;
+    }
+
+    public String getQu() {
+        return qu;
+    }
+
+    public void setQu(String qu) {
+        this.qu = qu;
+    }
+
+    public String getXiaoqu() {
+        return xiaoqu;
+    }
+
+    public void setXiaoqu(String xiaoqu) {
+        this.xiaoqu = xiaoqu;
+    }
+
+    public String getXiaoquname() {
+        return xiaoquname;
+    }
+
+    public void setXiaoquname(String xiaoquname) {
+        this.xiaoquname = xiaoquname;
+    }
+
+    public double getTotal_amount() {
+        return total_amount;
+    }
+
+    public void setTotal_amount(double total_amount) {
+        this.total_amount = total_amount;
+    }
+
+    public int getUser_money() {
+        return user_money;
+    }
+
+    public void setUser_money(int user_money) {
+        this.user_money = user_money;
+    }
+
+    public int getUser_gold() {
+        return user_gold;
+    }
+
+    public void setUser_gold(int user_gold) {
+        this.user_gold = user_gold;
     }
 }

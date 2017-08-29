@@ -1,9 +1,367 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:zhy="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/colorWhite"
               android:orientation="vertical">
+    <!--华丽分割线 二手车-->
+    <LinearLayout
+        android:id="@+id/car_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="表显里程"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/mileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/grayline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="所在地"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+        <View
+            style="@style/grayline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="首次上牌"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/shangpai_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+        <View
+            style="@style/grayline"/>
+
+    </LinearLayout>
+
+    <!--********************华丽分割线 房产********************-->
+    <LinearLayout
+        android:id="@+id/house_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="户型"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/house_huxing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/grayline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="面积"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/house_mianji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+        <View
+            style="@style/grayline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:id="@+id/house_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="租金"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/house_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+        <View
+            style="@style/grayline"/>
+
+    </LinearLayout>
+
+
+    <!--********************华丽分割线 闲置物品********************-->
+    <LinearLayout
+        android:id="@+id/idle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="买入价格"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/buy_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/grayline"/>
+
+    </LinearLayout>
+    <!--*************华丽分割线 家教****************-->
+    <LinearLayout
+        android:id="@+id/education_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="买入价格"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/education_object"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/grayline"/>
+
+    </LinearLayout>
+    <!--*************华丽分割线 招聘****************-->
+    <LinearLayout
+        android:id="@+id/recruit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="职位"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/grayline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="行业"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/hangye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/grayline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:id="@+id/fuli_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="福利"
+                android:textColor="@color/grayText"
+                android:textSize="14sp"/>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/fuli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fuli_text"
+                android:layout_marginTop="@dimen/x5"
+                android:clickable="false"
+                android:focusable="false"
+                android:paddingBottom="@dimen/x3"
+                android:paddingLeft="@dimen/x5"
+                android:paddingRight="@dimen/x5"
+                android:text=""
+                android:textColor="@color/blackText"
+                android:textSize="14sp"
+                zhy:max_select="-1"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/grayline"/>
+
+    </LinearLayout>
+
+    <!--*************华丽分割线 通用****************-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,6 +390,35 @@
         style="@style/grayline"/>
 
     <RelativeLayout
+        android:id="@+id/company_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x10"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/company_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商家名称"
+            android:textColor="@color/grayText"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="康德莱"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/grayline"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/x10">
@@ -44,7 +431,7 @@
             android:textSize="14sp"/>
 
         <TextView
-            android:id="@+id/type"
+            android:id="@+id/fuwu_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -65,16 +452,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="联系人"
+            android:text="地址"
             android:textColor="@color/grayText"
             android:textSize="14sp"/>
 
+        <!--  android:layout_toLeftOf="@+id/image1"-->
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/x5"
-            android:layout_toLeftOf="@+id/image1"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
             android:text="珠峰大街裕华路口"
             android:textColor="@color/blackText"
             android:textSize="14sp"/>
@@ -85,7 +473,8 @@
             android:layout_height="@dimen/x16"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_right_arrow"/>
+            android:src="@drawable/icon_right_arrow"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
@@ -109,11 +498,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="13091617887"
+            android:text="*****"
             android:textColor="@color/blackText"
             android:textSize="14sp"/>
 
     </RelativeLayout>
+
 
     <View
         style="@style/grayline"
@@ -126,7 +516,8 @@
         android:paddingBottom="@dimen/x10"
         android:paddingLeft="@dimen/x10"
         android:paddingRight="@dimen/x10"
-        android:paddingTop="@dimen/x10">
+        android:paddingTop="@dimen/x10"
+        android:visibility="gone">
 
 
         <LinearLayout
@@ -196,7 +587,8 @@
                 android:paddingTop="@dimen/x2"
                 android:text="点击收起"
                 android:textColor="@color/redFE5"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
 
         </LinearLayout>

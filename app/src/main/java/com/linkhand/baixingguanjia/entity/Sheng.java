@@ -20,6 +20,9 @@ public class Sheng implements Serializable {
     private String name;
     private String fu_id;
     private List<Shi> shiList;
+    private Shi Shi;
+    private Qu qu;
+    private Xiaoqu xiaoqu;
 
     public Sheng() {
     }
@@ -55,4 +58,29 @@ public class Sheng implements Serializable {
     public void setShiList(List<Shi> shiList) {
         this.shiList = shiList;
     }
+
+    public com.linkhand.baixingguanjia.entity.Shi getShi() {
+        return Shi;
+    }
+
+    public void setShi(com.linkhand.baixingguanjia.entity.Shi shi) {
+        Shi = shi;
+    }
+
+    public Qu getQu() {
+        return qu;
+    }
+
+    public void setQu(Qu qu) {
+        this.qu = qu;
+    }
+
+    public Xiaoqu getXiaoqu() {
+        return xiaoqu;
+    }
+
+    public void setXiaoqu(Xiaoqu xiaoqu) {
+        this.xiaoqu = xiaoqu;
+    }
+
 }

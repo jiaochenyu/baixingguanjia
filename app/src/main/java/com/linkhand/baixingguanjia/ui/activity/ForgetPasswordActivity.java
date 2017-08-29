@@ -175,7 +175,7 @@ public class ForgetPasswordActivity extends BaseActivity {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.LOGIN_SENDPHONECODE, RequestMethod.POST);
         Gson gson = new Gson();
         request.add("phone", phone);
-        request.add("product", code);
+        request.add("product", 3);
         mRequestQueue.add(REQUEST, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {

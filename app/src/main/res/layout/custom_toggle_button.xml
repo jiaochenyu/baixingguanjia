@@ -21,6 +21,7 @@
 		style="@style/searchTypeTabRightDivider" />
 
 	<ImageView
+		android:id="@+id/image_toggle"
 		android:layout_width="@dimen/x10"
 		android:layout_height="@dimen/x10"
 		android:layout_alignBottom="@+id/location"

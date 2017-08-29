@@ -19,6 +19,7 @@ public class HomeType implements Serializable {
     String content; //内容
     List<HomeNormalIcon> mNormalIconList; // 图标
     List<HomePopularIcon> mPopularIconList; // 图标
+    Goods mGoods ;
     public HomeType() {
     }
 
@@ -61,5 +62,13 @@ public class HomeType implements Serializable {
 
     public void setPopularIconList(List<HomePopularIcon> popularIconList) {
         mPopularIconList = popularIconList;
+    }
+
+    public Goods getGoods() {
+        return mGoods;
+    }
+
+    public void setGoods(Goods goods) {
+        mGoods = goods;
     }
 }

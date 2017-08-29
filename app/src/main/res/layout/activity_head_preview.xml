@@ -9,11 +9,13 @@
     <include layout="@layout/include_common_header"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
         <uk.co.senab.photoview.PhotoView
             android:id="@+id/ap_head_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/x256"
+            android:layout_height="wrap_content"
             android:scaleType="centerInside"
             android:layout_gravity="center_horizontal"/>
     </RelativeLayout>

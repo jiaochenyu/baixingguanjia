@@ -1,10 +1,14 @@
 package com.linkhand.baixingguanjia.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,7 +100,7 @@ public class LoginByPhoneActivity extends BaseActivity {
         };
     }
 
-    @OnClick({R.id.back, R.id.yanzheng, username, R.id.login})
+    @OnClick({R.id.back, R.id.yanzheng, R.id.login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -104,9 +108,6 @@ public class LoginByPhoneActivity extends BaseActivity {
                 break;
             case R.id.yanzheng:
                 judgeCodeData();
-
-                break;
-            case username:
                 break;
             case R.id.login:
                 judgeLoginData();
@@ -116,7 +117,7 @@ public class LoginByPhoneActivity extends BaseActivity {
 
     private void judgeCodeData() {
         phone = mPhoneET.getText().toString();
-
+        Log.d("phone", "judgeCodeData: "+phone);
         if (TextUtils.isEmpty(phone)) {
             showToast(R.string.passnotnull);
             return;
@@ -152,7 +153,7 @@ public class LoginByPhoneActivity extends BaseActivity {
         mRequestQueue = NoHttp.newRequestQueue();
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.LOGIN_SENDPHONECODE, RequestMethod.POST);
         request.add("phone", phone);
-        request.add("product", code);
+        request.add("product", 2);
         mRequestQueue.add(REQUEST, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {
@@ -253,6 +254,10 @@ public class LoginByPhoneActivity extends BaseActivity {
                             case 209:
                                 Toast.makeText(LoginByPhoneActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
                                 break;
+                            case 214:
+                                showOffliePop(jsonObject.getString("data"));
+//                                Toast.makeText(LoginByPhoneActivity.this, "该账号已被禁用", Toast.LENGTH_SHORT).show();
+                                break;
                             default:
                                 Toast.makeText(LoginByPhoneActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                                 break;
@@ -262,6 +267,21 @@ public class LoginByPhoneActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                 }
+            }
+            private void showOffliePop(String info){
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginByPhoneActivity.this);
+                builder.setTitle("提示");
+                builder.setMessage("该账号因涉嫌："+info+"问题，已被平台禁用！");
+                builder.setCancelable(false);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alterDialog = builder.create();
+                alterDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                alterDialog.show();
             }
 
             @Override

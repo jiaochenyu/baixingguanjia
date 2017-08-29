@@ -97,7 +97,7 @@ public class PopViewList extends LinearLayout implements PopViewBaseActionListen
 	}
 
 	public interface OnSelectListener {
-		public void getValue(String value, String showText);
+		public void getValue(String high, String low);
 	}
 
 	@Override

@@ -43,7 +43,7 @@
                     android:id="@+id/money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¥ 30.0"
+                    android:text="¥ "
                     android:textColor="@color/redFF4"
                     android:textSize="18sp"/>
 
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/x3"
-                    android:text="库存220件"
+                    android:text="库存0件"
                     android:textColor="@color/blackText"
                     android:textSize="16sp"/>
 
@@ -90,8 +90,8 @@
             android:layout_height="@dimen/x130"
             android:layout_marginLeft="@dimen/x10"
             android:background="@drawable/background_corner_kuang"
-            android:scaleType="center"
-            android:src="@mipmap/icon_bell"
+            android:scaleType="fitCenter"
+            android:src="@drawable/default_pic_show"
             />
 
     </FrameLayout>
@@ -99,12 +99,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:scrollbars="none"
-        android:layout_below="@+id/frameLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        >
+        android:layout_below="@+id/frameLayout"
+        android:background="@color/colorWhite"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -136,6 +135,13 @@
 
             </LinearLayout>
 
+            <com.linkhand.baixingguanjia.customView.NoScrollListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            </com.linkhand.baixingguanjia.customView.NoScrollListView>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,6 +149,7 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
                 android:padding="@dimen/x10"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -153,7 +160,7 @@
                     android:textColor="@color/blackText"
                     android:textSize="16sp"/>
 
-                <com.linkhand.customView.FlowLayout
+                <com.linkhand.baixingguanjia.customView.FlowLayout
                     android:id="@+id/size_tags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,6 +190,7 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
                 android:padding="@dimen/x10"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -193,7 +201,7 @@
                     android:textColor="@color/blackText"
                     android:textSize="16sp"/>
 
-                <com.linkhand.customView.FlowLayout
+                <com.linkhand.baixingguanjia.customView.FlowLayout
                     android:id="@+id/color_tags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -205,7 +213,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -260,7 +269,8 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorWhite"
                         android:gravity="center"
-                        android:text="1"/>
+                        android:text="1"
+                        android:textColor="@color/blackText"/>
 
                     <TextView
                         android:id="@+id/more"
@@ -275,6 +285,40 @@
                         android:text="+"
                         android:textColor="@color/grayText"/>
                 </LinearLayout>
+            </LinearLayout>
+
+            <View
+                style="@style/grayline"
+                android:layout_marginLeft="@dimen/x10"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/x15"
+                android:paddingLeft="@dimen/x10"
+                android:paddingRight="@dimen/x10"
+                android:paddingTop="@dimen/x15"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总价："
+                    android:textColor="@color/blackText"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/count_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/redFF4"
+                    android:textSize="18sp"/>
+
             </LinearLayout>
 
 

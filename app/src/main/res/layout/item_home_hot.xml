@@ -1,43 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/x5">
 
-
-    <ImageView
-        android:id="@+id/image"
+    <RelativeLayout
+        android:id="@+id/not_finish"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x120"
-        android:scaleType="fitXY"
-        android:src="@drawable/hot_image"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/icon_hot_red_corner"
-        android:gravity="center"
-        android:paddingBottom="@dimen/x4"
-        android:paddingRight="@dimen/x4"
-        android:text="今日热卖"
-        android:textColor="@color/colorWhite"
-        android:textSize="12sp"/>
 
-    <TextView
-        android:id="@+id/describe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/image"
-        android:background="@color/colorWhite"
-        android:gravity="center_vertical|right"
-        android:paddingBottom="@dimen/x8"
-        android:paddingRight="@dimen/x10"
-        android:paddingTop="@dimen/x8"
-        android:text="236件已售 仅剩16小时"
-        android:textColor="@color/colorTopic"/>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x120"
+            android:scaleType="fitXY"
+            android:src="@drawable/hot_image"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_hot_red_corner"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x4"
+            android:paddingRight="@dimen/x4"
+            android:text="今日热卖"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:background="@color/colorWhite"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/x8"
+                    android:paddingTop="@dimen/x8"
+                    android:text="236"
+                    android:textColor="@color/colorTopic"/>
+
+                <TextView
+                    android:id="@+id/describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="@dimen/x8"
+                    android:paddingTop="@dimen/x8"
+                    android:text="件已售 仅剩"
+                    android:textColor="@color/blackText"/>
+
+                <cn.iwgang.countdownview.CountdownView
+                    android:id="@+id/countdownView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/x10"
+                    android:visibility="gone"
+                    app:isHideTimeBackground="true"
+                    app:isShowDay="true"
+                    app:isShowHour="false"
+                    app:isShowMillisecond="false"
+                    app:isShowMinute="false"
+                    app:isShowSecond="false"
+                    app:isSuffixTextBold="true"
+                    app:isTimeTextBold="true"
+                    app:suffix="天"
+                    app:suffixGravity="center"
+                    app:suffixTextColor="@color/redTopic"
+                    app:suffixTextSize="14sp"
+                    app:timeBgDivisionLineSize="0dp"
+                    app:timeBgSize="0dp"
+                    app:timeTextColor="@color/redTopic"
+                    app:timeTextSize="14sp"/>
+
+
+                <cn.iwgang.countdownview.CountdownView
+                    android:id="@+id/countdownView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/x10"
+                    android:visibility="visible"
+                    app:isHideTimeBackground="true"
+                    app:isShowDay="false"
+                    app:isShowHour="true"
+                    app:isShowMillisecond="false"
+                    app:isShowMinute="true"
+                    app:isShowSecond="true"
+                    app:isSuffixTextBold="true"
+                    app:isTimeTextBold="true"
+                    app:suffix=":"
+                    app:suffixGravity="center"
+                    app:suffixTextColor="@color/redTopic"
+                    app:suffixTextSize="14sp"
+                    app:timeBgDivisionLineSize="0dp"
+                    app:timeBgSize="0dp"
+                    app:timeTextColor="@color/redTopic"
+                    app:timeTextSize="14sp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/finish_event"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x120"
+            android:alpha="0.8"
+            android:background="@color/defaultBackgroundGray"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="敬请期待"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -1,19 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/defaultBackgroundGray"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/defaultBackgroundGray"
+                android:orientation="vertical">
 
-    <include
-        layout="@layout/include_notice_header"/>
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recylerview"
+        <include
+            layout="@layout/include_home_header"/>
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/layout"
         >
 
-    </android.support.v7.widget.RecyclerView>
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/null_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/null_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/x30"
+            android:src="@drawable/null_data_show"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/null_image"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/x10"
+            android:text="@string/dataNoticeNull"
+            android:textColor="@color/blackText"/>
+
+    </RelativeLayout>
+</RelativeLayout>

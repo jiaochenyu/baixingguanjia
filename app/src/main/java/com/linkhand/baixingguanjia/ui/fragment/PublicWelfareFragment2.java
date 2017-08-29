@@ -36,7 +36,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PublicWelfareFragment extends BaseLazyFragment {
+public class PublicWelfareFragment2 extends BaseLazyFragment {
     private static final int HTTP_REQUEST = 0;
     private boolean isPrepared;
     RequestQueue mQueue = NoHttp.newRequestQueue();
@@ -48,12 +48,12 @@ public class PublicWelfareFragment extends BaseLazyFragment {
     View view;
     @Bind(R.id.listview)
     PullToRefreshListView mListview;
-    private int type;
+    private int type = 2;
     private PublicWelfareAdapter adapter;
     private List<PublicWelfare> dataList;
     private String tiaojian;
 
-    public PublicWelfareFragment(int type) {
+    public PublicWelfareFragment2(int type) {
         this.type = type;
         switch (type) {
             case 1:
@@ -193,12 +193,7 @@ public class PublicWelfareFragment extends BaseLazyFragment {
                 hideLoading();
                 mListview.onRefreshComplete();
                 adapter.notifyDataSetChanged();
-                if (isHidden()) {
-
-                } else {
-                    pageFlag++;
-                }
-
+                pageFlag++;
                 if (!adjustList(dataList)) {
                     mNullBg.setVisibility(View.VISIBLE);
                 } else {

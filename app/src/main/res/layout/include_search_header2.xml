@@ -44,13 +44,31 @@
                 android:layout_height="15dp"
                 android:src="@mipmap/icon_search"/>
 
-            <TextView
+            <EditText
+                android:id="@+id/tiaojian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:layout_marginLeft="5dp"
-                android:text="@string/string16"
-                android:textColor="@color/grayText"
+                android:hint="@string/string16"
+                android:textColor="@color/blackText"
+                android:textColorHint="@color/grayText"
+                android:background="@null"
                 android:textSize="14sp"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/cha"
+                    android:layout_width="@dimen/x16"
+                    android:layout_height="@dimen/x16"
+                    android:src="@drawable/icon_cha"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -67,6 +85,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="5dp"
+            android:visibility="visible"
             >
 
             <RadioGroup

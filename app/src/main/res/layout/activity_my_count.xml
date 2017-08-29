@@ -1,10 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.linkhand.baixingguanjia.ui.activity.my.MyCountActivity">
+    android:background="@color/defaultBackgroundGray"
+    android:orientation="vertical"
+    tools:context="com.linkhand.baixingguanjia.ui.activity.my.MyAccountActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        layout="@layout/include_common_header"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x150"
+        android:background="@color/blueTopic"
+        android:orientation="vertical"
+        android:padding="@dimen/x10"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/count"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/x20"
+            android:text="222"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/x22"/>
+
+        <ImageView
+            android:id="@+id/type_image"
+            android:layout_width="@dimen/x26"
+            android:layout_height="@dimen/x26"
+            android:layout_alignBottom="@id/account"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_toRightOf="@id/account"
+            android:src="@drawable/icon_sliver_stars"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_pay_silver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/x10"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_wallet_pay"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="充值"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_pay_gold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/x10"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_dikou"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="抵扣物业费"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"/>
+    </LinearLayout>
+</LinearLayout>

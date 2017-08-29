@@ -1,10 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.my.PayCheckActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        layout="@layout/include_common_header"/>
+
+    <LinearLayout
+        android:id="@+id/item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginTop="@dimen/x10"
+        android:background="@drawable/bg_gray_and_blue_line_selector"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/x8"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_sliver_stars"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x5"
+            android:gravity="center"
+            android:text="100两"
+            android:textColor="@color/blackText"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x18"
+        android:layout_marginTop="@dimen/x5"
+        android:text="¥1.00"
+        android:textColor="@color/redTopic"
+        android:textSize="16sp"/>
+
+
+    <RadioGroup
+        android:id="@+id/pay_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:orientation="vertical"
+        >
+
+        <View
+            style="@style/grayline"/>
+
+        <RadioButton
+            android:id="@+id/alipayPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x10"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/icon_alipay"
+            android:drawableRight="@drawable/radiogroup_pay_select"
+            android:paddingBottom="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="         支付宝支付"
+            android:textColor="@color/blackText"/>
+
+        <View
+            style="@style/grayline"/>
+
+        <RadioButton
+            android:id="@+id/weChatPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x10"
+            android:button="@null"
+            android:checked="false"
+            android:drawableLeft="@drawable/icon_webchat"
+            android:drawableRight="@drawable/radiogroup_pay_select"
+            android:paddingBottom="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="         微信支付"
+            android:textColor="@color/blackText"/>
+
+        <View
+            style="@style/grayline"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/submit_pay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/x20"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/x20"
+        android:background="@drawable/background_textview_big_corner_gray"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorWhite"/>
+</LinearLayout>

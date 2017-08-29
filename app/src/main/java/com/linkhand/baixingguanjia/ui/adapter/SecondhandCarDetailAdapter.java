@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.linkhand.baixingguanjia.R;
-import com.linkhand.baixingguanjia.entity.Picture;
 import com.linkhand.baixingguanjia.utils.MyImageLoader;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -21,7 +20,7 @@ import java.util.List;
 
 public class SecondhandCarDetailAdapter extends CommonAdapter {
     private Context mContext;
-    private List<Picture> mList;
+    private List<String> mList;
     int width;
 
     public SecondhandCarDetailAdapter(Context context, int layoutId, List datas) {
@@ -38,7 +37,7 @@ public class SecondhandCarDetailAdapter extends CommonAdapter {
         params.width = width;
         params.height = width/2;
         imageView.setLayoutParams(params);
-        MyImageLoader.getInstance().displayImageCen(mContext,mList.get(position).getUrl(),imageView,width,width/2);
+        MyImageLoader.getInstance().displayImageCen(mContext,mList.get(position),imageView,width,width/2);
     }
 
 

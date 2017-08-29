@@ -25,6 +25,6 @@ public class NetworkImageHolderView implements Holder {
 
     @Override
     public void UpdateUI(Context context, int position, Object data) {
-        Glide.with(context).load(data).placeholder(R.drawable.icon_car_default).into(mImageView);
+        Glide.with(context).load(data).placeholder(R.drawable.default_pic_show).error(R.drawable.default_pic_show).into(mImageView);
     }
 }

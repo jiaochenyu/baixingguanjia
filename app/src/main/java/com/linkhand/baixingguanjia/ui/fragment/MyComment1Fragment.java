@@ -20,8 +20,7 @@ import com.linkhand.baixingguanjia.base.MyApplication;
 import com.linkhand.baixingguanjia.customView.CommonPromptDialog;
 import com.linkhand.baixingguanjia.entity.Collect;
 import com.linkhand.baixingguanjia.entity.Goods;
-import com.linkhand.baixingguanjia.ui.adapter.my.MyCollectListView2Adapter;
-import com.linkhand.baixingguanjia.ui.adapter.my.MyCollectListViewAdapter;
+import com.linkhand.baixingguanjia.ui.adapter.my.MyCommentListView1Adapter;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
@@ -44,7 +43,7 @@ import butterknife.ButterKnife;
  * 说明：  我的收藏
  */
 
-public class MyCollect1Fragment extends BaseFragment {
+public class MyComment1Fragment extends BaseFragment {
     private static final String TAG = "info";
     private final static int REQUEST = 0;
     private static final int HTTP_REQUEST = 1;
@@ -59,14 +58,13 @@ public class MyCollect1Fragment extends BaseFragment {
 
     List<Collect> mServiceList;
     List<Goods> mGoodsList;
-    MyCollectListViewAdapter mAdapter; // 商品
-    MyCollectListView2Adapter mAdapter2; //服务
+    MyCommentListView1Adapter mAdapter; // 商品
     RequestQueue mRequestQueue = NoHttp.newRequestQueue();
 
     CommonPromptDialog mCancelDialog;
     int cancelPosition;
 
-    public MyCollect1Fragment(int type) {
+    public MyComment1Fragment(int type) {
         this.type = type;
         switch (type) {
             case 1:
@@ -101,12 +99,8 @@ public class MyCollect1Fragment extends BaseFragment {
     private void initData() {
         if (type == 1) {
             mGoodsList = new ArrayList<>();
-            mAdapter = new MyCollectListViewAdapter(getActivity(), R.layout.item_my_collect, mGoodsList);
+            mAdapter = new MyCommentListView1Adapter(getActivity(), R.layout.item_comment_goods, mGoodsList);
             mListview.setAdapter(mAdapter);
-        } else if (type == 2) {
-            mServiceList = new ArrayList<>();
-            mAdapter2 = new MyCollectListView2Adapter(getActivity(), R.layout.item_my_collect2, mServiceList);
-            mListview.setAdapter(mAdapter2);
         }
 
 
@@ -156,21 +150,16 @@ public class MyCollect1Fragment extends BaseFragment {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //跳转到商品
+
 
             }
         });
 
-        mAdapter.setCancelClick(new MyCollectListViewAdapter.CancelClick() {
-            @Override
-            public void cancelClick(int position) {
-                cancelPosition = position;
-                mCancelDialog.show();
-            }
-        });
     }
 
     private void httpGetList() {
-        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_MY_COLLECT_LIST, RequestMethod.POST);
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_MY_EVALUATE_LIST, RequestMethod.POST);
         Gson gson = new Gson();
         request.add("userid", MyApplication.getUser().getUserid());
         request.add("type", type);

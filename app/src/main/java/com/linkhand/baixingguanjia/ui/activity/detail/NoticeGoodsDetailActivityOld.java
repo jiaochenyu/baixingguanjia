@@ -31,7 +31,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NoticeGoodsDetailActivity extends BaseActivity implements GradationScrollView.ScrollViewListener, OnItemClickListener, ViewPager.OnPageChangeListener {
+public class NoticeGoodsDetailActivityOld extends BaseActivity implements GradationScrollView.ScrollViewListener, OnItemClickListener, ViewPager.OnPageChangeListener {
 
     @Bind(R.id.iv_good_detai_img)
     ConvenientBanner mBanner;
@@ -134,8 +134,6 @@ public class NoticeGoodsDetailActivity extends BaseActivity implements Gradation
         mTagList.add(new Tag("X",false));
         mTagList.add(new Tag("XL",false));
         mTagList.add(new Tag("XXL",false));
-
-
 
     }
 

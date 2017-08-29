@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.linkhand.baixingguanjia.R;
@@ -29,9 +30,11 @@ import java.util.Map;
  *
  * @author linmz
  */
-public class PopViewArea extends LinearLayout implements PopViewBaseActionListener {
+public class PopViewAreaSidebar extends LinearLayout implements PopViewBaseActionListener {
 
     private ListView lvRegion, lvPlate;
+    private SideBar mSideBar;
+    private TextView mTextLetter;
     private List<Qu> groups = new ArrayList<Qu>();
     private SparseArray<LinkedList<Xiaoqu>> children = new SparseArray<LinkedList<Xiaoqu>>();
     private LinkedList<Xiaoqu> childrenItem = new LinkedList<Xiaoqu>();
@@ -41,15 +44,15 @@ public class PopViewArea extends LinearLayout implements PopViewBaseActionListen
     private int tBlockPosition = 0; //小区
     private String showString = "不限";
     private OnSelectListener mOnSelectListener;
-    Sheng sheng ;
+    Sheng sheng;
 
 
-    public PopViewArea(Context context) {
+    public PopViewAreaSidebar(Context context) {
         super(context);
         init(context);
     }
 
-    public PopViewArea(Context context, AttributeSet attrs) {
+    public PopViewAreaSidebar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
@@ -82,12 +85,12 @@ public class PopViewArea extends LinearLayout implements PopViewBaseActionListen
     private void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.view_area_popupwindow, this, true);
+        inflater.inflate(R.layout.view_area_popupwindow_sidebar, this, true);
         lvRegion = (ListView) findViewById(R.id.lvRegion);
         lvPlate = (ListView) findViewById(R.id.lvPlate);
-
-
-
+        mTextLetter = (TextView) findViewById(R.id.showletter);
+        mSideBar = (SideBar) findViewById(R.id.sidebar);
+        mSideBar.setTextView(mTextLetter);
         sheng = (Sheng) SPUtils.get(context, "DiQu", new TypeToken<Sheng>() {
         }.getType());
         Map<String, Object> map = JSONUtils.getDiqu(sheng.getShiList().get(0).getQuList());
@@ -109,22 +112,29 @@ public class PopViewArea extends LinearLayout implements PopViewBaseActionListen
                         if (position < children.size()) {
                             childrenItem.clear();
                             childrenItem.addAll(children.get(position));
-                            Log.e("地区接口参数", "onItemClick: "+childrenItem.size() );
+                            Log.e("地区接口参数", "onItemClick: " + childrenItem.size());
                             plateListViewAdapter.notifyDataSetChanged();
                         }
                         if (position == 0) {
                             showString = groups.get(position).getName();
                             if (mOnSelectListener != null) {
-                                mOnSelectListener.getValue(sheng,-1,-1,showString);
+                                mOnSelectListener.getValue(sheng, -1, -1, showString);
                             }
                         }
                         tEaraPosition = position;
+                        if (tEaraPosition == 0){
+                            mSideBar.setVisibility(GONE);
+                        }else {
+                            mSideBar.setVisibility(VISIBLE);
+                        }
 
                     }
                 });
-        if (tEaraPosition < children.size())
+        if (tEaraPosition < children.size()) {
             childrenItem.addAll(children.get(tEaraPosition));
-        plateListViewAdapter = new PopListTextAdapter( childrenItem,context, 0,
+            sortXiaoqu();
+        }
+        plateListViewAdapter = new PopListTextAdapter(childrenItem, context, 0,
                 R.drawable.pop_list_choose_plate_item_selector, 2);
         plateListViewAdapter.setTextSize(13);
         plateListViewAdapter.setTextColor(context.getResources().getColor(R.color.blackText));
@@ -139,7 +149,7 @@ public class PopViewArea extends LinearLayout implements PopViewBaseActionListen
                         showString = childrenItem.get(position).getName();
                         if (mOnSelectListener != null) {
 
-                            mOnSelectListener.getValue(sheng,tEaraPosition-1,position-1,showString);
+                            mOnSelectListener.getValue(sheng, tEaraPosition - 1, position - 1, showString);
                         }
 
                     }
@@ -149,8 +159,39 @@ public class PopViewArea extends LinearLayout implements PopViewBaseActionListen
         if (showString.contains("不限")) {
             showString = showString.replace("不限", "");
         }
+        initSidebarListener();
         setDefaultSelect();
 
+    }
+
+    private void initSidebarListener() {
+        mSideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                char letter;
+                letter = s.toUpperCase().charAt(0);
+                for (int i = 0; i < childrenItem.size(); i++) {
+//                    Log.e("theLetter", "onTouchingLetterChanged: " + xiaoquItem.get(i).getName());
+                    if (childrenItem.get(i).getLetter() == letter) {
+                        Log.e("onTouchingLetterChanged", "onTouchingLetterChanged: " + i);
+                        lvPlate.setSelection(i);
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    private void sortXiaoqu() {
+        for (int i = 0; i < childrenItem.size(); i++) {
+            for (int j = i + 1; j < childrenItem.size(); j++) {
+                if (childrenItem.get(j).getLetter() < childrenItem.get(i).getLetter()) {
+                    Xiaoqu temp = childrenItem.get(i);
+                    childrenItem.set(i, childrenItem.get(j));
+                    childrenItem.set(j, temp);
+                }
+            }
+        }
     }
 
     public void setDefaultSelect() {
@@ -170,7 +211,7 @@ public class PopViewArea extends LinearLayout implements PopViewBaseActionListen
          * @param xiaoquPos 小区的位置
          * @param showText 显示内容
          */
-        public void getValue(Sheng s,int quPos,int xiaoquPos,String showText);
+        public void getValue(Sheng s, int quPos, int xiaoquPos, String showText);
     }
 
     @Override

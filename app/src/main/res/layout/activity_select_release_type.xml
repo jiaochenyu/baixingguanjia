@@ -1,23 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.release.CommonSelectedTypeActivity">
 
-    <include
-        layout="@layout/include_common_header"/>
-
-    <ListView
-        android:id="@+id/listview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/defaultBackgroundGray"
-        android:dividerHeight="0.5dp"
-        >
-    </ListView>
+        android:layout_above="@+id/bottom"
+        android:orientation="vertical">
 
-</LinearLayout>
+
+        <include
+            layout="@layout/include_common_header"/>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/defaultBackgroundGray"
+            android:dividerHeight="0.5dp"
+            android:visibility="visible"
+            >
+        </ListView>
+
+        <View
+            style="@style/grayline"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/shi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="室"
+            android:textColor="@color/blackText"
+            />
+
+        <EditText
+            android:id="@+id/ting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="厅"
+            android:textColor="@color/blackText"
+            />
+
+        <EditText
+            android:id="@+id/chu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="厨"
+            android:textColor="@color/blackText"
+            />
+
+        <EditText
+            android:id="@+id/wei"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="卫"
+            android:textColor="@color/blackText"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

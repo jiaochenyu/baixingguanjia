@@ -1,18 +1,23 @@
 package com.linkhand.baixingguanjia.ui.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseFragment;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
 import com.linkhand.baixingguanjia.base.MyApplication;
+import com.linkhand.baixingguanjia.customView.CommonPromptDialog;
 import com.linkhand.baixingguanjia.entity.Collect;
 import com.linkhand.baixingguanjia.entity.Goods;
 import com.linkhand.baixingguanjia.ui.adapter.my.MyCollectListView2Adapter;
@@ -24,6 +29,7 @@ import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,29 +44,36 @@ import butterknife.ButterKnife;
  * 说明：  我的收藏
  */
 
-public class MyCollectFragment extends BaseFragment {
+public class MyCollect1Fragment extends BaseFragment {
     private static final String TAG = "info";
     private final static int REQUEST = 0;
+    private static final int HTTP_REQUEST = 1;
 
     View view;
     int type;
     int pageFlag = 1;
     @Bind(R.id.listview)
     PullToRefreshListView mListview;
+    @Bind(R.id.null_bg)
+    RelativeLayout mNullBg;
+
     List<Collect> mServiceList;
     List<Goods> mGoodsList;
     MyCollectListViewAdapter mAdapter; // 商品
     MyCollectListView2Adapter mAdapter2; //服务
     RequestQueue mRequestQueue = NoHttp.newRequestQueue();
 
-    public MyCollectFragment(int type) {
+    CommonPromptDialog mCancelDialog;
+    int cancelPosition;
+
+    public MyCollect1Fragment(int type) {
         this.type = type;
         switch (type) {
             case 1:
-                Log.d(TAG, "MyCollectFragment: 商品类");
+                Log.d(TAG, "MyCollect1Fragment: 商品类");
                 break;
             case 2:
-                Log.d(TAG, "MyCollectFragment: 服务类");
+                Log.d(TAG, "MyCollect1Fragment: 服务类");
                 break;
 
 
@@ -74,27 +87,87 @@ public class MyCollectFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         initView();
         initData();
+        showLoading();
+        httpGetList();
         initListener();
-
         return view;
     }
 
     private void initView() {
-
+        initRefreshListView(mListview);
+        initCancelDialog();
     }
 
     private void initData() {
-        if (type == 1){
+        if (type == 1) {
             mGoodsList = new ArrayList<>();
-            mAdapter = new MyCollectListViewAdapter(getActivity(), R.layout.item_my_collect, mServiceList);
+            mAdapter = new MyCollectListViewAdapter(getActivity(), R.layout.item_my_collect, mGoodsList);
             mListview.setAdapter(mAdapter);
-        }else if (type == 2){
+        } else if (type == 2) {
             mServiceList = new ArrayList<>();
-            mAdapter2 = new MyCollectListView2Adapter(getActivity(), R.layout.item_my_collect, mGoodsList);
+            mAdapter2 = new MyCollectListView2Adapter(getActivity(), R.layout.item_my_collect2, mServiceList);
             mListview.setAdapter(mAdapter2);
         }
 
 
+    }
+
+    private void initCancelDialog() {
+        mCancelDialog = new CommonPromptDialog(getActivity(), R.style.goods_info_dialog);
+        mCancelDialog.setMessage(getStrgRes(R.string.cancelCollect));
+        mCancelDialog.setOptionOneClickListener(getStrgRes(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mCancelDialog.dismiss();
+            }
+        });
+        mCancelDialog.setOptionTwoClickListener(getStrgRes(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mCancelDialog.dismiss();
+                mGoodsList.remove(cancelPosition);
+                mAdapter.notifyDataSetChanged();
+                if (!adjustList(mGoodsList)) {
+                    mNullBg.setVisibility(View.VISIBLE);
+                } else {
+                    mNullBg.setVisibility(View.GONE);
+                }
+                httpCancelCollect();
+            }
+        });
+    }
+
+    private void initListener() {
+        //上拉加载下拉刷新监听
+        mListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //重新加载
+                pageFlag = 1;
+                httpGetList();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                httpGetList();
+            }
+        });
+
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //跳转到商品
+
+            }
+        });
+
+        mAdapter.setCancelClick(new MyCollectListViewAdapter.CancelClick() {
+            @Override
+            public void cancelClick(int position) {
+                cancelPosition = position;
+                mCancelDialog.show();
+            }
+        });
     }
 
     private void httpGetList() {
@@ -115,20 +188,21 @@ public class MyCollectFragment extends BaseFragment {
                     String resultCode = null;
                     Gson gson = new Gson();
                     try {
+                        if (pageFlag == 1) {
+                            mGoodsList.clear();
+                        }
                         JSONObject jsonObject = response.get();
                         resultCode = jsonObject.getString("code");
                         if (resultCode.equals("200")) {
-                            if (type == 1) {
-                                Goods goods = gson.fromJson(jsonObject.getJSONObject("data").toString(),Goods.class);
-                                mGoodsList.add()
-                            } else if (type == 2) {
-                                Collect collect = gson.fromJson(jsonObject.getJSONObject("data").toString(), Collect.class);
-                                mServiceList.add(collect);
+                            JSONArray array = jsonObject.getJSONArray("data");
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject jsonObject1 = array.getJSONObject(i);
+                                Goods goods = gson.fromJson(jsonObject1.toString(), Goods.class);
+                                mGoodsList.add(goods);
                             }
 
-
                         } else if (resultCode.equals("201")) {
-                            Toast.makeText(getActivity(), "账号或密码有误", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), "账号或密码有误", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -144,13 +218,79 @@ public class MyCollectFragment extends BaseFragment {
             @Override
             public void onFinish(int what) {
                 hideLoading();
+                mListview.onRefreshComplete();
+                mAdapter.notifyDataSetChanged();
+                pageFlag++;
+                if (!adjustList(mGoodsList)) {
+                    mNullBg.setVisibility(View.VISIBLE);
+                } else {
+                    mNullBg.setVisibility(View.GONE);
+                }
             }
         });
     }
 
-    private void initListener() {
 
+    private void httpCancelCollect() {
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_COLLECT, RequestMethod.POST);
+        request.add("goodsid", mServiceList.get(cancelPosition).getId());
+        request.add("userid", MyApplication.getUser().getUserid());
+        request.add("goodstype", mServiceList.get(cancelPosition).getGoods_type());
+        request.add("boolean", "f");
+
+        Log.d("收藏", request.getParamKeyValues().values().toString());
+
+        mRequestQueue.add(HTTP_REQUEST, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            //  code：206已收藏 207未收藏
+            //  code1：200收藏成功 204收藏失败 205收藏数量达到上限 208取消收藏成功 209取消收藏失败
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == HTTP_REQUEST) {// 根据what判断是哪个请求的返回，这样就可以用一个OnResponseListener来接受多个请求的结果。
+                    int responseCode = response.getHeaders().getResponseCode();// 服务器响应码。
+                    JSONObject jsonObject = response.get();
+                    try {
+                        if (jsonObject.getString("code").equals("206")) {
+                            //已收藏
+
+
+                            if (jsonObject.getString("code1").equals("208")) {
+
+                            }
+                        } else if (jsonObject.getString("code").equals("207")) {
+                            //未收藏
+
+
+                            if (jsonObject.getString("code1").equals("200")) {
+
+                            }
+                        }
+
+
+//
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
     }
+
 
     @Override
     public void onDestroyView() {

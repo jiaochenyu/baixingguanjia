@@ -1,10 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.my.PropertyPayActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        layout="@layout/include_common_header"/>
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x10"
+        android:background="@drawable/background_textview_6dp_corner_line_gray"
+        android:hint="@string/hintGold"
+        android:maxLength="5"
+        android:numeric="integer"
+        android:padding="@dimen/x8"
+        android:textColor="@color/blackText"
+        android:textSize="@dimen/x14"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        android:padding="@dimen/x8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可用黄金"
+            android:textColor="@color/blackText"/>
+
+        <TextView
+            android:id="@+id/user_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x5"
+            android:text="1"
+            android:textColor="@color/redTopic"
+            android:textSize="@dimen/x20"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        android:orientation="horizontal"
+        android:padding="@dimen/x8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可抵扣"
+            android:textColor="@color/blackText"/>
+
+        <TextView
+            android:id="@+id/value_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x5"
+            android:text="¥0.00"
+            android:textColor="@color/redTopic"
+            android:textSize="@dimen/x20"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x20"
+        android:background="@drawable/background_textview_big_corner_blue"
+        android:gravity="center"
+        android:padding="@dimen/x8"
+        android:text="完成"
+        android:textColor="@color/colorWhite"/>
+
+
+</LinearLayout>

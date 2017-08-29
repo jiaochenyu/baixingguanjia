@@ -15,9 +15,15 @@
  */
 package com.linkhand.baixingguanjia.customView;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.view.Window;
+import android.content.DialogInterface;
+import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
+import android.view.View;
+import android.widget.TextView;
+
+import com.linkhand.baixingguanjia.R;
 
 
 /**
@@ -25,14 +31,56 @@ import android.view.Window;
  *
  * @author Yan Zhenjie.
  */
-public class WaitDialog extends ProgressDialog {
+public class CommonPromptDialog extends Dialog {
+    private Context mContext;
+    TextView oneTV;
+    TextView twoTV;
+    TextView messageTV;
+    private OnClickListener optionOneClickListener;
+    private OnClickListener optionTwoClickListener;
 
-    public WaitDialog(Context context) {
-        super(context);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setCanceledOnTouchOutside(false);
-        setProgressStyle(STYLE_SPINNER);
-//        setMessage(context.getText(R.string.wait_dialog_title));
+
+    public CommonPromptDialog(@NonNull Context context, @StyleRes int themeResId) {
+        super(context, themeResId);
+        this.mContext = context;
+        initView();
+        initListener();
     }
+
+
+    private void initView() {
+        setContentView(R.layout.dialog_prompt_common);
+        messageTV = (TextView)findViewById(R.id.dialog_message);
+        oneTV = (TextView) findViewById(R.id.notextview);
+        twoTV = (TextView) findViewById(R.id.yestextview);
+    }
+    private void initListener() {
+        oneTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optionOneClickListener.onClick(CommonPromptDialog.this, DialogInterface.BUTTON_POSITIVE);
+            }
+        });
+        twoTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optionTwoClickListener.onClick(CommonPromptDialog.this, DialogInterface.BUTTON_POSITIVE);
+            }
+        });
+    }
+
+    public void setMessage(String message) {
+        messageTV.setText(message);
+    }
+    public void setOptionOneClickListener(String optionOne, OnClickListener listener) {
+        this.optionOneClickListener = listener;
+        oneTV.setText(optionOne);
+    }
+
+    public void setOptionTwoClickListener(String optionTwo, OnClickListener listener) {
+        this.optionTwoClickListener = listener;
+        twoTV.setText(optionTwo);
+    }
+
 
 }

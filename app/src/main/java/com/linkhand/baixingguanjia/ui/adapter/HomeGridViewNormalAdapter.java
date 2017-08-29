@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.entity.HomeNormalIcon;
+import com.linkhand.baixingguanjia.utils.ImageUtils;
 
 import java.util.List;
 
@@ -59,11 +59,56 @@ public class HomeGridViewNormalAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        holder.mNameTV.setText(mList.get(position).getIconName());
-        Glide.with(mContext)
-                .load(mList.get(position).getIcon())
-                .placeholder(mList.get(position).getIcon())
-                .into(holder.mIconIV);
+        holder.mNameTV.setText(mList.get(position).getName());
+        if (mList.get(position).getName().contains("房")){
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_house_property_orange);
+        }else if (mList.get(position).getName().contains("车")){
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_car_blue);
+        }else if (mList.get(position).getName().contains("物")){
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_idle_green);
+        }else if (mList.get(position).getName().contains("聘")){
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_recruit_orang);
+        }else if (mList.get(position).getName().contains("育")){
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_education_blue);
+        }else if (mList.get(position).getName().contains("车")){
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_car_blue);
+        }else if (mList.get(position).getName().contains("益")){
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_public_welfare);
+        }else {
+            ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_notice_red);
+        }
+//        switch (position) {
+//            case 0:
+//                ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_notice_red);
+//                break;
+//            case 1:
+//                ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_house_property_orange);
+//                break;
+//            case 2:
+//                break;
+//            case 3:
+//                ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_house_keep);
+//
+//                break;
+//            case 4:
+//                ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_education_blue);
+//
+//                break;
+//            case 5:
+//                ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_idle_green);
+//
+//                break;
+//            case 6:
+//                ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_recruit_orang);
+//                break;
+//            case 7:
+//                ImageUtils.setDefaultNormalImage(holder.mIconIV,mList.get(position).getTubiao(),R.drawable.icon_public_welfare);
+//                break;
+//        }
+//        Glide.with(mContext)
+//                .load(mList.get(position).getIcon())
+//                .placeholder(mList.get(position).getIcon())
+//                .into(holder.mIconIV);
 
 
         return convertView;

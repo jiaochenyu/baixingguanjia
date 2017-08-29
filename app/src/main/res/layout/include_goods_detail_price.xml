@@ -3,7 +3,6 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x50"
-                android:background="@color/redTopic"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/x10"
                 android:paddingRight="@dimen/x10">
@@ -58,7 +57,7 @@
             android:layout_marginTop="@dimen/x2">
 
             <TextView
-                android:id="@+id/tv_good_detail_discount"
+                android:id="@+id/yuanjia_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/x4"
@@ -70,8 +69,8 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="0.5dp"
-                android:layout_alignLeft="@+id/tv_good_detail_discount"
-                android:layout_alignRight="@+id/tv_good_detail_discount"
+                android:layout_alignLeft="@+id/yuanjia_price"
+                android:layout_alignRight="@+id/yuanjia_price"
                 android:layout_centerVertical="true"
                 android:background="@color/colorWhite"/>
         </RelativeLayout>
@@ -86,6 +85,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/countdown_prompt_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/money_text"
@@ -111,9 +111,9 @@
                 android:layout_marginTop="0dp"
                 android:visibility="visible"
                 app:isHideTimeBackground="false"
-                app:isShowDay="true"
+                app:isShowDay="false"
                 app:isShowHour="true"
-                app:isShowMillisecond="false"
+                app:isShowMillisecond="true"
                 app:isShowMinute="true"
                 app:isShowSecond="true"
                 app:isSuffixTextBold="true"
@@ -129,13 +129,29 @@
                 app:timeTextColor="#FFFFFF"
                 app:timeTextSize="14sp"/>
 
-            <TextView
+            <cn.iwgang.countdownview.CountdownView
+                android:id="@+id/countdownView_showday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x2"
-                android:text="15:36:00:2"
-                android:textColor="@color/colorWhite"
-                android:visibility="gone"/>
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x10"
+                android:visibility="gone"
+                app:isHideTimeBackground="true"
+                app:isShowDay="true"
+                app:isShowHour="false"
+                app:isShowMillisecond="false"
+                app:isShowMinute="false"
+                app:isShowSecond="false"
+                app:isSuffixTextBold="true"
+                app:isTimeTextBold="true"
+                app:suffix="天"
+                app:suffixGravity="center"
+                app:suffixTextColor="@color/black"
+                app:suffixTextSize="14sp"
+                app:timeBgDivisionLineSize="0dp"
+                app:timeBgSize="0dp"
+                app:timeTextColor="@color/black"
+                app:timeTextSize="14sp"/>
 
         </RelativeLayout>
     </LinearLayout>

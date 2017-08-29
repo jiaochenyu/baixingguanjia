@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.my.AddCommunityActivity">
 
     <include
@@ -30,9 +30,55 @@
                 android:background="@color/defaultBackgroundGray"
                 />
             <!--小区名称-->
-            <include
+            <RelativeLayout
                 android:id="@+id/layout1"
-                layout="@layout/include_item_edittext_1"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/x10"
+                android:paddingLeft="@dimen/x10"
+                android:paddingRight="@dimen/x10"
+                android:paddingTop="@dimen/x10">
+
+                <TextView
+                    android:id="@+id/text_left"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="小区名称"
+                    android:textColor="@color/blackText"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/text_right"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_toRightOf="@+id/text_left"
+                    android:background="@null"
+                    android:gravity="left"
+                    android:hint="请选择小区"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/grayText"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/image_right"
+                    android:layout_width="@dimen/x16"
+                    android:layout_height="@dimen/x16"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_go_right"
+                    android:visibility="visible"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/grayline"
+                android:layout_marginLeft="@dimen/x10"/>
+
             <!--期数-->
             <include
                 android:id="@+id/layout2"

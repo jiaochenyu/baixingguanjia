@@ -10,17 +10,19 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        resConfigs "zh", "en"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
         }
     }
-    //    JPush
     sourceSets {
         main {
-            jniLibs.srcDirs = ['libs']
+            jniLibs.srcDir 'libs'
         }
     }
 
@@ -35,16 +37,24 @@ android {
 
 
 }
-repositories{
-    flatDir{
+repositories {
+    flatDir {
         dirs 'libs' //就是你放aar的目录地址
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:recyclerview-v7:25.2.0'
+    //    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/mta-sdk-1.6.2.jar')
+    compile files('libs/ShareSDK-QQ-3.0.0.jar')
+    compile files('libs/jcore-android-1.1.6.jar')
+    compile files('libs/jpush-android-3.0.8.jar')
+    compile project(':lib')
+    compile files('libs/alipaySdk-20170725.jar')
     compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.yanzhenjie.nohttp:nohttp:1.1.3'
@@ -59,12 +69,6 @@ dependencies {
     compile 'com.zhy:base-adapter:3.0.3'
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'com.androidkun:XTabLayout:1.1.1'
-    testCompile 'junit:junit:4.12'
-    compile files('libs/jpush-android_v3.0.6.jar')
-    compile files('libs/BaiduLBS_Android.jar')
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    compile files('libs/mta-sdk-1.6.2.jar')
-    compile files('libs/ShareSDK-QQ-3.0.0.jar')
     compile 'com.commit451:PhotoView:1.2.4'
-    compile project(':lib')
+    testCompile 'junit:junit:4.12'
 }

@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author dongyu.wang
@@ -20,6 +22,16 @@ import java.util.List;
  * @fixme
  */
 public class StringUtils {
+
+    public static String getSubUtilSimple(String soap,String rgex){
+        Pattern pattern = Pattern.compile(rgex);// 匹配的模式
+        Matcher m = pattern.matcher(soap);
+        while(m.find()){
+            return m.group(1);
+        }
+        return "";
+    }
+
     public static boolean isEmpty(String str) {
         if (str == null
                 || str.length() == 0

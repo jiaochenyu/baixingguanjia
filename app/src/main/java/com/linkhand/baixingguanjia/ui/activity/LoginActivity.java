@@ -1,10 +1,13 @@
 package com.linkhand.baixingguanjia.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,12 +81,17 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        initData();
     }
 
 
-
     private void initData() {
+        username = (String) SPUtils.get(LoginActivity.this, "username", String.class);
+        password = (String) SPUtils.get(LoginActivity.this, "password", String.class);
+        if (username != null && password != null) {
+            mUsernameET.setText(username);
+            mPasswordET.setText(password);
+        }
 
     }
 
@@ -112,7 +120,6 @@ public class LoginActivity extends BaseActivity {
             case R.id.wechat:
 //                showShare();
                 User user = new User();
-                user.setAvatarAddr("222");
                 SPUtils.put(LoginActivity.this, "userInfo", user);
                 MyApplication.setUser(user);
                 goAndFinish(MainActivity.class);
@@ -145,6 +152,7 @@ public class LoginActivity extends BaseActivity {
         httpLogin();
     }
 
+
     private void httpLogin() {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.LOGIN_MIMA, RequestMethod.POST);
         Gson gson = new Gson();
@@ -167,11 +175,17 @@ public class LoginActivity extends BaseActivity {
                             User user = new User();
                             user = new Gson().fromJson(jsonObject.getJSONObject("data").toString(), User.class);
                             SPUtils.put(LoginActivity.this, "userInfo", user);
+                            SPUtils.put(LoginActivity.this, "username", username);
+                            SPUtils.put(LoginActivity.this, "password", password);
                             MyApplication.setUser(user);
                             goAndFinish(MainActivity.class);
 
                         } else if (resultCode.equals("206")) {
                             Toast.makeText(LoginActivity.this, "账号或密码有误", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (resultCode.equals("214")) {
+                            showOffliePop(jsonObject.getString("data"));
+//                            Toast.makeText(LoginActivity.this, "该账号已被禁用", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -189,6 +203,22 @@ public class LoginActivity extends BaseActivity {
                 hideLoading();
             }
         });
+    }
+
+    private void showOffliePop(String info){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("该账号因涉嫌："+info+"问题，已被平台禁用！");
+        builder.setCancelable(false);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alterDialog = builder.create();
+        alterDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        alterDialog.show();
     }
 
     private void showShare() {
@@ -268,5 +298,6 @@ public class LoginActivity extends BaseActivity {
             mTencent.logout(LoginActivity.this);
         }
         super.onDestroy();
+
     }
 }

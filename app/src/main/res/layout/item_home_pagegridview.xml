@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content"
+              android:paddingTop="@dimen/x10"
+              android:orientation="vertical">
 
+    <com.linkhand.bxgj.lib.pagegridview.PageGridView
+        android:id="@+id/pagingGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:PagingColums="4"
+        app:PagingDiver="@drawable/divider_bg"
+        app:PagingRows="2"/>
+
+    <com.linkhand.bxgj.lib.pagegridview.MyPageIndicator
+        android:id="@+id/pageindicator"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#EEEEEE"
+        android:gravity="center"/>
 </LinearLayout>

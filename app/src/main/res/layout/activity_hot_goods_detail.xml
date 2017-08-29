@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:fitsSystemWindows="true"
-    tools:context="com.linkhand.baixingguanjia.ui.activity.goods.HotGoodsDetailActivity">
+    tools:context="com.linkhand.baixingguanjia.ui.activity.detail.HotGoodsDetailActivity">
     <!--android:layout_above="@+id/ll_good_detail_bottom"-->
     <ScrollView
         android:id="@+id/sv_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/ll_good_detail_bottom"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,7 +108,7 @@
             android:paddingTop="@dimen/x15">
 
             <LinearLayout
-                android:id="@+id/ll_good_detail_collect"
+                android:id="@+id/collect_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -116,13 +117,14 @@
 
 
                 <ImageView
-                    android:id="@+id/iv_good_detai_collect_select"
+                    android:id="@+id/collect_iv"
                     android:layout_width="@dimen/x16"
                     android:layout_height="@dimen/x16"
                     android:src="@mipmap/icon_like"
                     android:visibility="visible"/>
 
                 <TextView
+                    android:id="@+id/collect_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x10"
@@ -136,6 +138,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_buynow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"

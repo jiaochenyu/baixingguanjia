@@ -4,4 +4,76 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/chlid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defaultBackgroundGray"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/x15"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:paddingTop="@dimen/x15">
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:background="@drawable/background_no_corner_kuang"
+            android:scaleType="fitCenter"
+            android:src="@drawable/default_pic_show"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_toRightOf="@+id/image"
+            android:paddingTop="@dimen/x1"
+            android:text="@string/string22"
+            android:textColor="@color/blackText"/>
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/type"
+            android:layout_alignLeft="@+id/name"
+            android:layout_marginBottom="@dimen/x10"
+            android:text="裕华区 空中花园"
+            android:textColor="@color/grayText"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image"
+            android:layout_alignLeft="@+id/name"
+            android:background="@drawable/background_textview_corner_line_blue_small"
+            android:paddingBottom="@dimen/x1"
+            android:paddingLeft="@dimen/x5"
+            android:paddingRight="@dimen/x5"
+            android:paddingTop="@dimen/x1"
+            android:text="家政"
+            android:textColor="@color/blueTopic"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/s_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/image"
+            android:text="2017-06-20"
+            android:visibility="gone"
+            android:textColor="@color/grayText"
+            android:textSize="12sp"/>
+
+
+    </RelativeLayout>
+
 </LinearLayout>

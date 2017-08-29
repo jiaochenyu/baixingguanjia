@@ -15,8 +15,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/x140"
-        android:scaleType="fitXY"
-        android:src="@drawable/register_bg"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_login_bg"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

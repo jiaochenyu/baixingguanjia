@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.entity.Qu;
+import com.linkhand.baixingguanjia.entity.Sheng;
+import com.linkhand.baixingguanjia.entity.Shi;
 import com.linkhand.baixingguanjia.entity.Xiaoqu;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public class PopListTextAdapter extends BaseAdapter {
     private OnClickListener onClickListener;
     private OnItemClickListener mOnItemClickListener;
     private float textSize;
-    private int type = 0;//1:  2ַ     3
+    private int type = 0;//1: 显示选中状态  2ַ  不显示   3
 
     /**
      * @param context
@@ -86,6 +88,11 @@ public class PopListTextAdapter extends BaseAdapter {
                 selectedText = ((Qu) mListData.get(pos)).getName();
             } else if (mListData.get(pos) instanceof Xiaoqu) {
                 selectedText = ((Xiaoqu) mListData.get(pos)).getName();
+
+            } else if (mListData.get(pos) instanceof Sheng) {
+                selectedText = ((Sheng) mListData.get(pos)).getName();
+            } else if (mListData.get(pos) instanceof Shi) {
+                selectedText = ((Shi) mListData.get(pos)).getName();
             }
 
             notifyDataSetChanged();
@@ -98,6 +105,48 @@ public class PopListTextAdapter extends BaseAdapter {
 
     /**
      * 设置谁被选中
+     * @param o
+     * @param name
+     */
+    public void setSelectedPosition(Object o, String name) {
+        if (o instanceof Qu) {
+            for (int i = 0; i < mListData.size(); i++) {
+                if (((Qu) mListData.get(i)).getName().equals(name)){
+                    selectedPos = i;
+                    selectedText  = name;
+                }
+            }
+        }
+        if (o instanceof Xiaoqu) {
+            for (int i = 0; i < mListData.size(); i++) {
+                if (((Xiaoqu) mListData.get(i)).getName().equals(name)){
+                    selectedPos = i;
+                    selectedText  = name;
+                }
+            }
+        }
+        if (o instanceof Shi) {
+            for (int i = 0; i < mListData.size(); i++) {
+                if (((Shi) mListData.get(i)).getName().equals(name)){
+                    selectedPos = i;
+                    selectedText  = name;
+                }
+            }
+        }
+        if (o instanceof Sheng) {
+            for (int i = 0; i < mListData.size(); i++) {
+                if (((Sheng) mListData.get(i)).getName().equals(name)){
+                    selectedPos = i;
+                    selectedText  = name;
+                }
+            }
+        }
+        notifyDataSetChanged();
+
+    }
+
+    /**
+     * 设置谁被选中
      */
     public void setSelectedPositionNoNotify(int pos) {
         selectedPos = pos;
@@ -106,7 +155,12 @@ public class PopListTextAdapter extends BaseAdapter {
                 selectedText = ((Qu) mListData.get(pos)).getName();
             } else if (mListData.get(pos) instanceof Xiaoqu) {
                 selectedText = ((Xiaoqu) mListData.get(pos)).getName();
+            } else if (mListData.get(pos) instanceof Sheng) {
+                selectedText = ((Sheng) mListData.get(pos)).getName();
+            } else if (mListData.get(pos) instanceof Shi) {
+                selectedText = ((Shi) mListData.get(pos)).getName();
             }
+
 //            selectedText = mListData.get(pos);
         } else if (mArrayData != null && pos < mArrayData.size()) {
             selectedText = mArrayData.get(pos);
@@ -188,6 +242,10 @@ public class PopListTextAdapter extends BaseAdapter {
                     mString = ((Qu) mListData.get(position)).getName();
                 } else if (mListData.get(position) instanceof Xiaoqu) {
                     mString = ((Xiaoqu) mListData.get(position)).getName();
+                } else if (mListData.get(position) instanceof Sheng) {
+                    mString = ((Sheng) mListData.get(position)).getName();
+                } else if (mListData.get(position) instanceof Shi) {
+                    mString = ((Shi) mListData.get(position)).getName();
                 }
 //                mString = mListData.get(position);
             }

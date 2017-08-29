@@ -39,27 +39,42 @@
         android:textSize="16sp"/>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/message"
-        android:layout_width="@dimen/x50"
+        android:layout_width="@dimen/x40"
         android:layout_height="match_parent"
-        android:gravity="center_vertical|right"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:gravity="right"
+        android:orientation="vertical">
+
 
         <ImageView
-            android:layout_width="@dimen/x16"
-            android:layout_height="@dimen/x16"
+            android:id="@+id/message_image"
+            android:layout_width="@dimen/x18"
+            android:layout_height="@dimen/x18"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x7"
             android:src="@drawable/icon_message_white"/>
 
         <TextView
-            android:visibility="gone"
+            android:id="@+id/message_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/x2"
+            android:background="@drawable/icon_information_circle"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="消息"
             android:textColor="@color/colorWhite"
-            android:textSize="12sp"/>
-    </LinearLayout>
+            android:textSize="12sp"
+            android:visibility="gone"/>
+    </RelativeLayout>
 </RelativeLayout>

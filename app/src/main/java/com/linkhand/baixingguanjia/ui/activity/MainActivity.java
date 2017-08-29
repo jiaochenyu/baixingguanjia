@@ -1,10 +1,11 @@
 package com.linkhand.baixingguanjia.ui.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,18 +15,20 @@ import android.widget.TextView;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.base.BaseAppManager;
 import com.linkhand.baixingguanjia.base.ConnectUrl;
+import com.linkhand.baixingguanjia.base.MyApplication;
+import com.linkhand.baixingguanjia.entity.EventFlag;
 import com.linkhand.baixingguanjia.entity.Sheng;
-import com.linkhand.baixingguanjia.ui.adapter.ListviewAdapter;
+import com.linkhand.baixingguanjia.ui.activity.my.AddCommunityActivity;
 import com.linkhand.baixingguanjia.ui.fragment.HomeFragment;
 import com.linkhand.baixingguanjia.ui.fragment.MyFragment;
 import com.linkhand.baixingguanjia.ui.fragment.NoticeFragment;
 import com.linkhand.baixingguanjia.ui.fragment.ReleaseFragment;
 import com.linkhand.baixingguanjia.ui.service.HttpService;
+import com.linkhand.baixingguanjia.utils.JPushUtils;
 import com.linkhand.baixingguanjia.utils.JSONUtils;
 import com.linkhand.baixingguanjia.utils.SPUtils;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -35,16 +38,19 @@ import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private final static int REQUEST = 0;
-    ListviewAdapter hListViewAdapter;
+    private final static int REQUEST_MESSAGE = 1;
     @Bind(R.id.frameLayout)
     FrameLayout mFrameLayout;
 
@@ -64,11 +70,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final int NOTICE = 2;
     private static final int RELEASE = 3;
     private static final int USER = 4;
+    Sheng mSheng; //获取 用户选择的省市区信息
 
-    public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyListener();
-    public Handler mHandler;
-    public static String city = "";
 
     RequestQueue mQueue = NoHttp.newRequestQueue();
 
@@ -84,8 +87,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.drawable.icon_my_blue
     };
 
+    public LocationClient mLocationClient = null;
+    public BDLocationListener myListener = new MyListener();
+
+    private boolean isRegister = false; //判断是否是从注册页面跳转过来
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -93,15 +101,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         BaseAppManager.getInstance().clearBackActivities();
         initView();
         initData();
-        initLocation();
         //获取地区 并且保存到偏好设置里
         httpGetDiqu();
         initHttpService();
-
+//        jPushMethod();
+        httpMessageCount();
+        perfectAreaInfo(); //完善用户小区信息
+        if (isRegister) {
+            showGiveSilverDialog();
+        }
     }
 
 
-
+    @Override
+    protected void getBundleExtras(Bundle extras) {
+        super.getBundleExtras(extras);
+        if (extras != null) {
+            isRegister = extras.getBoolean("isRegister", false);
+        }
+    }
 
     private void initView() {
         linearLayout1 = (LinearLayout) findViewById(R.id.linearlayout1);
@@ -116,66 +134,49 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
+        mSheng = (Sheng) SPUtils.get(MainActivity.this, "UserLocation", Sheng.class);
         fragmentManager = getSupportFragmentManager();
         showFragment(HOME);
-
-        mLocationClient = new LocationClient(getApplicationContext());
-
-        mLocationClient.registerLocationListener(myListener);
-
-        mHandler = homeFragment.mHandler;
+        if (MyApplication.getUser() != null) {
+            Set<String> sets = new HashSet<>();
+            sets.add(MyApplication.getUser().getXiaoqu());
+            JPushUtils.jPushMethod(this, MyApplication.getUser().getUserid(), sets);
+        }
     }
 
-
-    private void initLocation() {
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        //可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-
-        option.setCoorType("bd09ll");
-        //可选，默认gcj02，设置返回的定位结果坐标系
-
-        int span = 1000;
-        option.setScanSpan(span);
-        //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
-
-        option.setIsNeedAddress(true);
-        //可选，设置是否需要地址信息，默认不需要
-
-        option.setOpenGps(true);
-        //可选，默认false,设置是否使用gps
-
-        option.setLocationNotify(true);
-        //可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
-
-        option.setIsNeedLocationDescribe(true);
-        //可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
-
-        option.setIsNeedLocationPoiList(true);
-        //可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
-
-        option.setIgnoreKillProcess(false);
-        //可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
-
-        option.SetIgnoreCacheException(false);
-        //可选，默认false，设置是否收集CRASH信息，默认收集
-
-        option.setEnableSimulateGps(false);
-        //可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
-
-        mLocationClient.setLocOption(option);
-        mLocationClient.start();
-    }
 
     private void initHttpService() {
         Intent intent = new Intent(MainActivity.this, HttpService.class);
         startService(intent);
     }
 
-
-    @OnClick(R.id.frameLayout)
-    public void onViewClicked() {
+    //完善用户小区信息
+    private void perfectAreaInfo() {
+        if (MyApplication.getUser() != null) {//用户已登录
+            if (TextUtils.isEmpty(MyApplication.getUser().getQu_id())) {
+                showToast(R.string.perfectInfo);
+                go(AddCommunityActivity.class);
+            }
+        }
     }
+
+    // 注册成功 给白银1000
+    private void showGiveSilverDialog() {
+        final Dialog mDialog = new Dialog(MainActivity.this, R.style.Dialog);
+        mDialog.setContentView(R.layout.dialog_promt_give_silver);
+        TextView know = (TextView) mDialog.findViewById(R.id.know);
+        know.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //弹出框点击事件
+                if (mDialog != null && mDialog.isShowing()) {
+                    mDialog.dismiss();
+                }
+            }
+        });
+        mDialog.show();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -268,20 +269,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private class MyListener implements BDLocationListener {
-
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            city = location.getCity();
-            mHandler.sendMessage(mHandler.obtainMessage(101, city));
-        }
-
-        @Override
-        public void onConnectHotSpotMessage(String s, int i) {
-
-        }
-    }
-
 
     private void setName(int index) {
         TextView textView;
@@ -351,8 +338,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     private void httpGetDiqu() {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_DINGWEI, RequestMethod.POST);
-        request.add("sheng","河北省");
-        request.add("shi","石家庄市");
+        if (mSheng == null) {
+            if (MyApplication.getLocation() == null) {
+                request.add("sheng", "河北省");
+                request.add("shi", "石家庄市");
+            } else {
+                request.add("sheng", MyApplication.getLocation().getProvince() == null ? "河北省" : MyApplication.getLocation().getProvince());
+                request.add("shi", MyApplication.getLocation().getCity() == null ? "石家庄市" : MyApplication.getLocation().getCity());
+            }
+
+        } else {
+            request.add("sheng", mSheng.getName());
+            request.add("shi", mSheng.getShi().getName());
+        }
         mQueue.add(REQUEST, request, new OnResponseListener<JSONObject>() {
             @Override
             public void onStart(int what) {
@@ -368,7 +366,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         resultCode = jsonObject.getString("code");
                         if (resultCode.equals("200")) {
                             JSONObject json = jsonObject.getJSONObject("data");
-                            Sheng sheng  = JSONUtils.getLocationData(json);
+                            Sheng sheng = JSONUtils.getLocationData(json);
                             SPUtils.put(MainActivity.this, "DiQu", sheng);
 
                         } else {
@@ -392,9 +390,71 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
+    private void httpMessageCount() {
+        if (MyApplication.getUser() == null) {
+            return;
+        }
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(ConnectUrl.PUBLIC_MYNEWS_COUNT, RequestMethod.POST);
+        request.add("userid", MyApplication.getUser().getUserid());
+        mQueue.add(REQUEST_MESSAGE, request, new OnResponseListener<JSONObject>() {
+            @Override
+            public void onStart(int what) {
+
+            }
+
+            @Override
+            public void onSucceed(int what, Response<JSONObject> response) {
+                if (what == REQUEST_MESSAGE) {
+                    String resultCode = null;
+                    try {
+                        JSONObject jsonObject = response.get();
+                        resultCode = jsonObject.getString("code");
+                        if (resultCode.equals("200")) {
+                            int count = jsonObject.getInt("data");
+                            EventBus.getDefault().post(new EventFlag("jpushMessageCount", count));
+                        } else {
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+
+            }
+
+            @Override
+            public void onFinish(int what) {
+
+            }
+        });
+    }
+
+    private class MyListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (location != null) {
+                MyApplication.setLocation(location);
+//                    httpGetDiqu();
+//                httpGetLcoationAll();
+//                EventBus.getDefault().post(new EventFlag(""));
+            }
+
+            //
+
+        }
+
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLocationClient.stop();
+        mQueue.cancelAll();
+//        BaseAppManager.getInstance().clear();
     }
 }

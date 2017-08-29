@@ -5,13 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:background="@color/defaultBackgroundGray"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.my.MyOrderActivity">
 
     <include
         layout="@layout/include_common_header_setting"/>
+
+    <View
+        style="@style/grayline"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"

@@ -11,8 +11,8 @@ import com.androidkun.xtablayout.XTabLayout;
 import com.linkhand.baixingguanjia.R;
 import com.linkhand.baixingguanjia.base.BaseActivity;
 import com.linkhand.baixingguanjia.ui.adapter.MyFragmentPagerAdapter;
-import com.linkhand.baixingguanjia.ui.fragment.MyCollect1Fragment;
-import com.linkhand.baixingguanjia.ui.fragment.MyCollect2Fragment;
+import com.linkhand.baixingguanjia.ui.fragment.MyComment1Fragment;
+import com.linkhand.baixingguanjia.ui.fragment.MyComment2Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,9 @@ import butterknife.OnClick;
 
 
 /**
- * 我的收藏
+ * 我的评价
  */
-public class MyCollectActivity extends BaseActivity {
+public class MyCommentActivity extends BaseActivity {
 
     @Bind(R.id.back)
     ImageView mBack;
@@ -50,14 +50,14 @@ public class MyCollectActivity extends BaseActivity {
     }
 
     private void initView() {
-        mTitle.setText("我的收藏");
+        mTitle.setText("我的评价");
 
     }
 
     private void initData() {
         fragments = new ArrayList<>();
-        fragments.add(new MyCollect1Fragment(1));
-        fragments.add(new MyCollect2Fragment(2));
+        fragments.add(new MyComment1Fragment(1));
+        fragments.add(new MyComment2Fragment(2));
 
         adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles);
         mViewPager.setAdapter(adapter);

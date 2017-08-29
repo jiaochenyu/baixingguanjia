@@ -27,7 +27,7 @@
             android:layout_height="@dimen/x80"
             android:background="@drawable/background_no_corner_kuang"
             android:scaleType="fitCenter"
-            android:src="@drawable/icon_housekeeping_bg"
+            android:src="@drawable/default_pic_show"
             />
 
         <TextView
@@ -79,19 +79,20 @@
 
         <TextView
             android:id="@+id/fabu"
-            android:paddingTop="@dimen/x10"
-            android:paddingBottom="@dimen/x10"
-            android:paddingRight="@dimen/x7"
-            android:paddingLeft="@dimen/x7"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_alignBottom="@+id/image"
+            android:layout_alignBottom="@+id/image"
             android:layout_alignParentRight="true"
             android:background="@drawable/circle_blue"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x10"
+            android:paddingLeft="@dimen/x7"
+            android:paddingRight="@dimen/x7"
+            android:paddingTop="@dimen/x10"
             android:text="发布"
             android:textColor="@color/colorWhite"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
@@ -113,11 +114,26 @@
             android:textColor="@color/grayText"
             android:textSize="14sp"/>
 
-
+        <!--发布中-->
         <TextView
-            android:id="@+id/button1"
+            android:id="@+id/offline_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_textview_big_corner_line_red"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x3"
+            android:paddingTop="@dimen/x3"
+            android:text="下线"
+            android:textColor="@color/redTopic"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/delete_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
             android:layout_weight="1"
             android:background="@drawable/background_textview_big_corner_line_red"
             android:gravity="center"
@@ -126,10 +142,10 @@
             android:text="删除"
             android:textColor="@color/redTopic"
             android:textSize="14sp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/button2"
+            android:id="@+id/edit_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x10"
@@ -140,7 +156,8 @@
             android:paddingTop="@dimen/x3"
             android:text="编辑"
             android:textColor="@color/redTopic"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

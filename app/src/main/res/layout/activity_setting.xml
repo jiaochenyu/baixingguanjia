@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.linkhand.baixingguanjia.ui.activity.SettingActivity">
+    android:background="@color/defaultBackgroundGray"
+    android:orientation="vertical"
+    tools:context="com.linkhand.baixingguanjia.ui.activity.AppSettingActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        layout="@layout/include_common_header"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--版本更新-->
+            <include
+                android:id="@+id/update_version"
+                layout="@layout/include_item_go2"/>
+
+            <View
+                style="@style/grayline"/>
+            <!--关于我们-->
+            <include
+                android:id="@+id/about_us"
+                layout="@layout/include_item_go2"/>
+
+            <View
+                style="@style/grayline"/>
+            <!--客服热线-->
+            <include
+                android:id="@+id/phone"
+                layout="@layout/include_item_go2"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/sign_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/x10"
+            android:background="@color/blueTopic"
+            android:gravity="center"
+            android:paddingBottom="@dimen/x10"
+            android:paddingTop="@dimen/x10"
+            android:text="@string/signout"
+            android:textColor="@color/colorWhite"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

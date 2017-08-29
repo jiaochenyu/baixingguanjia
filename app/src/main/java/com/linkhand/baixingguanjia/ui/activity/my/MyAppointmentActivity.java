@@ -51,7 +51,7 @@ public class MyAppointmentActivity extends BaseActivity {
     }
 
     private void initView() {
-        mTitle.setText("我预约的");
+        mTitle.setText("预约");
     }
 
     private void initData() {

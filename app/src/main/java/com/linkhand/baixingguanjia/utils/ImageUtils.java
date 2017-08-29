@@ -27,7 +27,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-
 /**
  * Created by Administrator on 2016/7/7.
  */
@@ -36,7 +35,7 @@ public class ImageUtils {
     public static void setImage(ImageView imageView, String path) {
         Glide.with(MyApplication.getInst())
                 .load(path).centerCrop()
-                .error(MyApplication.getInst().getResources().getDrawable(R.drawable.touxiang))
+                .error(MyApplication.getInst().getResources().getDrawable(R.drawable.default_pic_show))
                 .into(imageView);
     }
 
@@ -50,14 +49,14 @@ public class ImageUtils {
                     .centerCrop()
                     .error(MyApplication.getInst().getResources().getDrawable(R.drawable.touxiang))
                     .into(new BitmapImageViewTarget(imageView) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                            RoundedBitmapDrawableFactory.create(MyApplication.getInst().getResources(), resource);
-                    circularBitmapDrawable.setCornerRadius(4);
-                    imageView.setImageDrawable(circularBitmapDrawable);
-                }
-            });
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(MyApplication.getInst().getResources(), resource);
+                            circularBitmapDrawable.setCornerRadius(4);
+                            imageView.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
         }
     }
 
@@ -73,6 +72,24 @@ public class ImageUtils {
         });
     }
 
+    public static void setCircleImage(final ImageView imageView, int def, String path) {
+        Glide.with(MyApplication.getInst())
+                .load(path)
+                .asBitmap()
+                .centerCrop()
+                .placeholder(def)
+                .error(MyApplication.getInst().getResources().getDrawable(def)).into(new BitmapImageViewTarget(imageView) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(MyApplication.getInst().getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                imageView.setImageDrawable(circularBitmapDrawable);
+            }
+        });
+    }
+
+
     public static void setConrnerImage(final ImageView imageView, String path) {
         Glide.with(MyApplication.getInst()).load(path).asBitmap().centerCrop().placeholder(R.drawable.login_tupian_def).error(MyApplication.getInst().getResources().getDrawable(R.drawable.login_tupian_def)).into(new BitmapImageViewTarget(imageView) {
             @Override
@@ -83,6 +100,14 @@ public class ImageUtils {
                 imageView.setImageDrawable(circularBitmapDrawable);
             }
         });
+    }
+    public static void setCircleDefImage(ImageView image,String path){
+        Glide.with(MyApplication.getInst())
+                .load(path)
+                .placeholder(R.drawable.default_pic_show)
+                .fitCenter()
+                .transform(new GlideCircleTransform(MyApplication.getInst()))
+                .into(image);
     }
 
     public static void setAutoSizeConrnerImage(final ImageView imageView, String path) {
@@ -106,20 +131,29 @@ public class ImageUtils {
                     .placeholder(R.drawable.touxiang)
                     .error(R.drawable.touxiang)
                     .into(new BitmapImageViewTarget(imageView) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                            RoundedBitmapDrawableFactory.create(MyApplication.getInst().getResources(), resource);
-                    circularBitmapDrawable.setCornerRadius(4);
-                    imageView.setImageDrawable(circularBitmapDrawable);
-                }
-            });
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(MyApplication.getInst().getResources(), resource);
+                            circularBitmapDrawable.setCornerRadius(4);
+                            imageView.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
         }
     }
 
-    public static void setDefaultImage(ImageView imageView, String path,int defaultRes) {
+    public static void setDefaultImage(ImageView imageView, String path, int defaultRes) {
         Glide.with(MyApplication.getInst())
                 .load(path).centerCrop()
+                .placeholder(MyApplication.getInst().getResources().getDrawable(defaultRes))
+                .error(MyApplication.getInst().getResources().getDrawable(defaultRes))
+
+                .into(imageView);
+    }
+
+    public static void setDefaultNormalImage(ImageView imageView, String path, int defaultRes) {
+        Glide.with(MyApplication.getInst())
+                .load(path)
                 .placeholder(MyApplication.getInst().getResources().getDrawable(defaultRes))
                 .error(MyApplication.getInst().getResources().getDrawable(defaultRes))
                 .into(imageView);

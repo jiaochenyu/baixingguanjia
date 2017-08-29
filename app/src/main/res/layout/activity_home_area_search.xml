@@ -1,10 +1,287 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayF0F4"
+    android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.HomeAreaSearchActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/home_header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorWhite"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:id="@+id/back1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_back_black"/>
+
+            <TextView
+                android:id="@+id/title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x5"
+                android:text="当前地区-石家庄市"
+                android:textColor="@color/blackText"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/commom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <include
+                layout="@layout/include_header_white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="@dimen/x5"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginTop="@dimen/x5"
+            android:background="@drawable/background_big_corner_white"
+            android:gravity="left|center"
+            android:paddingLeft="@dimen/x10"
+            android:paddingRight="@dimen/x10"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/show_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/x15"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/icon_search"/>
+
+                <EditText
+                    android:id="@+id/edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="6"
+                    android:background="@null"
+                    android:hint="@string/selectAreaHint"
+                    android:textColor="@color/blackText"
+                    android:textColorHint="@color/grayText"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/x15"
+            android:layout_marginTop="@dimen/x15"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x10"
+            android:paddingRight="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前定位："
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="石家庄市"
+                android:textColor="@color/blackText"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        >
+
+        <RelativeLayout
+            android:id="@+id/sheng_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_no_corner_kuang"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/sheng_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="省"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/xiajiantou"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/shi_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="1"
+            android:background="@drawable/background_no_corner_kuang"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/shi_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="市"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/xiajiantou"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_1"
+        android:layout_marginTop="@dimen/x10"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        >
+
+        <RelativeLayout
+            android:id="@+id/qu_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_no_corner_kuang"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/qu_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="区"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/xiajiantou"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/xiaoqu_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="1"
+            android:background="@drawable/background_no_corner_kuang"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/xiaoqu_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="小区"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/xiajiantou"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blueTopic"
+        android:gravity="center"
+        android:padding="@dimen/x10"
+        android:text="确认更换"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"/>
+
+    <RelativeLayout
+        android:id="@+id/list_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_1"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/listview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+        <TextView
+            android:id="@+id/showletter"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/background_textview_corner_blue"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30dp"
+            android:visibility="invisible"/>
+
+        <com.linkhand.baixingguanjia.customView.SideBar
+            android:id="@+id/sidebar"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

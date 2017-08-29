@@ -37,9 +37,7 @@
                     android:layout_marginRight="@dimen/x10"
                     android:layout_marginTop="@dimen/x5"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/x6"
-                    android:paddingTop="@dimen/x6"
-                    android:text="@string/paySilver"
+                    android:text="@string/paySuccess"
                     android:textColor="@color/redTopic"
                     android:textSize="16sp"/>
 
@@ -47,8 +45,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/title"
-                    android:src="@drawable/icon_sliver_3"
+                    android:layout_toRightOf="@+id/title"
+                    android:src="@drawable/icon_duihao"
                     />
 
             </RelativeLayout>
@@ -69,48 +67,29 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/x6"
                     android:paddingTop="@dimen/x6"
-                    android:text="您的白银还剩余 1000两~"
+                    android:text=""
                     android:textColor="@color/blackText"
-                    android:textSize="@dimen/x11"/>
+                    android:textSize="@dimen/x12"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/yes"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_marginRight="@dimen/x10"
-                    android:layout_marginTop="@dimen/x15"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_textview_big_corner_line_gray"
-                    android:gravity="center"
-                    android:paddingBottom="@dimen/x6"
-                    android:paddingTop="@dimen/x6"
-                    android:text="取消"
-                    android:textColor="@color/grayText"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/yes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_marginRight="@dimen/x10"
-                    android:layout_marginTop="@dimen/x15"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_textview_big_corner_line_red"
-                    android:gravity="center"
-                    android:paddingBottom="@dimen/x6"
-                    android:paddingTop="@dimen/x6"
-                    android:text="确定"
-                    android:textColor="@color/redTopic"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginTop="@dimen/x15"
+                android:background="@drawable/background_textview_big_corner_line_red"
+                android:gravity="center"
+                android:paddingBottom="@dimen/x6"
+                android:paddingLeft="@dimen/x25"
+                android:paddingRight="@dimen/x25"
+                android:paddingTop="@dimen/x6"
+                android:text="我知道了"
+                android:textColor="@color/redTopic"
+                android:textSize="14sp"/>
 
 
         </LinearLayout>

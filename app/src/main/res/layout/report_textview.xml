@@ -3,7 +3,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="5dp"
-          android:background="@drawable/fuli_tv_bg"
+          android:background="@drawable/report_tv_bg"
           android:text="Helloworld"
-          android:textColor="@drawable/fuli_tv_color">
+          android:textColor="@drawable/reprot_tv_color">
 </TextView>

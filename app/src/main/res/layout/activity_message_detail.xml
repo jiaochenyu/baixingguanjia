@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context="com.linkhand.baixingguanjia.ui.activity.detail.MessageDetailActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        layout="@layout/include_common_header"/>
+
+    <me.codeboy.android.aligntextview.CBAlignTextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/x10"
+        android:textIsSelectable="true"/>
+</LinearLayout>

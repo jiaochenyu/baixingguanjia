@@ -37,6 +37,10 @@
         <item name="colorPrimaryDark">@color/colorSystemBlueDeep</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
     <style name="goodsBlackTextStyle">
         <item name="android:textColor">@color/blackText</item>
         <item name="android:textSize">16sp</item>
@@ -56,6 +60,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
 
 
     <!--选择照片弹出框-->

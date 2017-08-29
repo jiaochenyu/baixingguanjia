@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="105dp"
+    android:layout_height="105dp"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/item_photo_grid"
+        android:layout_width="79dp"
+        android:layout_height="79dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fabuxuanshang_tupian_def"/>
+
+    <ImageView
+        android:id="@+id/delete_btn"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="12.5dp"
+        android:layout_marginTop="13dp"
+        android:src="@drawable/login_qingchu_2"/>
+
+
+</RelativeLayout>
+

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="@dimen/x300"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x15"
+            android:background="@drawable/background_corner_white"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/x20"
+            android:paddingLeft="@dimen/x8"
+            android:paddingRight="@dimen/x8"
+            android:paddingTop="@dimen/x20">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/x5"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/x6"
+                    android:paddingTop="@dimen/x6"
+                    android:text="@string/paySilver"
+                    android:textColor="@color/redTopic"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/title"
+                    android:src="@drawable/icon_sliver_3"
+                    />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/x5"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/x6"
+                    android:paddingTop="@dimen/x6"
+                    android:text="您的白银还剩余 1000两~"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/x11"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/x15"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_textview_big_corner_line_gray"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/x6"
+                    android:paddingTop="@dimen/x6"
+                    android:text="取消"
+                    android:textColor="@color/grayText"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/yes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/x15"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_textview_big_corner_line_red"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/x6"
+                    android:paddingTop="@dimen/x6"
+                    android:text="确定"
+                    android:textColor="@color/redTopic"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_logo_circle"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
